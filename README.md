@@ -8,10 +8,10 @@ A comprehensive, progressive path from beginner to expert C programmer, with det
 ### Introduction to C
 - **History and importance of C**: Origins with Dennis Ritchie, influence on modern languages, uses in systems programming
 - **Setting up development environment**: Installing compilers (GCC/GNU, Clang/LLVM), configuring text editors/IDEs
-    - [What is GNU/GCC, Clang/LLVM](./docs/what_is_gnu_gcc_clang_llvm.md)
+    - [What is GNU/GCC, Clang/LLVM](./docs/01-getting-started/what_is_gnu_gcc_clang_llvm.md)
 - **First program: "Hello, World!"**: Basic syntax, program entry point
 - **Understanding compilation process**: Preprocessing, compilation, assembly, linking phases
-    - [Understand Compilation](./docs/understand_compilation.md)
+    - [Understand Compilation](./docs/01-getting-started/understand_compilation.md)
 - **Basic program structure**: Comments, main function, statement termination, code blocks
 
 ### Basic Syntax and Data
@@ -51,6 +51,8 @@ A comprehensive, progressive path from beginner to expert C programmer, with det
 - **String input/output**: Reading and writing strings with gets/puts (and their safer alternatives)
 - **Common string functions**: Using strlen, strcpy, strcat, strcmp from string.h
 - **String manipulation challenges**: Common pitfalls and safety issues
+
+[The Hidden Memory Model: Understanding How C Really Works](./docs/02-building-blocks/the_hidden_memory_model.md)
 
 ## Level 3: Core Concepts
 *Master essential C programming concepts that distinguish it from other languages.*

@@ -28,6 +28,84 @@ A comprehensive, progressive path from beginner to expert C programmer, with det
 - **For loops**: Compact loop format with initialization, condition, and iteration
 - **Break and continue statements**: Loop control mechanisms for special cases
 
+### Data Type Reference
+| Data Type          | Size     | Range                                       |
+| :----------------- | :------- | :------------------------------------------ |
+| char               | 1 bytes  | [-128, 127]                                 |
+| unsigned char      | 1 bytes  | [0, 255]                                    |
+| short              | 2 bytes  | [-32768, 32767]                             |
+| unsigned short     | 2 bytes  | [0, 65535]                                  |
+| int                | 4 bytes  | [-2147483648, 2147483647]                   |
+| unsigned int       | 4 bytes  | [0, 4294967295]                             |
+| long               | 8 bytes  | [-9223372036854775808, 9223372036854775807] |
+| unsigned long      | 8 bytes  | [0, 18446744073709551615]                   |
+| long long          | 8 bytes  | [-9223372036854775808, 9223372036854775807] |
+| unsigned long long | 8 bytes  | [0, 18446744073709551615]                   |
+| float              | 4 bytes  | [1.175494e-38, 3.402823e+38]                |
+| double             | 8 bytes  | [2.225074e-308, 1.797693e+308]              |
+| long double        | 16 bytes | [3.362103e-4932, 1.189731e+4932]            |
+
+### Format Specifiers
+
+| Specifier  | Type          | Description                                        | Example                  |
+| ---------- | ------------- | -------------------------------------------------- | ------------------------ |
+| `%d`, `%i` | int           | Signed decimal integer                             | `42`                     |
+| `%u`       | unsigned int  | Unsigned decimal integer                           | `42`                     |
+| `%o`       | unsigned int  | Unsigned octal integer                             | `52` (42 in octal)       |
+| `%x`, `%X` | unsigned int  | Unsigned hexadecimal integer (lowercase/uppercase) | `2a` or `2A` (42 in hex) |
+| `%f`       | float, double | Decimal floating point                             | `3.141590`               |
+| `%e`, `%E` | float, double | Scientific notation (lowercase/uppercase)          | `3.141590e+00`           |
+| `%g`, `%G` | float, double | Use `%f` or `%e`, whichever is shorter             | Context dependent        |
+| `%c`       | char          | Single character                                   | `A`                      |
+| `%s`       | char*         | String of characters                               | `Hello`                  |
+| `%p`       | void*         | Pointer address                                    | `0x7ffeeb7df900`         |
+| `%%`       | -             | Literal percent sign                               | `%`                      |
+
+#### Size Modifiers
+
+| Specifier | Type               | Description                      |
+| --------- | ------------------ | -------------------------------- |
+| `%hd`     | short              | Short integer                    |
+| `%hu`     | unsigned short     | Unsigned short integer           |
+| `%ld`     | long               | Long integer                     |
+| `%lu`     | unsigned long      | Unsigned long integer            |
+| `%lld`    | long long          | Long long integer                |
+| `%llu`    | unsigned long long | Unsigned long long integer       |
+| `%Lf`     | long double        | Long double floating-point       |
+| `%zu`     | size_t             | Size type (for sizes of objects) |
+| `%zd`     | ssize_t            | Signed size type                 |
+| `%ju`     | uintmax_t          | Maximum-width unsigned integer   |
+| `%jd`     | intmax_t           | Maximum-width signed integer     |
+
+#### Format Control Options
+
+| Format   | Description                            | Example Output     |
+| -------- | -------------------------------------- | ------------------ |
+| `%5d`    | Right-aligned with width 5             | `"   42"`          |
+| `%-5d`   | Left-aligned with width 5              | `"42   "`          |
+| `%.2f`   | Float with 2 decimal places            | `3.14`             |
+| `%10.2f` | Float with width 10, 2 decimal places  | `"      3.14"`     |
+| `%05d`   | Zero-padded to width 5                 | `"00042"`          |
+| `%+d`    | Show sign for positive numbers too     | `"+42"`            |
+| `% d`    | Space for positive, minus for negative | `" 42"` or `"-42"` |
+| `%#x`    | Add prefix (0x for hex, 0 for octal)   | `"0x2a"`           |
+| `%'d`    | Add thousands separator                | `"1,234,567"`      |
+
+#### Common Usage Examples
+
+| Code                         | Result           | Description                 |
+| ---------------------------- | ---------------- | --------------------------- |
+| `printf("%d", 42);`          | `42`             | Simple integer              |
+| `printf("%.2f", 3.14159);`   | `3.14`           | Float with precision        |
+| `printf("%10s", "Hello");`   | `"     Hello"`   | Right-aligned string        |
+| `printf("%p", &var);`        | `0x7ffd4682c12c` | Memory address              |
+| `printf("%08x", 255);`       | `000000ff`       | Zero-padded hex             |
+| `printf("%+.2e", 3000.0);`   | `+3.00e+03`      | Scientific with sign        |
+| `printf("%*d", width, num);` | Variable width   | Width specified by variable |
+
+### Practices
+- [Calculator](./sandbox/practices/001-calculator/main.c)
+
 ## Level 2: Building Blocks
 *Develop fundamental programming constructs and begin organizing code.*
 
@@ -54,6 +132,9 @@ A comprehensive, progressive path from beginner to expert C programmer, with det
 
 [The Hidden Memory Model: Understanding How C Really Works](./docs/02-building-blocks/the_hidden_memory_model.md)
 
+### Practices
+- [Student Management System](./sandbox/practices/002-student-system-basic/main.c)
+
 ## Level 3: Core Concepts
 *Master essential C programming concepts that distinguish it from other languages.*
 
@@ -71,12 +152,19 @@ A comprehensive, progressive path from beginner to expert C programmer, with det
 - **Structures and functions**: Passing structures to functions, returning structures
 - **Nested structures**: Structures containing other structures, complex data organization
 
+#### Practices
+- [Student Management System With Struct](./sandbox/practices/003-student-system-with-struct/main.c)
+
+
 ### File I/O Basics
 - **File streams**: Understanding FILE* type, standard streams
 - **Opening and closing files**: fopen modes, fclose, error checking
 - **Reading and writing text files**: fprintf, fscanf, fgets, fputs
 - **Error handling basics**: EOF, ferror, clearerr
 - **File positioning**: ftell, fseek, rewind for random access
+
+#### Practices
+- [Student Management System With File Storage](./sandbox/practices/004-student-system-with-file-storage/main.c)
 
 ## Level 4: Intermediate Topics
 *Build upon core concepts with more sophisticated techniques.*

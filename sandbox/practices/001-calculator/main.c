@@ -1,28 +1,19 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-/**
- * Simple Calculator Program
- * 
- * This program demonstrates:
- * - Menu-driven interface
- * - Input validation
- * - switch-case control structure
- * - Basic arithmetic operations
- * - Loop constructs (do-while)
- */
 int main(int argc, char *argv[]) {
     bool sys_running = true;
     int choice;
     float num1, num2, result;
     char buffer[100];
+    char c;
 
     do {
         printf("\n┌─────────── Calculator ───────────┐\n");
         printf("│                                  │\n");
         printf("│  1. Addition    (a + b)          │\n");
         printf("│  2. Subtraction (a - b)          │\n");
-        printf("│  3. Multiplication (a × b)       │\n");
+        printf("│  3. Multiplication (a x b)       │\n");
         printf("│  4. Division    (a ÷ b)          │\n");
         printf("│  0. Exit                         │\n");
         printf("│                                  │\n");
@@ -31,13 +22,13 @@ int main(int argc, char *argv[]) {
 
         if (scanf("%d", &choice) != 1) {
             printf("Error: Invalid input. Please enter a number.\n");
-            while (getchar() != '\n');
+            while ((c = getchar()) != '\n' && c != EOF);
             continue;
         }
 
         if (choice < 0 || choice > 4) {
             printf("Error: Please choose a valid option (0-4).\n");
-            while (getchar() != '\n');
+            while ((c = getchar()) != '\n' && c != EOF);
             continue;
         }
 
@@ -49,14 +40,14 @@ int main(int argc, char *argv[]) {
         printf("\nEnter first number: ");
         if (scanf("%f", &num1) != 1) {
             printf("Error: Invalid input. Please enter a valid number.\n");
-            while (getchar() != '\n');
+            while ((c = getchar()) != '\n' && c != EOF);
             continue;
         }
         
         printf("Enter second number: ");
         if (scanf("%f", &num2) != 1) {
             printf("Error: Invalid input. Please enter a valid number.\n");
-            while (getchar() != '\n');
+            while ((c = getchar()) != '\n' && c != EOF);
             continue;
         }
 
@@ -86,7 +77,7 @@ int main(int argc, char *argv[]) {
                 break;
         }
 
-        while (getchar() != '\n');
+        while ((c = getchar()) != '\n' && c != EOF);
     } while (sys_running);
 
     printf("\nThank you for using the calculator. Goodbye!\n");

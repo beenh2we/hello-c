@@ -1,27 +1,26 @@
 #include <stdio.h>
 #include <math.h>
 
-// Function declaration/prototype (Array Decay)
-float calculate_average(int *nums, int length);
-
-// Function parameters (pass by value)
-void swap(int *a, int *b);
+float add(float num1, float num2);
+float subtract(float num1, float num2);
+float multiply(float num1, float num2);
+float divide(float num1, float num2);
 
 int main(int argc, char *argv[]) {
-    printf("\n---------------- Function declaration/definition ----------------\n\n");
+    printf("\n---------------- Functions declaration/definition ----------------\n\n");
+    float result, num1 = 98, num2 = 132;
 
-    int nums[] = {2, 4, 6, 8, 10};
-    const float result = calculate_average(nums, sizeof(nums) / sizeof(nums[0]));
-    printf("The average result is %.2f\n", result);
+    result = add(num1, num2);
+    printf("The result of add(): %.2f\n", result);
 
-    printf("\n---------------- Function pass by 'reference' ----------------\n\n");
+    result = subtract(num1, num2);
+    printf("The result of subtract(): %.2f\n", result);
 
-    int a = 99, b = -1;
-    printf("Original value of a=%d, b=%d\n", a, b);
-    
-    swap(&a, &b);
+    result = multiply(num1, num2);
+    printf("The result of multiply(): %.2f\n", result);
 
-    printf("After swap value of a=%d, b=%d\n", a, b);
+    result = divide(num1, num2);
+    printf("The result of divide(): %.2f\n", result);
 
     printf("\n---------------- Standard library: math ----------------\n\n");
     // Basic math functions
@@ -55,18 +54,22 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-// Function definition
-float calculate_average(int *nums, int length) {
-    int sum = 0;
-    for (int i = 0; i < length; i++) {
-        sum += nums[i];
-    }
-    
-    return sum / length;
+float add(float num1, float num2) {
+    return num1 + num2;
 }
 
-void swap(int *a, int *b) {
-    int temp = *b;
-    *b = *a;
-    *a = temp;
+float subtract(float num1, float num2) {
+    return num1 - num2;
+}
+
+float multiply(float num1, float num2) {
+    return num1 * num2;
+}
+
+float divide(float num1, float num2) {
+    if (num2 == 0) {
+        printf("\nError: Cannot divide by zero.\n");
+    } else {
+        return num1 / num2;
+    }
 }

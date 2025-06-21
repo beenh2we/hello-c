@@ -171,6 +171,7 @@ A comprehensive, progressive path from beginner to expert C programmer, with det
 
 ### Advanced Functions
 - **Recursion**: Self-calling functions, base cases, recursive problem solving
+  - [Sum n, Count Down, Sum array, Ffactorial, Reverse String, Climb Stairs (Fibonacci)](./sandbox/04-intermediate-core-topics/01-advanced-functions/01-recursion/main.c)
 - **Function pointers**: Syntax, usage scenarios, callbacks
 - **Command-line arguments**: argc, argv parameters to main, parsing options
 - **Variable scope and lifetime**: Understanding when variables are created and destroyed

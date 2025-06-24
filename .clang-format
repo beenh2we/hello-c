@@ -1,0 +1,34 @@
+---
+# Based on a standard style
+BasedOnStyle: Google
+
+# Indentation
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+AccessModifierOffset: -4
+IndentCaseLabels: false
+
+# Line length and breaking
+ColumnLimit: 100
+AllowShortBlocksOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Inline
+
+# Braces
+BreakBeforeBraces: Allman # Allman style puts braces on new lines
+
+# Function parameters
+BinPackParameters: false
+BinPackArguments: false
+AlignAfterOpenBracket: Align
+
+# Spacing
+SpaceBeforeParens: ControlStatements
+SpaceAfterCStyleCast: true
+SpaceBeforeAssignmentOperators: true
+
+# Include blocks
+SortIncludes: true
+IncludeBlocks: Regroup
+---
+

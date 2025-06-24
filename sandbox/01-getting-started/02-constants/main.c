@@ -2,16 +2,19 @@
 
 #define PI 3.14159265358979323846
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     float radius;
 
     printf("Please enter the radius of the circle: ");
-    if (scanf("%f", &radius) != 1) {
+    if (scanf("%f", &radius) != 1)
+    {
         printf("Invalid input, please enter a number. \n");
         return 1;
     }
 
-    if (radius < 0) {
+    if (radius < 0)
+    {
         printf("Error: Radius must be a positive number.\n");
         return 1;
     }

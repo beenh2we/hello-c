@@ -5,15 +5,14 @@
 **GNU** is an extensive collection of free software, which can be used as an operating system or can be used in parts with other operating systems.
 
 > GNU is an operating system that implements **POSIX** (mostly).
-> 
+>
 > GNU can be built with different kernels. HURD is one, but there was also Debian GNU/kFreeBSD for some time. You can also run GNU on Windows with WSL (though WSL 2 runs GNU on Linux in a VM).
-> 
+>
 > Similarly, Linux can be used with different user-land software. Many Linux operating systems are not POSIX. For example, Android is a popular Linux operating system. There are also POSIX operating systems that use Linux and a user-lands other than GNU, such as Alpine.
-> 
+>
 > Because this two things can be used together, but can also be used with different components, it's useful to refer to that combination specifically in many contexts. Fedora, Debian, arch, and gentoo are all GNU/Linux operating systems. Alpine, Android, and dd-wrt are all Linux operating systems. Generally, when I'm talking about a feature of the kernel, I'll refer to Linux systems, because the feature will probably be present in all of them. But of I'm talking about Unix-like systems, I'll usually refer to GNU/Linux to differentiate it from other Linux systems.
-> 
+>
 > **GNU is the operating system and not Linux, Linux is the engine and GNU is the rest of the car.**
-> 
 
 [Wiki: GNU](https://en.wikipedia.org/wiki/GNU)
 
@@ -23,13 +22,13 @@
 
 The **GNU Compiler Collection (GCC)** is a free and open-source collection of compilers from the GNU Project that support various programming languages, hardware architectures, and operating systems, primarily known for its C, C++, and Fortran compilers.
 
-GCC is used to compile source code into executable programs, allowing developers to create software for various platforms. GCC supports various programming languages, is cross-platform, and is the standard compiler for many Unix-like operating systems. 
+GCC is used to compile source code into executable programs, allowing developers to create software for various platforms. GCC supports various programming languages, is cross-platform, and is the standard compiler for many Unix-like operating systems.
 
 [Wiki: GNU Compiler Collection](https://en.wikipedia.org/wiki/GNU_Compiler_Collection)
 
 ## Clang: a C language family frontend for LLVM
 
-Clang is a compiler front end for the C language family (C, C++, Objective C/C++, OpenCL, and CUDA). It uses LLVM (Low Level Virtual Machine) as its back end (does the actual compilation/linking from IR to the desired architecture) and has been designed as an alternative to the GNU Compiler Collection (GCC). 
+Clang is a compiler front end for the C language family (C, C++, Objective C/C++, OpenCL, and CUDA). It uses LLVM (Low Level Virtual Machine) as its back end (does the actual compilation/linking from IR to the desired architecture) and has been designed as an alternative to the GNU Compiler Collection (GCC).
 
 [Wiki: Clang](https://en.wikipedia.org/wiki/Clang)
 

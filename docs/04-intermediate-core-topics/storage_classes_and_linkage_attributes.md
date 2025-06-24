@@ -1,6 +1,6 @@
 # Storage Classes and Linkage Attributes
 
-In C programming, understanding storage classes and linkage attributes is a key foundation for mastering memory management and modular development. These concepts directly affect variable lifetimes, visibility, and program architecture design. 
+In C programming, understanding storage classes and linkage attributes is a key foundation for mastering memory management and modular development. These concepts directly affect variable lifetimes, visibility, and program architecture design.
 
 ## Part One: Basic Concepts of Storage Classes
 
@@ -8,14 +8,14 @@ Storage class specifiers determine two basic characteristics of variables and fu
 
 ### 1.1 Types of Lifetimes
 
-* **Static lifetime**: Exists throughout the entire program execution
-* **Automatic lifetime**: Exists only during the execution of the block in which it is defined
+- **Static lifetime**: Exists throughout the entire program execution
+- **Automatic lifetime**: Exists only during the execution of the block in which it is defined
 
 ### 1.2 Visibility Scope
 
-* **Block scope**: Visible only within the block where it is defined
-* **File scope**: Visible throughout the entire file
-* **Program scope**: Visible across multiple files in the entire program
+- **Block scope**: Visible only within the block where it is defined
+- **File scope**: Visible throughout the entire file
+- **Program scope**: Visible across multiple files in the entire program
 
 ## Part Two: Detailed Explanation of C Language Storage Classes
 
@@ -27,16 +27,17 @@ Storage class specifiers determine two basic characteristics of variables and fu
 void function() {
     auto int counter = 0;  // 'auto' can be omitted
     int value = 5;         // Default is auto
-    
+
     // After the code block ends, counter and value are destroyed
 }
 ```
 
 **Deep Understanding**:
-* `auto` variables are stored in stack memory, which is a fast but limited memory area
-* Stack memory allocation and deallocation are very efficient, requiring no garbage collection
-* Stack size is usually limited; too many local variables or deep recursion might cause stack overflow
-* Each thread has its own stack, so `auto` variables are thread-safe
+
+- `auto` variables are stored in stack memory, which is a fast but limited memory area
+- Stack memory allocation and deallocation are very efficient, requiring no garbage collection
+- Stack size is usually limited; too many local variables or deep recursion might cause stack overflow
+- Each thread has its own stack, so `auto` variables are thread-safe
 
 ### 2.2 register Storage Class
 
@@ -53,10 +54,11 @@ void process_data(int* array, int size) {
 ```
 
 **Deep Understanding**:
-* Modern compilers have strong optimization capabilities and typically ignore the `register` hint
-* The number of registers is limited, so too many `register` declarations will be ineffective
-* The most important feature is that you cannot take the address of a `register` variable
-* Suitable scenarios: loop counters, frequently accessed temporary variables
+
+- Modern compilers have strong optimization capabilities and typically ignore the `register` hint
+- The number of registers is limited, so too many `register` declarations will be ineffective
+- The most important feature is that you cannot take the address of a `register` variable
+- Suitable scenarios: loop counters, frequently accessed temporary variables
 
 ### 2.3 static Storage Class
 
@@ -80,12 +82,13 @@ int main() {
 ```
 
 **Deep Understanding**:
-* `static` local variables are stored in the data segment rather than the stack
-* They are initialized only once, at program startup
-* Their lifetime is the entire program run, not just the function execution period
-* Their scope is still limited to within the function where they are declared
-* They can have their address taken because they have a fixed memory location
-* All threads share the same variable; thread safety issues need to be considered
+
+- `static` local variables are stored in the data segment rather than the stack
+- They are initialized only once, at program startup
+- Their lifetime is the entire program run, not just the function execution period
+- Their scope is still limited to within the function where they are declared
+- They can have their address taken because they have a fixed memory location
+- All threads share the same variable; thread safety issues need to be considered
 
 #### 2.3.2 static Global Variables and Functions
 
@@ -104,11 +107,12 @@ void public_api() {  // External linkage, can be called from other files
 ```
 
 **Deep Understanding**:
-* `static` global variables/functions have internal linkage, visible only within the file where they are defined
-* This is the primary mechanism for information hiding and module encapsulation in C
-* You can use the same name for `static` variables in different files; they are independent entities
-* Static global variables are still globally accessible (within the file) and should be used cautiously
-* Suitable scenarios: internal module state, helper functions, avoiding naming conflicts
+
+- `static` global variables/functions have internal linkage, visible only within the file where they are defined
+- This is the primary mechanism for information hiding and module encapsulation in C
+- You can use the same name for `static` variables in different files; they are independent entities
+- Static global variables are still globally accessible (within the file) and should be used cautiously
+- Suitable scenarios: internal module state, helper functions, avoiding naming conflicts
 
 ### 2.4 extern Storage Class
 
@@ -130,10 +134,11 @@ void function() {
 ```
 
 **Deep Understanding**:
-* `extern` variable declarations do not allocate memory; they just tell the compiler "this variable is defined elsewhere"
-* `extern` is a key mechanism for sharing variables across files
-* Without `extern`, global variables in multiple files would be viewed as different entities
-* `extern` is typically used in conjunction with header files, but they solve different problems
+
+- `extern` variable declarations do not allocate memory; they just tell the compiler "this variable is defined elsewhere"
+- `extern` is a key mechanism for sharing variables across files
+- Without `extern`, global variables in multiple files would be viewed as different entities
+- `extern` is typically used in conjunction with header files, but they solve different problems
 
 ## Part Three: Detailed Explanation of Linkage Attributes
 
@@ -152,9 +157,10 @@ extern int shared_value;  // Declaration, referring to the variable in file1.c
 ```
 
 **What Has External Linkage?**
-* Non-static global variables
-* Non-static functions
-* Identifiers declared with `extern` and defined somewhere
+
+- Non-static global variables
+- Non-static functions
+- Identifiers declared with `extern` and defined somewhere
 
 ### 3.2 Internal Linkage
 
@@ -168,9 +174,10 @@ static int module_state = 0;  // Internal linkage
 ```
 
 **What Has Internal Linkage?**
-* Global variables modified with `static`
-* Functions modified with `static`
-* `const` global variables and namespace constants in C++ (Note: In C, `const` global variables have external linkage by default)
+
+- Global variables modified with `static`
+- Functions modified with `static`
+- `const` global variables and namespace constants in C++ (Note: In C, `const` global variables have external linkage by default)
 
 ### 3.3 No Linkage
 
@@ -184,9 +191,10 @@ void function() {
 ```
 
 **What Has No Linkage?**
-* All local variables (including static local variables)
-* Function parameters
-* Type definitions (typedef) within block scope
+
+- All local variables (including static local variables)
+- Function parameters
+- Type definitions (typedef) within block scope
 
 ## Part Four: The extern Keyword and Header Files
 
@@ -196,8 +204,8 @@ This section specifically explains the use of the extern keyword and its relatio
 
 Before understanding `extern`, it's important to clarify the difference between **declaration** and **definition**:
 
-* **Declaration**: Tells the compiler "this name exists" but doesn't allocate memory or generate code
-* **Definition**: In addition to declaration, it allocates memory or generates code
+- **Declaration**: Tells the compiler "this name exists" but doesn't allocate memory or generate code
+- **Definition**: In addition to declaration, it allocates memory or generates code
 
 ```c
 int x;            // Definition, allocates memory
@@ -284,7 +292,7 @@ void init_config(void) {
 
 int main() {
     init_config();
-    printf("App %s running at debug level %d\n", 
+    printf("App %s running at debug level %d\n",
            app_name, debug_level);
     return 0;
 }
@@ -328,16 +336,19 @@ Low address  |    Code segment    | ← Program instructions (.text)
 ### 5.2 Memory Locations for Each Storage Class
 
 1. **Automatic variables** (no storage class specifier or `auto`):
+
    - Stored on the stack
    - Created on function call, destroyed on return
    - Fast access, limited space
 
 2. **Register variables** (`register`):
+
    - May be stored in CPU registers
    - Modern compilers usually decide whether to use registers on their own
    - Fastest access, extremely limited quantity
 
 3. **Static variables** (`static`):
+
    - Uninitialized static variables are stored in the .bss segment
    - Initialized static variables are stored in the .data segment
    - Allocated before program start, released after program end
@@ -435,7 +446,7 @@ static const char* level_to_string(LogLevel level) {
 // Public API implementation
 void log_init(const char* filename) {
     if (is_initialized) return;
-    
+
     log_file = fopen(filename, "a");
     if (log_file != NULL) {
         is_initialized = 1;
@@ -444,13 +455,13 @@ void log_init(const char* filename) {
 
 void log_message(LogLevel level, const char* message) {
     if (!is_initialized || level < current_log_level) return;
-    
+
     time_t now = time(NULL);
     char time_str[26];
     ctime_r(&now, time_str);
     time_str[24] = '\0'; // Remove newline character
-    
-    fprintf(log_file, "[%s] [%s]: %s\n", 
+
+    fprintf(log_file, "[%s] [%s]: %s\n",
             time_str, level_to_string(level), message);
     fflush(log_file);
 }
@@ -467,6 +478,7 @@ void log_close(void) {
 ### 6.3 More Best Practices
 
 1. **Use static for information hiding**
+
    ```c
    // Hide implementation details
    static const int MAX_RETRIES = 3;
@@ -474,25 +486,28 @@ void log_close(void) {
    ```
 
 2. **Use extern to properly share global variables**
+
    ```c
    // Define in one .c file
    // config.c
    const char* database_url = "mysql://localhost:3306/mydb";
-   
+
    // Declare in header file
    // config.h
    extern const char* database_url;
    ```
 
 3. **Avoid global variables**
-   * Use function parameters and return values to pass data whenever possible
-   * When necessary, use module-level static variables rather than global variables
+
+   - Use function parameters and return values to pass data whenever possible
+   - When necessary, use module-level static variables rather than global variables
 
 4. **Provide explicit initialization for static local variables**
+
    ```c
    void process() {
        static int first_run = 1; // Explicit initialization
-       
+
        if (first_run) {
            // Initialization for first run
            first_run = 0;
@@ -501,8 +516,8 @@ void log_close(void) {
    ```
 
 5. **Be mindful of thread safety**
-   * static variables are shared between threads and may require mutex locks
-   * auto variables are thread-safe (each thread has its own stack)
+   - static variables are shared between threads and may require mutex locks
+   - auto variables are thread-safe (each thread has its own stack)
 
 ## Conclusion
 

@@ -4,12 +4,12 @@ Compilation is the process of transforming source code written in a programming 
 
 ## The Compilation Pipeline
 
-| Stage | Process | Input | Output | Purpose |
-|-------|---------|-------|--------|---------|
-| **Preprocessing** | Source code preparation | Source files (.c, .cpp) | Modified source | Expands macros, includes headers |
-| **Compilation** | Source to assembly conversion | Preprocessed code | Assembly code (.s) | Translates code to assembly language |
-| **Assembly** | Assembly to object code conversion | Assembly code (.s) | Object files (.o) | Converts assembly to machine code |
-| **Linking** | Object file combination | Object files (.o) | Executable | Resolves references between files |
+| Stage             | Process                            | Input                   | Output             | Purpose                              |
+| ----------------- | ---------------------------------- | ----------------------- | ------------------ | ------------------------------------ |
+| **Preprocessing** | Source code preparation            | Source files (.c, .cpp) | Modified source    | Expands macros, includes headers     |
+| **Compilation**   | Source to assembly conversion      | Preprocessed code       | Assembly code (.s) | Translates code to assembly language |
+| **Assembly**      | Assembly to object code conversion | Assembly code (.s)      | Object files (.o)  | Converts assembly to machine code    |
+| **Linking**       | Object file combination            | Object files (.o)       | Executable         | Resolves references between files    |
 
 ## Detailed Explanation of Each Stage
 
@@ -24,6 +24,7 @@ The preprocessor handles directives that begin with `#`:
 - **Comment Removal**: Strips comments from the code
 
 **Example transformation**:
+
 ```c
 // Before preprocessing
 #define MAX 100
@@ -72,20 +73,23 @@ The linker combines multiple object files into an executable:
 
 ## Types of Linking
 
-| Type | Description | Advantages | Disadvantages |
-|------|-------------|------------|--------------|
-| **Static** | Library code copied into executable | Self-contained, faster startup | Larger file size, updates require recompilation |
-| **Dynamic** | Links to libraries at runtime | Smaller executables, shared libraries | Dependency requirements, potential version issues |
+| Type        | Description                         | Advantages                            | Disadvantages                                     |
+| ----------- | ----------------------------------- | ------------------------------------- | ------------------------------------------------- |
+| **Static**  | Library code copied into executable | Self-contained, faster startup        | Larger file size, updates require recompilation   |
+| **Dynamic** | Links to libraries at runtime       | Smaller executables, shared libraries | Dependency requirements, potential version issues |
 
 ## Compilation Models
 
 ### Ahead-of-Time (AOT) Compilation
+
 Traditional compilation where source code is fully compiled before execution.
 
 ### Just-in-Time (JIT) Compilation
+
 Code is compiled during execution, often used in virtual machines like Java's JVM.
 
 ### Interpreted Languages
+
 Some languages (Python, JavaScript) are traditionally interpreted rather than compiled, though modern implementations often use JIT compilation for performance.
 
 ## Practical Example: Compiling a C Program

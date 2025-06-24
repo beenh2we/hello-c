@@ -3,111 +3,122 @@
 #include <time.h>
 
 // Basic inline function
-inline int max(int a, int b) {
+inline int max(int a, int b)
+{
     return a > b ? a : b;
 }
 
 // Inline function with static storage class
-static inline int min(int a, int b) {
+static inline int min(int a, int b)
+{
     return a < b ? a : b;
 }
 
 // More complex inline function
-inline double calculate_average(const double* values, int count) {
+inline double calculate_average(const double* values, int count)
+{
     if (count <= 0 || values == NULL) return 0.0;
-    
+
     double sum = 0.0;
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < count; i++)
+    {
         sum += values[i];
     }
-    
+
     return sum / count;
 }
 
 // Non-inline version for comparison
-double calculate_average_noinline(const double* values, int count) {
+double calculate_average_noinline(const double* values, int count)
+{
     if (count <= 0 || values == NULL) return 0.0;
-    
+
     double sum = 0.0;
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < count; i++)
+    {
         sum += values[i];
     }
-    
+
     return sum / count;
 }
 
 // Function to demonstrate inline function usage
-void demonstrate_inline() {
+void demonstrate_inline()
+{
     int a = 10, b = 20;
     printf("Max of %d and %d is %d\n", a, b, max(a, b));
     printf("Min of %d and %d is %d\n", a, b, min(a, b));
-    
+
     double values[] = {1.0, 2.0, 3.0, 4.0, 5.0};
     int count = sizeof(values) / sizeof(values[0]);
-    
+
     printf("Average of values: %.2f\n", calculate_average(values, count));
 }
 
 // Function to benchmark inline vs non-inline
-void benchmark_inline() {
+void benchmark_inline()
+{
     printf("\n=== Benchmark: Inline vs Non-inline ===\n");
-    
+
     const int ARRAY_SIZE = 10000;
     const int ITERATIONS = 1000000;
-    
+
     // Create a large array of values
-    double *large_array = (double*)malloc(ARRAY_SIZE * sizeof(double));
-    for (int i = 0; i < ARRAY_SIZE; i++) {
-        large_array[i] = (double)i;
+    double* large_array = (double*) malloc(ARRAY_SIZE * sizeof(double));
+    for (int i = 0; i < ARRAY_SIZE; i++)
+    {
+        large_array[i] = (double) i;
     }
-    
+
     // Benchmark inline version
     clock_t start_inline = clock();
     double result_inline = 0.0;
-    
-    for (int i = 0; i < ITERATIONS; i++) {
+
+    for (int i = 0; i < ITERATIONS; i++)
+    {
         // Call the function repeatedly to measure overhead
         result_inline += calculate_average(large_array, ARRAY_SIZE);
     }
-    
+
     clock_t end_inline = clock();
-    double time_inline = ((double)(end_inline - start_inline)) / CLOCKS_PER_SEC;
-    
+    double time_inline = ((double) (end_inline - start_inline)) / CLOCKS_PER_SEC;
+
     // Benchmark non-inline version
     clock_t start_noinline = clock();
     double result_noinline = 0.0;
-    
-    for (int i = 0; i < ITERATIONS; i++) {
+
+    for (int i = 0; i < ITERATIONS; i++)
+    {
         result_noinline += calculate_average_noinline(large_array, ARRAY_SIZE);
     }
-    
+
     clock_t end_noinline = clock();
-    double time_noinline = ((double)(end_noinline - start_noinline)) / CLOCKS_PER_SEC;
-    
+    double time_noinline = ((double) (end_noinline - start_noinline)) / CLOCKS_PER_SEC;
+
     // Print results
     printf("Time with inline function: %.4f seconds\n", time_inline);
     printf("Time with non-inline function: %.4f seconds\n", time_noinline);
-    printf("Difference: %.2f%%\n", 
-           (time_noinline - time_inline) / time_noinline * 100.0);
-    
+    printf("Difference: %.2f%%\n", (time_noinline - time_inline) / time_noinline * 100.0);
+
     // Free allocated memory
     free(large_array);
 }
 
 // Explanation of inline function mechanics
-void explain_inline() {
+void explain_inline()
+{
     printf("\n=== Inline Function Mechanics ===\n");
-    
+
     printf("1. Purpose of inline functions:\n");
     printf("   - Eliminate function call overhead\n");
     printf("   - Improve performance for small, frequently called functions\n");
     printf("   - Enable compiler optimizations across function boundaries\n");
-    
+
     printf("\n2. When to use inline functions:\n");
     printf("   - For small, frequently called functions\n");
     printf("   - For time-critical code sections\n");
     printf("   - In performance-critical header-only libraries\n");
-    
+
     printf("\n3. Important considerations:\n");
     printf("   - 'inline' is just a suggestion to the compiler\n");
     printf("   - Compiler may choose to ignore the inline request\n");
@@ -115,12 +126,13 @@ void explain_inline() {
     printf("   - Complex inline functions may not improve performance\n");
 }
 
-int main() {
+int main()
+{
     printf("==== INLINE FUNCTIONS ====\n\n");
-    
+
     demonstrate_inline();
     benchmark_inline();
     explain_inline();
-    
+
     return 0;
 }

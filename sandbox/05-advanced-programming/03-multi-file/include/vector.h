@@ -2,12 +2,13 @@
 #define VECTOR_H
 
 /* Only include what's necessary for the declarations */
-#include <stdbool.h>  /* For bool type */
+#include <stdbool.h> /* For bool type */
 
 /**
  * 3D vector structure
  */
-typedef struct {
+typedef struct
+{
     float x;
     float y;
     float z;

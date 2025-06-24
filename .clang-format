@@ -10,9 +10,12 @@ AccessModifierOffset: -4
 IndentCaseLabels: false
 
 # Line length and breaking
-ColumnLimit: 100
+ColumnLimit: 120
 AllowShortBlocksOnASingleLine: false
 AllowShortFunctionsOnASingleLine: Inline
+
+# Macros
+AlignConsecutiveMacros: Consecutive
 
 # Braces
 BreakBeforeBraces: Allman # Allman style puts braces on new lines

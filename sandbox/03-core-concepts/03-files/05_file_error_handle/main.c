@@ -1,24 +1,28 @@
 #include <stdio.h>
 
-int main() {
+int main()
+{
     FILE *fp = fopen("nonexistent.txt", "r");
-    
-    if (fp == NULL) {
+
+    if (fp == NULL)
+    {
         perror("File opening failed");
         return 1;
     }
 
     int c = fgetc(fp);
-    
-    if (feof(fp)) {
+
+    if (feof(fp))
+    {
         printf("End of file reached.\n");
     }
-    
-    if (ferror(fp)) {
+
+    if (ferror(fp))
+    {
         printf("An error occurred during reading.\n");
         clearerr(fp);
     }
-    
+
     fclose(fp);
     return 0;
 }

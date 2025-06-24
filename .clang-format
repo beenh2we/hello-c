@@ -10,7 +10,7 @@ AccessModifierOffset: -4
 IndentCaseLabels: false
 
 # Line length and breaking
-ColumnLimit: 120
+ColumnLimit: 80
 AllowShortBlocksOnASingleLine: false
 AllowShortFunctionsOnASingleLine: Inline
 

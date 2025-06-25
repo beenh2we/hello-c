@@ -15,13 +15,15 @@ _Foundation level for complete beginners with no prior programming experience._
 - **Understanding compilation process**: Preprocessing, compilation, assembly, linking phases
   - [Understand Compilation](./docs/01-getting-started/understand_compilation.md)
 - **Basic program structure**: Comments, main function, statement termination, code blocks
-  - [Printf and Format Specifiers](./docs/01-getting-started/printf_and_format_specifiers.md)
 
 ### Basic Syntax and Data
 
 - **Variables and basic data types**: Declaration, initialization, int, float, double, char types and their sizes
+  - [C Data Types](./docs/01-getting-started/c_data_types.md)
 - **Constants and literals**: #define, const keyword, numeric and character literals
 - **Input/output functions**: printf formatting options, scanf basics and safety concerns
+  - [Printf and Format Specifiers](./docs/01-getting-started/printf_and_format_specifiers.md)
+  - [Safe Input Handling in C](./docs/01-getting-started/safe_input_handling_in_c.md)
 - **Basic operators**: Arithmetic (+, -, \*, /, %), assignment, increment/decrement, comparison operators
 - **Simple expressions and statements**: Operator precedence, expression evaluation, statement execution
 
@@ -32,24 +34,6 @@ _Foundation level for complete beginners with no prior programming experience._
 - **Basic loops**: While loops for repeating actions with pre-test conditions
 - **For loops**: Compact loop format with initialization, condition, and iteration
 - **Break and continue statements**: Loop control mechanisms for special cases
-
-### Data Type Reference
-
-| Data Type          | Size     | Range                                       |
-| :----------------- | :------- | :------------------------------------------ |
-| char               | 1 bytes  | [-128, 127]                                 |
-| unsigned char      | 1 bytes  | [0, 255]                                    |
-| short              | 2 bytes  | [-32768, 32767]                             |
-| unsigned short     | 2 bytes  | [0, 65535]                                  |
-| int                | 4 bytes  | [-2147483648, 2147483647]                   |
-| unsigned int       | 4 bytes  | [0, 4294967295]                             |
-| long               | 8 bytes  | [-9223372036854775808, 9223372036854775807] |
-| unsigned long      | 8 bytes  | [0, 18446744073709551615]                   |
-| long long          | 8 bytes  | [-9223372036854775808, 9223372036854775807] |
-| unsigned long long | 8 bytes  | [0, 18446744073709551615]                   |
-| float              | 4 bytes  | [1.175494e-38, 3.402823e+38]                |
-| double             | 8 bytes  | [2.225074e-308, 1.797693e+308]              |
-| long double        | 16 bytes | [3.362103e-4932, 1.189731e+4932]            |
 
 ### Practices
 

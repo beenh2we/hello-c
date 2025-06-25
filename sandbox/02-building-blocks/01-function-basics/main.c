@@ -9,7 +9,7 @@ float divide(float num1, float num2);
 
 int main(int argc, char *argv[])
 {
-    printf("\n---------------- Functions declaration/definition ----------------\n\n");
+    // Functions declaration/definition
     float result, num1 = 98, num2 = 132;
 
     result = add(num1, num2);
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     result = divide(num1, num2);
     printf("The result of divide(): %.2f\n", result);
 
-    printf("\n---------------- Standard library: math ----------------\n\n");
+    // Standard library: math
     // Basic math functions
     printf("Square root of 16: %.2f\n", sqrt(16.0));
     printf("2 raised to power 3: %.2f\n", pow(2.0, 3.0));
@@ -39,8 +39,7 @@ int main(int argc, char *argv[])
     printf("Sin(0): %.2f\n", sin(0));  // 0.00
     printf("Cos(0): %.2f\n", cos(0));  // 1.00
 
-    printf("\n---------------- Standard library: ctype ----------------\n\n");
-
+    // Standard library: ctype
     char c = 'A';
 
     // Character classification

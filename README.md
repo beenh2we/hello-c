@@ -67,7 +67,7 @@ _Develop fundamental programming constructs and begin organizing code._
 - **Common string functions**: Using strlen, strcpy, strcat, strcmp from string.h
 - **String manipulation challenges**: Common pitfalls and safety issues
 
-[The Hidden Memory Model: Understanding How C Really Works](./docs/02-building-blocks/the_hidden_memory_model.md)
+[The Hidden Memory Model (passed by value, array decay)](./docs/02-building-blocks/the_hidden_memory_model.md)
 
 ### Practices
 

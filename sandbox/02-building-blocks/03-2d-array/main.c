@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define ROW 3
+#define ROW    3
 #define COLUMN 4
 
 void printMatrix(char *name, int martrix[2][3])
@@ -21,10 +21,8 @@ void printMatrix(char *name, int martrix[2][3])
 
 int main(int argc, char *argv[])
 {
-    printf("\n-------------- 2D Array Initialization and Access --------------\n\n");
-
+    // 2D Array Initialization and Access
     // Method 1: Declaration with individual element assignments
-    printf("Method 1: Declaration with individual assignments\n");
     int matrix[ROW][COLUMN] = {};  // Initialize all elements to zero
     matrix[0][0] = 10;
     matrix[2][3] = 99;
@@ -42,8 +40,8 @@ int main(int argc, char *argv[])
     }
 
     // Method 2: Full initialization with nested braces
-    printf("\nMethod 2: Full initialization with nested braces\n");
-    int grid[4][3] = {{32, 46, 83}, {21, 30, -12}, {-13, 412, 90}, {43, 21, 30}};
+    int grid[4][3] = {
+        {32, 46, 83}, {21, 30, -12}, {-13, 412, 90}, {43, 21, 30}};
 
     printf("grid[4][3]:\n");
     for (int i = 0; i < 4; i++)
@@ -52,14 +50,13 @@ int main(int argc, char *argv[])
         for (int j = 0; j < 3; j++)
         {
             printf("%4d", grid[i][j]);
-            if (j < 2) printf(", ");
+            if (j < 3 - 1) printf(", ");
         }
         printf(" ]\n");
     }
 
     // Method 3: Partial initialization (remaining elements are zero)
-    printf("\nMethod 3: Partial initialization\n");
-    int partial[3][3] = {
+    int partial[][3] = {
         {2, 3, 4},
         {-3},     // Only first element specified, others are zero
         {-2, 93}  // First two elements specified, last is zero
@@ -72,13 +69,12 @@ int main(int argc, char *argv[])
         for (int j = 0; j < 3; j++)
         {
             printf("%4d", partial[i][j]);
-            if (j < 2) printf(", ");
+            if (j < 3 - 1) printf(", ");
         }
         printf(" ]\n");
     }
 
     // Method 4: Flat initialization (row-major order)
-    printf("\nMethod 4: Flat initialization in row-major order\n");
     int flat[3][2] = {1, 2, 3, 4, 5, 6};  // Equivalent to {{1,2}, {3,4}, {5,6}}
 
     printf("flat[3][2]:\n");
@@ -93,8 +89,7 @@ int main(int argc, char *argv[])
         printf(" ]\n");
     }
 
-    printf("\n-------------- 2D Array Manipulation --------------\n\n");
-
+    // 2D Array Manipulation
     int A[2][3] = {{1, 2, 3}, {4, 5, 6}};
     int B[2][3] = {{7, 8, 9}, {10, 11, 12}};
     int C[2][3];

@@ -5,7 +5,8 @@ struct PackedDate
 {
     unsigned int day : 5;    // 5 bits for day (0-31)
     unsigned int month : 4;  // 4 bits for month (0-15)
-    unsigned int year : 12;  // 12 bits for year (0-4095), can represent years 0-4095
+    unsigned int
+        year : 12;  // 12 bits for year (0-4095), can represent years 0-4095
 };
 
 // RGB color with bit fields
@@ -54,8 +55,6 @@ struct AlignmentTest
 
 int main()
 {
-    printf("==== BIT FIELDS EXAMPLES ====\n\n");
-
     // 1. Basic bit field example
     printf("--- Date Bit Field Example ---\n");
 
@@ -67,14 +66,19 @@ int main()
 
     // Test bit field validation
     date.month = 15;  // Outside valid month range (1-12)
-    printf("Invalid month (15): %u (fits in 4 bits but not a valid month)\n", date.month);
+    printf("Invalid month (15): %u (fits in 4 bits but not a valid month)\n",
+           date.month);
 
     // 2. RGB Color Bit Field Example
     printf("\n--- RGB Color Bit Field Example ---\n");
 
     struct RGBColor color = {255, 128, 64, 255};  // RGBA: (64, 128, 255, 255)
 
-    printf("Color (R,G,B,A): (%u, %u, %u, %u)\n", color.red, color.green, color.blue, color.alpha);
+    printf("Color (R,G,B,A): (%u, %u, %u, %u)\n",
+           color.red,
+           color.green,
+           color.blue,
+           color.alpha);
     printf("Size of struct RGBColor: %zu bytes\n", sizeof(struct RGBColor));
 
     // 3. Flags Bit Field Example
@@ -89,7 +93,8 @@ int main()
     printf("- System:  %s\n", perm.system ? "Yes" : "No");
     printf("- Hidden:  %s\n", perm.hidden ? "Yes" : "No");
 
-    printf("Size of struct FilePermissions: %zu bytes\n", sizeof(struct FilePermissions));
+    printf("Size of struct FilePermissions: %zu bytes\n",
+           sizeof(struct FilePermissions));
     printf("Size compared to using 5 ints: %zu bytes\n\n", 5 * sizeof(int));
 
     // Toggle execution permission
@@ -109,12 +114,14 @@ int main()
     printf("- Interrupt:  %s\n", reg.interrupt ? "Enabled" : "Disabled");
 
     printf("\nRaw byte value: 0x%02X\n\n",
-           (reg.enable | (reg.direction << 1) | (reg.mode << 2) | (reg.interrupt << 4)));
+           (reg.enable | (reg.direction << 1) | (reg.mode << 2)
+            | (reg.interrupt << 4)));
 
     // 5. Signed Bit Fields Example
     printf("--- Signed Bit Fields Example ---\n");
 
-    struct SignedBits sb = {7, -8};  // Max and min values for 4-bit signed integers
+    // Max and min values for 4-bit signed integers
+    struct SignedBits sb = {7, -8};
 
     printf("Positive field (7): %d\n", sb.positive);
     printf("Negative field (-8): %d\n\n", sb.negative);
@@ -128,9 +135,6 @@ int main()
 
     struct AlignmentTest at;
     printf("Size of AlignmentTest: %zu bytes\n", sizeof(struct AlignmentTest));
-
-    printf("\nNote: Bit field behavior can vary between compilers and platforms.\n");
-    printf("Some aspects of bit fields are implementation-defined.\n");
 
     return 0;
 }

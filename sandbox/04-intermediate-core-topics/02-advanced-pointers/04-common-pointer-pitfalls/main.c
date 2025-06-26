@@ -77,7 +77,8 @@ void memory_leak_example()
 
     for (int i = 0; i < 3; i++)
     {
-        int *ptr = (int *) malloc(1000000 * sizeof(int));  // Allocate a large chunk
+        int *ptr =
+            (int *) malloc(1000000 * sizeof(int));  // Allocate a large chunk
 
         if (ptr == NULL)
         {
@@ -85,7 +86,8 @@ void memory_leak_example()
             return;
         }
 
-        printf("Allocated %zu bytes at %p\n", 1000000 * sizeof(int), (void *) ptr);
+        printf(
+            "Allocated %zu bytes at %p\n", 1000000 * sizeof(int), (void *) ptr);
 
         // DANGER: No corresponding free(ptr) here!
         // This memory will be inaccessible but still allocated
@@ -96,7 +98,8 @@ void memory_leak_example()
     }
 
     printf("Memory leaked! In a real program, this would waste resources\n");
-    printf("In practice, the OS will reclaim all memory when the program exits\n");
+    printf(
+        "In practice, the OS will reclaim all memory when the program exits\n");
 }
 
 void buffer_overflow_example()
@@ -198,7 +201,8 @@ void use_after_free_example()
     free(str);
 
     // DANGER: Using memory after it's been freed is undefined behavior
-    printf("After free, the pointer still contains an address: %p\n", (void *) str);
+    printf("After free, the pointer still contains an address: %p\n",
+           (void *) str);
     printf("But the memory it points to is no longer valid!\n");
 
     // DANGER: Don't do this!
@@ -249,7 +253,8 @@ int main()
 {
     printf("==== COMMON POINTER PITFALLS ====\n");
     printf("This program demonstrates common pointer errors.\n");
-    printf("Some dangerous operations are commented out to prevent crashes.\n\n");
+    printf(
+        "Some dangerous operations are commented out to prevent crashes.\n\n");
 
     null_pointer_dereference();
     dangling_pointer_example();

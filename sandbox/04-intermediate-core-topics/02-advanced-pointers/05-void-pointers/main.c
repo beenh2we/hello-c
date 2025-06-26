@@ -53,7 +53,10 @@ int compare_ints(const void *a, const void *b)
 }
 
 // Generic array printing function
-void print_array(const void *array, size_t element_size, size_t count, char type)
+void print_array(const void *array,
+                 size_t element_size,
+                 size_t count,
+                 char type)
 {
     const char *byte_ptr = (const char *) array;
 
@@ -87,13 +90,16 @@ int main()
     void *ptr;
 
     ptr = &i;
-    printf("Integer value: %d\n", *(int *) ptr);  // Cast to int* before dereferencing
+    printf("Integer value: %d\n",
+           *(int *) ptr);  // Cast to int* before dereferencing
 
     ptr = &f;
-    printf("Float value: %f\n", *(float *) ptr);  // Cast to float* before dereferencing
+    printf("Float value: %f\n",
+           *(float *) ptr);  // Cast to float* before dereferencing
 
     ptr = &c;
-    printf("Char value: %c\n", *(char *) ptr);  // Cast to char* before dereferencing
+    printf("Char value: %c\n",
+           *(char *) ptr);  // Cast to char* before dereferencing
 
     // 2. Generic swap function
     printf("\n--- Generic Swap Function ---\n");

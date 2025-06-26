@@ -51,7 +51,9 @@ void type_scaling_demonstration()
         printf("&int_array[%d] = %p (difference: %ld bytes)\n",
                i,
                (void *) &int_array[i],
-               i == 0 ? 0 : (long) ((char *) &int_array[i] - (char *) &int_array[0]));
+               i == 0
+                   ? 0
+                   : (long) ((char *) &int_array[i] - (char *) &int_array[0]));
     }
 
     printf("\nchar_array address scaling:\n");
@@ -60,7 +62,9 @@ void type_scaling_demonstration()
         printf("&char_array[%d] = %p (difference: %ld bytes)\n",
                i,
                (void *) &char_array[i],
-               i == 0 ? 0 : (long) ((char *) &char_array[i] - (char *) &char_array[0]));
+               i == 0 ? 0
+                      : (long) ((char *) &char_array[i] -
+                                (char *) &char_array[0]));
     }
 
     printf("\ndouble_array address scaling:\n");
@@ -69,7 +73,9 @@ void type_scaling_demonstration()
         printf("&double_array[%d] = %p (difference: %ld bytes)\n",
                i,
                (void *) &double_array[i],
-               i == 0 ? 0 : (long) ((char *) &double_array[i] - (char *) &double_array[0]));
+               i == 0 ? 0
+                      : (long) ((char *) &double_array[i] -
+                                (char *) &double_array[0]));
     }
 
     // Demonstrate pointer scaling with different types
@@ -88,9 +94,15 @@ void type_scaling_demonstration()
     printf("double_ptr = %p\n", (void *) double_ptr);
 
     printf("\nAfter adding 1 to each pointer:\n");
-    printf("int_ptr + 1 = %p (added %zu bytes)\n", (void *) (int_ptr + 1), sizeof(int));
-    printf("char_ptr + 1 = %p (added %zu bytes)\n", (void *) (char_ptr + 1), sizeof(char));
-    printf("double_ptr + 1 = %p (added %zu bytes)\n", (void *) (double_ptr + 1), sizeof(double));
+    printf("int_ptr + 1 = %p (added %zu bytes)\n",
+           (void *) (int_ptr + 1),
+           sizeof(int));
+    printf("char_ptr + 1 = %p (added %zu bytes)\n",
+           (void *) (char_ptr + 1),
+           sizeof(char));
+    printf("double_ptr + 1 = %p (added %zu bytes)\n",
+           (void *) (double_ptr + 1),
+           sizeof(double));
 }
 
 void pointer_difference_example()

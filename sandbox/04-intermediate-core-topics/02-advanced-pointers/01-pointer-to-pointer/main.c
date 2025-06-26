@@ -5,7 +5,6 @@
 void basic_double_pointer_example()
 {
     printf("--- Basic Double Pointer Example ---\n");
-
     int value = 42;     // Regular variable
     int *ptr = &value;  // Pointer to variable
     int **pptr = &ptr;  // Pointer to pointer
@@ -21,9 +20,11 @@ void basic_double_pointer_example()
     // Memory addresses visualization
     printf("Memory addresses:\n");
     printf("&value: %p  (address of the variable)\n", (void *) &value);
-    printf("ptr: %p     (value of the pointer = address of the variable)\n", (void *) ptr);
+    printf("ptr: %p     (value of the pointer = address of the variable)\n",
+           (void *) ptr);
     printf("&ptr: %p    (address of the pointer)\n", (void *) &ptr);
-    printf("pptr: %p    (value of pointer-to-pointer = address of pointer)\n\n", (void *) pptr);
+    printf("pptr: %p    (value of pointer-to-pointer = address of pointer)\n\n",
+           (void *) pptr);
 }
 
 // Function to dynamically allocate a 2D array using pointers to pointers

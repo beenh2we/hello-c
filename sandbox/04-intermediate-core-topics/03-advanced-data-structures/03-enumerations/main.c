@@ -85,7 +85,8 @@ const char* state_to_string(enum State state)
 }
 
 // Function to handle state transitions
-enum State transition_state(enum State current_state, enum StateTransition transition)
+enum State transition_state(enum State current_state,
+                            enum StateTransition transition)
 {
     switch (current_state)
     {
@@ -118,8 +119,6 @@ enum State transition_state(enum State current_state, enum StateTransition trans
 
 int main()
 {
-    printf("==== ENUMERATION EXAMPLES ====\n\n");
-
     // 1. Basic Enumeration Example
     printf("--- Basic Enumeration Example ---\n");
 

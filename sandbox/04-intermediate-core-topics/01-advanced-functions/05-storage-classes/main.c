@@ -19,7 +19,8 @@ void function_with_register(register int x);
 void demonstrate_storage_classes()
 {
     // auto variable (default)
-    auto int auto_var = 10;  // 'auto' keyword is rarely used as it's the default
+    // 'auto' keyword is rarely used as it's the default
+    auto int auto_var = 10;
     printf("Auto variable: %d\n", auto_var);
 
     // register variable (hint to compiler)

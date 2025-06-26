@@ -134,7 +134,9 @@ _Build upon core concepts with more sophisticated techniques._
 ### Advanced Data Structures
 
 - **Unions**: Memory-sharing structures, appropriate use cases
+  - [Type Punning](./docs/04-intermediate-core-topics/type_punning.md)
 - **Bit fields**: Controlling memory layout at bit level, packed structures
+  - [Bit Fields: Saving Memory and Enhancing Readability](./docs/04-intermediate-core-topics/bit_fields.md)
 - **Enumerations**: Creating named integer constants, improving code readability
 - **Typedef**: Creating type aliases, simplifying complex declarations
 - **Memory alignment considerations**: Structure padding, data alignment requirements

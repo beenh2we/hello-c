@@ -28,6 +28,7 @@ AlignAfterOpenBracket: Align
 SpaceBeforeParens: ControlStatements
 SpaceAfterCStyleCast: true
 SpaceBeforeAssignmentOperators: true
+SpacesInParentheses: false
 
 # Include blocks
 SortIncludes: true
@@ -38,3 +39,8 @@ ReflowComments: false
 
 # Strings
 BreakStringLiterals: false
+
+# Controls whether to break before binary operators
+BreakBeforeBinaryOperators: All # Options: None, NonAssignment, All
+
+AlignOperands: Align # Options: Align, DontAlign, AlignAfterOperator

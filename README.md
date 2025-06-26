@@ -121,6 +121,7 @@ _Build upon core concepts with more sophisticated techniques._
 - **Command-line arguments**: argc, argv parameters to main, parsing options
 - **Variable scope and lifetime**: Understanding when variables are created and destroyed
 - **Storage classes**: Proper usage of auto, static for function variables, extern for shared variables, register hint
+  - [Storage Classes and Linkage Attributes](./docs/04-intermediate-core-topics/storage_classes_and_linkage_attributes.md)
 
 ### Advanced Pointers
 

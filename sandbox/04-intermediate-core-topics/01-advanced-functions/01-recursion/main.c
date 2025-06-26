@@ -93,7 +93,8 @@ int main(int argc, char *argv[])
     count_down(5);
 
     int nums[] = {3, 4, 5, 6, 10};
-    printf("\nSum array: %d\n", sum_array(nums, sizeof(nums) / sizeof(nums[0])));
+    printf("\nSum array: %d\n",
+           sum_array(nums, sizeof(nums) / sizeof(nums[0])));
 
     printf("Factorial of 5: %llu\n", factorial(5));
 

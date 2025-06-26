@@ -27,7 +27,8 @@ int main(int argc, char *argv[])
     // argv (argument vector) is an array of strings containing the arguments
 
     printf("Program name: %s\n", argv[0]);
-    printf("Number of arguments: %d\n\n", argc - 1);  // -1 to exclude program name
+    printf("Number of arguments: %d\n\n",
+           argc - 1);  // -1 to exclude program name
 
     if (argc > 1) printf("All arguments: \n");
     for (int i = 1; i < argc; i++)

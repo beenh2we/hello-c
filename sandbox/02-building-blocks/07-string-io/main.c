@@ -3,11 +3,8 @@
 
 int main(int argc, char *argv[])
 {
-    printf("\n--- String Input/Output in C ---\n\n");
-
+    // String Input/Output in C
     // 1. STRING INPUT
-    printf("1. STRING INPUT\n");
-
     char name[20];
     printf("Enter your first name: ");
     fgets(name, sizeof(name), stdin);
@@ -32,7 +29,6 @@ int main(int argc, char *argv[])
     printf("Full name:      \"%s %s\"\n\n", name, lastname);
 
     // 2. STRING OUTPUT
-    printf("2. STRING OUTPUT\n");
     char message[] = "Learning C programming";
 
     // Method 1: printf

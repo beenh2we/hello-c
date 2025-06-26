@@ -1,4 +1,3 @@
----
 # Based on a standard style
 BasedOnStyle: Google
 
@@ -33,5 +32,9 @@ SpaceBeforeAssignmentOperators: true
 # Include blocks
 SortIncludes: true
 IncludeBlocks: Regroup
----
 
+# Comments
+ReflowComments: false
+
+# Strings
+BreakStringLiterals: false

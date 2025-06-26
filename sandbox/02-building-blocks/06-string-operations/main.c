@@ -4,17 +4,16 @@
 
 int main(int argc, char *argv[])
 {
-    printf("\n--- String Operations in C ---\n\n");
-
+    // String Operations
     // 1. STRING LENGTH
-    printf("1. STRING LENGTH\n");
     char sample[50] = "Hello";
 
-    printf("strlen(\"%s\"):     %lu (characters without null)\n", sample, strlen(sample));
+    printf("strlen(\"%s\"):     %lu (characters without null)\n",
+           sample,
+           strlen(sample));
     printf("sizeof(sample):  %lu (total bytes allocated)\n\n", sizeof(sample));
 
     // 2. STRING COPYING
-    printf("2. STRING COPYING\n");
     char src[] = "Hello, C";
     char dest1[20];
     int i;
@@ -39,7 +38,6 @@ int main(int argc, char *argv[])
     printf("strncpy():       \"%s\" (safer, length-limited)\n\n", dest3);
 
     // 3. STRING COMPARISON
-    printf("3. STRING COMPARISON\n");
     char str1[] = "Apple";
     char str2[] = "Apple";
     char str3[] = "Orange";
@@ -59,10 +57,10 @@ int main(int argc, char *argv[])
     printf("Manual compare:  %d (str1 & str2)\n", result);
     printf("strcmp(equal):   %d (str1 & str2)\n", cmp1);
     printf("strcmp(< 0):     %d (str1 < str3)\n", cmp2);
-    printf("strcmp(> 0):     %d (\"World\" > \"Hello\")\n\n", strcmp("World", "Hello"));
+    printf("strcmp(> 0):     %d (\"World\" > \"Hello\")\n\n",
+           strcmp("World", "Hello"));
 
     // 4. STRING CONCATENATION
-    printf("4. STRING CONCATENATION\n");
     char base1[30] = "Hello, ";
     char add[] = "World!";
 
@@ -87,7 +85,6 @@ int main(int argc, char *argv[])
     printf("strncat():       \"%s\" (safer, length-limited)\n\n", base3);
 
     // 5. STRING SEARCHING
-    printf("5. STRING SEARCHING\n");
     char text[] = "Find the first 'e' character";
     char *found = strchr(text, 'e');
     if (found != NULL)
@@ -99,19 +96,19 @@ int main(int argc, char *argv[])
     char *needle = strstr(haystack, "needle");
     if (needle != NULL)
     {
-        printf("strstr():        \"needle\" found at position %ld\n\n", needle - haystack);
+        printf("strstr():        \"needle\" found at position %ld\n\n",
+               needle - haystack);
     }
 
     // 6. SAFETY ISSUES & SOLUTIONS
-    printf("6. SAFETY ISSUES & SOLUTIONS\n");
+    /**
+     * Common problems:
+     *  - Buffer overflows when copying without size checks
+     *  - Missing null termination with strncpy()
+     *  - Using uninitialized memory
+     */
 
-    printf("Common problems:\n");
-    printf("- Buffer overflows when copying without size checks\n");
-    printf("- Missing null termination with strncpy()\n");
-    printf("- Using uninitialized memory\n\n");
-
-    printf("Solutions:\n");
-
+    // Best practices
     // Buffer size checking example
     char buffer[10];
     const char *long_str = "A long string that won't fit";

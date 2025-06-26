@@ -3,8 +3,7 @@
 
 int main(int argc, char *argv[])
 {
-    printf("\n------------------- Character Array, String -------------------\n\n");
-
+    // Character Array, String
     // Method 1: Explicitly sized array with character-by-character initialization
     char str1[6] = {'H', 'e', 'l', 'l', 'o', '\0'};
 
@@ -38,11 +37,13 @@ int main(int argc, char *argv[])
     printf("  Length: %zu chars\n", strlen(str4));
     printf("  Size: %zu bytes\n\n", sizeof(str4));
 
-    printf("Note: Length is character count (excluding '\\0')\n");
-    printf("      Size is total memory allocation in bytes\n");
+    /**
+     * Note:
+     *  Length is character count (excluding '\0')
+     *  Size is total memory allocation in bytes
+     */
 
-    printf("\n------------------- String Manipulation -------------------\n\n");
-
+    // String Manipulation
     // String initialization
     char name[20] = "Bibibubu Lu";
     printf("Original string: \"%s\"\n", name);
@@ -72,10 +73,10 @@ int main(int argc, char *argv[])
     }
 
     // Demonstrate modifiability
-    char str5[] = "Hello";  // Size determined by compiler (6 bytes including '\0')
-                            // String literal copied to stack memory
-    char *str6 = "Hello";   // Pointer to string literal in read-only memory segment
-                            // No copy is made; pointer just references the literal
+    char str5[] = "Hello";
+    char *str6 = "Hello";
+    // Pointer to string literal in read-only memory segment
+    // No copy is made; pointer just references the literal
 
     str5[0] = 'J';  // OK: modifying array element
     printf("After str5[0] = 'J': str5 = \"%s\"\n", str5);
@@ -83,8 +84,7 @@ int main(int argc, char *argv[])
     // In modern C, attempting to modify string literals is undefined behavior
     // str6[0] = 'J';  // DANGEROUS: Runtime error - modifying read-only memory
 
-    printf("\n-------------- String Null Termination --------------\n\n");
-
+    // String Null Termination
     // String with proper null termination
     char proper[] = {'C', 'o', 'd', 'e', '\0'};
     printf("Proper string: \"%s\"\n", proper);
@@ -128,8 +128,9 @@ int main(int argc, char *argv[])
     }
 
     // DANGER: Accessing improper string as if it were null-terminated
-    printf("\nDANGER: strlen(improper) = %zu (UNRELIABLE - reading beyond array!)\n",
-           strlen(improper));  // Undefined behavior!
+    printf(
+        "\nDANGER: strlen(improper) = %zu (UNRELIABLE - reading beyond array!)\n",
+        strlen(improper));  // Undefined behavior!
 
     /**
      * proper[]:    | 'C' | 'o' | 'd' | 'e' | '\0' |  <-- Safe, well-defined string

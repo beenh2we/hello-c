@@ -9,10 +9,8 @@ int mul(int a, int b);
 
 int main()
 {
-    printf("\n=============== DYNAMIC MEMORY AND ADVANCED POINTERS ===============\n");
-
-    /*** 1. STRING POINTERS VS ARRAYS ***/
-    printf("\n----- STRING MEMORY MANAGEMENT -----\n");
+    // DYNAMIC MEMORY AND ADVANCED POINTERS
+    // 1. String pointers vs arrays
     char message[] = "Hello";  // Array copy on stack
     char *c_ptr_1 = "Hello";   // Points to read-only string literal
     char *c_ptr_2 = message;   // Points to mutable array on stack
@@ -22,15 +20,14 @@ int main()
     printf("c_ptr_2: %p (points to stack array)\n", c_ptr_2);
 
     // Safe modifications
-    message[0] = 'h';                           // OK - modifying mutable array
-    c_ptr_2[1] = 'a';                           // OK - modifies message array through pointer
+    message[0] = 'h';  // OK - modifying mutable array
+    c_ptr_2[1] = 'a';  // OK - modifies message array through pointer
     printf("Modified message: %s\n", message);  // "hallo"
 
     // Unsafe operations (commented out to prevent crashes)
     // c_ptr_1[0] = 'h';     // DANGER: Modifying string literal - undefined behavior
 
-    /*** 2. DYNAMIC MEMORY ALLOCATION ***/
-    printf("\n----- MALLOC: DYNAMIC ALLOCATION -----\n");
+    // 2. Dynamic memory allocation
     int size = 10;
     int *m_ptr = (int *) malloc(size * sizeof(int));
 
@@ -71,8 +68,8 @@ int main()
     free(m_ptr);
     m_ptr = NULL;  // Prevent use-after-free bugs
 
-    /*** 3. CALLOC & REALLOC ***/
-    printf("\n----- CALLOC: ZERO-INITIALIZED ALLOCATION -----\n");
+    // 3. calloc and realloc
+    // calloc: zero initialized allocation
     int *c_ptr = (int *) calloc(size, sizeof(int));
 
     if (c_ptr == NULL)
@@ -88,7 +85,7 @@ int main()
     }
     printf("\n");
 
-    printf("\n----- REALLOC: RESIZE MEMORY ALLOCATION -----\n");
+    // realloc: resize memory allocation
     // Initialize the first portion with values
     for (int i = 0; i < size; i++)
     {
@@ -123,8 +120,7 @@ int main()
     free(c_ptr);  // Free the reallocated memory
     c_ptr = NULL;
 
-    /*** 4. FUNCTION POINTERS ***/
-    printf("\n----- FUNCTION POINTERS -----\n");
+    // 4. Function pointers
     int a = 10, b = 34;
 
     // Declare function pointer
@@ -153,8 +149,7 @@ int main()
                math_ops[i](a, b));
     }
 
-    /*** 5. VOID POINTERS ***/
-    printf("\n----- VOID POINTERS -----\n");
+    // 5. Void pointers
     void *generic;
     int num = 99;
     char ch = 'A';
@@ -172,14 +167,14 @@ int main()
     generic = &pi;
     printf("Void pointer to double: %.5f\n", *(double *) generic);
 
-    printf("\n================================================================\n");
-    printf("MEMORY MANAGEMENT BEST PRACTICES:\n");
-    printf("• Always check return values from malloc/calloc/realloc\n");
-    printf("• Always free dynamically allocated memory when done\n");
-    printf("• Set pointers to NULL after freeing\n");
-    printf("• Be cautious with string literals vs. mutable strings\n");
-    printf("• Use proper casting when working with void pointers\n");
-    printf("================================================================\n");
+    /**
+     * memory management best practices:
+     *  - Always check return values from malloc/calloc/realloc
+     *  - Always free dynamically allocated memory when done
+     *  - Set pointers to NULL after freeing
+     *  - Be cautious with string literals vs. mutable strings
+     *  - Use proper casting when working with void pointers
+     */
 
     return 0;
 }

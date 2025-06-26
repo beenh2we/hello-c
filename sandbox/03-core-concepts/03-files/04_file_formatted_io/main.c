@@ -27,9 +27,15 @@ int main(int argc, char *argv[])
     }
 
     int result;
-    while ((result = fscanf(fp, "Name: %[^,], Age: %d, Height: %f\n", name, &age, &height)) == 3)
+    while (
+        (result = fscanf(
+             fp, "Name: %[^,], Age: %d, Height: %f\n", name, &age, &height)) ==
+        3)
     {
-        printf("Read: %s is %d years old and %.2f meters tall.\n", name, age, height);
+        printf("Read: %s is %d years old and %.2f meters tall.\n",
+               name,
+               age,
+               height);
     }
 
     fclose(fp);

@@ -2,8 +2,7 @@
 
 int main(int argc, char *argv[])
 {
-    printf("\n------------------- POINTER FUNDAMENTALS -------------------\n\n");
-
+    // POINTER FUNDAMENTALS
     /*
      * Memory Model Concept:
      * ┌───────────────────┐
@@ -19,8 +18,7 @@ int main(int argc, char *argv[])
      * └─────────┴─────────┘
      */
 
-    /*** 1. Memory Addresses ***/
-    printf("===== MEMORY ADDRESSES =====\n");
+    // 1. Memory Addresses
     int age = 80;
     char tag = 'Z';
     float height = 3.5;
@@ -29,8 +27,7 @@ int main(int argc, char *argv[])
     printf("tag:    value = %c,  address = %p\n", tag, &tag);
     printf("height: value = %.1f, address = %p\n\n", height, &height);
 
-    /*** 2. Declaring and Using Pointers ***/
-    printf("===== POINTER BASICS =====\n");
+    // 2. Declaring and Using Pointers
     int num = 1988;
     int *p_num = &num;  // p_num holds the address of num
 
@@ -41,8 +38,7 @@ int main(int argc, char *argv[])
     printf("sizeof(num):  %zu bytes\n", sizeof(num));
     printf("sizeof(p_num): %zu bytes (pointer size)\n\n", sizeof(p_num));
 
-    /*** 3. Modifying Values via Pointers ***/
-    printf("===== MODIFYING VALUES THROUGH POINTERS =====\n");
+    // 3. Modifying Values via Pointers
     int x = 10;
     int *p = &x;
 
@@ -60,8 +56,7 @@ int main(int argc, char *argv[])
      * └─────────┴─────────┘
      */
 
-    /*** 4. Different Pointer Types ***/
-    printf("===== POINTER TYPES =====\n");
+    // 4. Different Pointer Types
     int number = 42;
     char letter = 'A';
     double price = 99.99;
@@ -73,16 +68,17 @@ int main(int argc, char *argv[])
     printf("Type impacts pointer arithmetic and dereferencing:\n");
     printf("*p_int:    %d    (size: %zu bytes)\n", *p_int, sizeof(*p_int));
     printf("*p_char:   %c    (size: %zu bytes)\n", *p_char, sizeof(*p_char));
-    printf("*p_double: %.2f (size: %zu bytes)\n\n", *p_double, sizeof(*p_double));
+    printf(
+        "*p_double: %.2f (size: %zu bytes)\n\n", *p_double, sizeof(*p_double));
 
     // Void pointer - generic pointer type
     void *ptr_void = &number;  // Can point to any data type
-    printf("void* can point to any data type but can't be dereferenced directly\n");
+    printf(
+        "void* can point to any data type but can't be dereferenced directly\n");
     // printf("%d\n", *ptr_void);  // ERROR: Can't dereference void*
     printf("Cast needed: %d\n\n", *(int *) ptr_void);  // Cast required
 
-    /*** 5. NULL Pointers and Safety ***/
-    printf("===== NULL POINTERS AND SAFETY =====\n");
+    // 5. NULL Pointers and Safety
     int *safe_ptr = NULL;  // Good practice: initialize pointers to NULL
 
     printf("NULL pointer value: %p\n", safe_ptr);

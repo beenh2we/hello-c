@@ -19,7 +19,10 @@ int main()
     student1.score = 92.5;
 
     printf("Using dot operator:\n");
-    printf("Name: %s, ID: %d, Score: %.1f\n", student1.name, student1.id, student1.score);
+    printf("Name: %s, ID: %d, Score: %.1f\n",
+           student1.name,
+           student1.id,
+           student1.score);
 
     // Using arrow operator with pointer to structure
     strcpy(ptr->name, "Bob Smith");  // Same as (*ptr).name

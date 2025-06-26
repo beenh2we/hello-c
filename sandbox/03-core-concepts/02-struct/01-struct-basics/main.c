@@ -31,7 +31,10 @@ int main()
     // Using the typedef version
     Book myBook = {"C Programming", "Dennis Ritchie", 1978, 29.99};
 
-    printf("Book: \"%s\" by %s, $%.2f\n", myBook.title, myBook.author, myBook.price);
+    printf("Book: \"%s\" by %s, $%.2f\n",
+           myBook.title,
+           myBook.author,
+           myBook.price);
 
     return 0;
 }

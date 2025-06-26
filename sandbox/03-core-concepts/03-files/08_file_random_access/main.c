@@ -30,7 +30,10 @@ int main(int argc, char *argv[])
     // Random access - read second record
     fseek(fp, sizeof(Employee), SEEK_SET);  // Position at second record
     fread(&temp, sizeof(Employee), 1, fp);
-    printf("Second employee: ID: %d, Name: %s, Salary: %.2f\n", temp.id, temp.name, temp.salary);
+    printf("Second employee: ID: %d, Name: %s, Salary: %.2f\n",
+           temp.id,
+           temp.name,
+           temp.salary);
 
     // Modify record and write it back
     strcpy(temp.name, "Lisa Wang");

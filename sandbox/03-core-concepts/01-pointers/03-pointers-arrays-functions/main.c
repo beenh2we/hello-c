@@ -10,10 +10,8 @@ void analyzeArray(int *arr, int size, int *min, int *max, double *avg);
 
 int main()
 {
-    printf("\n--------------- POINTERS WITH ARRAYS AND FUNCTIONS ---------------\n\n");
-
-    /*** 1. ARRAY-POINTER RELATIONSHIP ***/
-    printf("===== ARRAY-POINTER RELATIONSHIP =====\n");
+    // POINTERS WITH ARRAYS AND FUNCTIONS
+    // 1. Array pointer relationship
     int numbers[5] = {10, 20, 30, 40, 50};
     int *ptr = numbers;  // Same as &numbers[0]
 
@@ -32,14 +30,12 @@ int main()
     ptr++;  // Valid! Pointer now points to numbers[1]
     printf("After ptr++, *ptr = %d (now points to numbers[1])\n\n", *ptr);
 
-    /*** 2. PASSING ARRAYS TO FUNCTIONS ***/
-    printf("===== PASSING ARRAYS TO FUNCTIONS =====\n");
+    // 2. Passing arrays to functions
     ptr = numbers;  // Reset ptr to point to start of array
     printf("Array elements: ");
     printArray(numbers, 5);  // Array name decays to pointer when passed
 
-    /*** 3. PASS BY VALUE VS REFERENCE ***/
-    printf("\n===== PASS BY VALUE VS REFERENCE =====\n");
+    // 3. Pass by Value vs Reference
     int x = 10;
 
     incrementByValue(x);
@@ -48,9 +44,7 @@ int main()
     incrementByReference(&x);
     printf("After incrementByReference: x = %d (modified)\n\n", x);
 
-    /*** 4. POINTER APPLICATIONS ***/
-    printf("===== POINTER APPLICATIONS =====\n");
-
+    // Pointer applications
     // Example 1: Swapping values
     int a = 5, b = 10;
     printf("Before swap: a = %d, b = %d\n", a, b);
@@ -61,7 +55,13 @@ int main()
     int c = 5, d = 7;
     int sum, product;
     calculateBoth(c, d, &sum, &product);
-    printf("Multiple outputs: %d + %d = %d, %d * %d = %d\n\n", c, d, sum, c, d, product);
+    printf("Multiple outputs: %d + %d = %d, %d * %d = %d\n\n",
+           c,
+           d,
+           sum,
+           c,
+           d,
+           product);
 
     // Example 3: Array analysis
     int data[] = {5, 8, 2, 10, 7, 1, 9};
@@ -75,9 +75,7 @@ int main()
     printf("- Maximum: %d\n", max);
     printf("- Average: %.2f\n\n", avg);
 
-    /*** 5. CHARACTER ARRAYS AND POINTERS ***/
-    printf("===== CHARACTER ARRAYS AND POINTERS =====\n");
-
+    // 5. Character arrays and pointers
     // Character array (string) example
     char name[] = "Hello World!";
     printf("String: \"%s\"\n", name);
@@ -91,9 +89,7 @@ int main()
     printf("First char via pointer: '%c'\n", *p_str);
     printf("Second char via pointer: '%c'\n\n", *(p_str + 1));
 
-    /*** 6. ARRAY OF POINTERS FOR STRINGS ***/
-    printf("===== ARRAY OF POINTERS FOR STRINGS =====\n");
-
+    // 6. Array of pointers for Strings
     char *names[] = {"Wht", "Tht", "Fek"};
     /*
      * Memory visualization:
@@ -116,7 +112,8 @@ int main()
     // Double dereferencing - accessing a character in a string
     printf("\nDouble dereferencing - character access:\n");
     printf("Second char in \"Fek\": %c\n", *(*(names + 2) + 1));
-    printf("Explanation: *(names+2) gets \"Fek\", then +1 and * accesses 'e'\n");
+    printf(
+        "Explanation: *(names+2) gets \"Fek\", then +1 and * accesses 'e'\n");
 
     return 0;
 }

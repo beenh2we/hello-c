@@ -27,7 +27,10 @@ int main()
     // Display student information
     for (int i = 0; i < 2; i++)
     {
-        printf("Student %d: %s (ID: %d)\n", i + 1, students[i].name, students[i].id);
+        printf("Student %d: %s (ID: %d)\n",
+               i + 1,
+               students[i].name,
+               students[i].id);
 
         printf("Scores: ");
         for (int j = 0; j < 3; j++)

@@ -17,7 +17,10 @@ AllocationRecord allocations[MAX_ALLOCATIONS];
 int allocation_count = 0;
 
 // Custom allocation functions for tracking
-void *track_malloc(size_t size, const char *file, int line, const char *function)
+void *track_malloc(size_t size,
+                   const char *file,
+                   int line,
+                   const char *function)
 {
     void *ptr = malloc(size);
 
@@ -66,10 +69,10 @@ void track_free(void *ptr, const char *file, int line, const char *function)
 
 // Define macros to replace standard functions
 #define DEBUG_MALLOC(size) track_malloc(size, __FILE__, __LINE__, __func__)
-#define DEBUG_FREE(ptr) track_free(ptr, __FILE__, __LINE__, __func__)
+#define DEBUG_FREE(ptr)    track_free(ptr, __FILE__, __LINE__, __func__)
 
 // Print memory leak report
-void print_leak_report()
+void print_leak_report(void)
 {
     printf("\n=== Memory Leak Report ===\n");
 
@@ -99,7 +102,7 @@ void print_leak_report()
 }
 
 // Common types of memory issues
-void demonstrate_memory_leak()
+void demonstrate_memory_leak(void)
 {
     printf("--- Memory Leak Example ---\n");
 
@@ -121,7 +124,7 @@ void demonstrate_memory_leak()
     // Missing: DEBUG_FREE(numbers);
 }
 
-void demonstrate_double_free()
+void demonstrate_double_free(void)
 {
     printf("\n--- Double Free Example ---\n");
 
@@ -146,7 +149,7 @@ void demonstrate_double_free()
     printf("Avoided double free error\n");
 }
 
-void demonstrate_use_after_free()
+void demonstrate_use_after_free(void)
 {
     printf("\n--- Use After Free Example ---\n");
 
@@ -171,7 +174,7 @@ void demonstrate_use_after_free()
     data = NULL;  // Set to NULL after free (good practice)
 }
 
-void demonstrate_memory_corruption()
+void demonstrate_memory_corruption(void)
 {
     printf("\n--- Memory Corruption Example ---\n");
 
@@ -197,7 +200,7 @@ void demonstrate_memory_corruption()
     DEBUG_FREE(buffer);
 }
 
-void demonstrate_null_pointer_dereference()
+void demonstrate_null_pointer_dereference(void)
 {
     printf("\n--- Null Pointer Dereference Example ---\n");
 
@@ -220,35 +223,7 @@ void demonstrate_null_pointer_dereference()
     }
 }
 
-void explain_memory_debugging_tools()
-{
-    printf("\n=== Memory Debugging Tools ===\n");
-
-    printf("1. Valgrind\n");
-    printf("   - Comprehensive memory error detector\n");
-    printf("   - Usage: valgrind --leak-check=full ./your_program\n");
-    printf("   - Detects: leaks, use-after-free, invalid access, etc.\n\n");
-
-    printf("2. AddressSanitizer (ASan)\n");
-    printf("   - Compile-time instrumentation for memory error detection\n");
-    printf("   - Usage: gcc -fsanitize=address -g source.c -o program\n");
-    printf("   - Fast detection of memory bugs\n\n");
-
-    printf("3. Electric Fence\n");
-    printf("   - Library that helps detect buffer overflows and underflows\n");
-    printf("   - Usage: Link with -lefence and run normally\n\n");
-
-    printf("4. mtrace (GNU libc)\n");
-    printf("   - Traces memory allocations\n");
-    printf("   - Usage: Use mtrace() and muntrace() functions\n\n");
-
-    printf("5. Memory Debugging Techniques:\n");
-    printf("   - Macro wrappers for malloc/free (as shown in this example)\n");
-    printf("   - Defensive programming practices\n");
-    printf("   - Regular execution under memory checkers\n");
-}
-
-int main()
+int main(void)
 {
     printf("==== MEMORY LEAKS AND DEBUGGING ====\n\n");
 
@@ -258,9 +233,6 @@ int main()
     demonstrate_use_after_free();
     demonstrate_memory_corruption();
     demonstrate_null_pointer_dereference();
-
-    // Explain memory debugging tools
-    explain_memory_debugging_tools();
 
     // Print memory leak report
     print_leak_report();

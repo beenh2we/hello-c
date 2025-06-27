@@ -14,7 +14,8 @@ static int static_uninitialized;      // BSS segment
 const int const_global = 300;  // Read-only DATA segment
 
 // String literals
-const char *string_literal = "Hello";  // String in read-only DATA, pointer in DATA
+const char *string_literal
+    = "Hello";  // String in read-only DATA, pointer in DATA
 
 // Function to demonstrate stack memory
 void stack_demo(int param)
@@ -38,7 +39,7 @@ void stack_demo(int param)
 }
 
 // Function to demonstrate heap memory
-void heap_demo()
+void heap_demo(void)
 {
     // Dynamic memory (stored on the heap)
     int *heap_int = (int *) malloc(sizeof(int));
@@ -64,7 +65,7 @@ void heap_demo()
 }
 
 // Function that's not called (to demonstrate code segment)
-void unused_function()
+void unused_function(void)
 {
     printf("This function is in the code segment but never executed\n");
 }
@@ -74,7 +75,6 @@ void print_memory_addresses()
 {
     printf("Memory segment addresses:\n");
     printf("  Code segment:\n");
-    printf("    main() function: %p\n", (void *) main);
     printf("    unused_function(): %p\n", (void *) unused_function);
 
     printf("  Data segment:\n");
@@ -89,82 +89,7 @@ void print_memory_addresses()
     printf("    static_uninitialized: %p\n", (void *) &static_uninitialized);
 }
 
-void explain_memory_layout()
-{
-    printf("\nC Program Memory Layout Explanation:\n");
-    printf("------------------------------------\n");
-
-    printf("1. Text/Code Segment:\n");
-    printf("   - Contains executable instructions\n");
-    printf("   - Read-only and shared among processes\n");
-    printf("   - Includes functions like main() and other code\n\n");
-
-    printf("2. Data Segment:\n");
-    printf("   - Initialized global and static variables\n");
-    printf("   - Read-write area loaded from executable file\n\n");
-
-    printf("3. BSS (Block Started by Symbol) Segment:\n");
-    printf("   - Uninitialized global and static variables\n");
-    printf("   - Zero-initialized by the operating system\n");
-    printf("   - Requires less space in executable file\n\n");
-
-    printf("4. Heap:\n");
-    printf("   - Dynamic memory allocation (malloc, calloc, realloc)\n");
-    printf("   - Grows upward in memory (higher addresses)\n");
-    printf("   - Managed manually by the programmer\n\n");
-
-    printf("5. Stack:\n");
-    printf("   - Local variables, function parameters, return addresses\n");
-    printf("   - Grows downward in memory (lower addresses)\n");
-    printf("   - Automatically managed (LIFO - Last In, First Out)\n\n");
-
-    printf("Memory Ordering (typical):\n");
-    printf("  Low address:  Text/Code\n");
-    printf("                Data\n");
-    printf("                BSS\n");
-    printf("                Heap (grows upward ↑)\n");
-    printf("                ...\n");
-    printf("                Stack (grows downward ↓)\n");
-    printf("  High address: Command-line arguments and environment variables\n");
-}
-
-// Visual representation of memory layout
-void visual_memory_layout()
-{
-    printf("\nVisual Memory Layout Representation:\n");
-    printf("----------------------------------\n");
-    printf("High Address\n");
-    printf("┌───────────────────────────┐\n");
-    printf("│ Environment Variables     │\n");
-    printf("│ Command Line Arguments    │\n");
-    printf("├───────────────────────────┤\n");
-    printf("│                           │\n");
-    printf("│ Stack                     │\n");
-    printf("│ ▼ (grows downward)        │\n");
-    printf("│                           │\n");
-    printf("├ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─┤\n");
-    printf("│                           │\n");
-    printf("│ Free Memory               │\n");
-    printf("│                           │\n");
-    printf("├ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─┤\n");
-    printf("│                           │\n");
-    printf("│ Heap                      │\n");
-    printf("│ ▲ (grows upward)          │\n");
-    printf("│                           │\n");
-    printf("├───────────────────────────┤\n");
-    printf("│ BSS Segment               │\n");
-    printf("│ (uninitialized globals)   │\n");
-    printf("├───────────────────────────┤\n");
-    printf("│ Data Segment              │\n");
-    printf("│ (initialized globals)     │\n");
-    printf("├───────────────────────────┤\n");
-    printf("│ Text/Code Segment         │\n");
-    printf("│ (program instructions)    │\n");
-    printf("└───────────────────────────┘\n");
-    printf("Low Address\n");
-}
-
-int main()
+int main(int argc, char *argv[])
 {
     printf("==== MEMORY LAYOUT IN C PROGRAMS ====\n\n");
 
@@ -178,12 +103,6 @@ int main()
 
     // Demonstrate heap memory
     heap_demo();
-
-    // Explain memory layout
-    explain_memory_layout();
-
-    // Visual representation
-    visual_memory_layout();
 
     return 0;
 }

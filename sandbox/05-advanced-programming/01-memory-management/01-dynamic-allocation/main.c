@@ -164,7 +164,8 @@ void realloc_examples()
     numbers = NULL;  // Avoid dangling pointer
 
     // Example 4: Using realloc with NULL pointer (equivalent to malloc)
-    printf("Example 4: Using realloc with NULL pointer (equivalent to malloc)\n");
+    printf(
+        "Example 4: Using realloc with NULL pointer (equivalent to malloc)\n");
     int *data = (int *) realloc(NULL, 4 * sizeof(int));  // Same as malloc
 
     if (data == NULL)
@@ -254,7 +255,7 @@ void benchmark_malloc_vs_calloc()
 {
     printf("\n--- Benchmark: malloc vs. calloc ---\n");
 
-    const size_t sizes[] = {1024, 10240, 102400, 1024000};
+    const size_t sizes[] = {1024, 10240, 102400, 1024000, 10240000, 102400000};
     const int iterations = 1000;
 
     for (int s = 0; s < sizeof(sizes) / sizeof(sizes[0]); s++)

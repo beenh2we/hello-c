@@ -39,7 +39,7 @@ struct ExplicitPadding
     double d;
 };
 
-// Packed structure (might have different alignment requirements)
+// Packed structure
 #pragma pack(push, 1)
 struct PackedStruct
 {
@@ -51,7 +51,7 @@ struct PackedStruct
 #pragma pack(pop)
 
 // Structure with alignment specifier (C11)
-struct alignas(16) AlignedStruct
+struct __attribute__((aligned(16))) AlignedStruct
 {  // Force 16-byte alignment
     char a;
     int b;
@@ -67,12 +67,13 @@ void print_member_info(const char *struct_name,
 {
     printf("  %s.%s:\n", struct_name, member_name);
     printf("    Address: %p\n", member_addr);
-    printf("    Offset: %td bytes\n", (char *) member_addr - (char *) struct_addr);
+    printf("    Offset: %td bytes\n",
+           (char *) member_addr - (char *) struct_addr);
     printf("    Size: %zu bytes\n", member_size);
 }
 
 // Function to show the memory layout of BasicStruct
-void inspect_basic_struct()
+void inspect_basic_struct(void)
 {
     struct BasicStruct s;
 
@@ -85,14 +86,15 @@ void inspect_basic_struct()
     print_member_info("BasicStruct", "d", &s, &s.d, sizeof(s.d));
 
     // Calculate padding
-    size_t expected_size = sizeof(s.a) + sizeof(s.b) + sizeof(s.c) + sizeof(s.d);
+    size_t expected_size
+        = sizeof(s.a) + sizeof(s.b) + sizeof(s.c) + sizeof(s.d);
     size_t actual_size = sizeof(struct BasicStruct);
     printf("  Sum of member sizes: %zu bytes\n", expected_size);
     printf("  Padding bytes: %zu bytes\n", actual_size - expected_size);
 }
 
 // Function to show the memory layout of ReorderedStruct
-void inspect_reordered_struct()
+void inspect_reordered_struct(void)
 {
     struct ReorderedStruct s;
 
@@ -105,14 +107,15 @@ void inspect_reordered_struct()
     print_member_info("ReorderedStruct", "c", &s, &s.c, sizeof(s.c));
 
     // Calculate padding
-    size_t expected_size = sizeof(s.a) + sizeof(s.b) + sizeof(s.c) + sizeof(s.d);
+    size_t expected_size
+        = sizeof(s.a) + sizeof(s.b) + sizeof(s.c) + sizeof(s.d);
     size_t actual_size = sizeof(struct ReorderedStruct);
     printf("  Sum of member sizes: %zu bytes\n", expected_size);
     printf("  Padding bytes: %zu bytes\n", actual_size - expected_size);
 }
 
 // Function to show the memory layout of PackedStruct
-void inspect_packed_struct()
+void inspect_packed_struct(void)
 {
     struct PackedStruct s;
 
@@ -125,14 +128,15 @@ void inspect_packed_struct()
     print_member_info("PackedStruct", "d", &s, &s.d, sizeof(s.d));
 
     // Calculate padding
-    size_t expected_size = sizeof(s.a) + sizeof(s.b) + sizeof(s.c) + sizeof(s.d);
+    size_t expected_size
+        = sizeof(s.a) + sizeof(s.b) + sizeof(s.c) + sizeof(s.d);
     size_t actual_size = sizeof(struct PackedStruct);
     printf("  Sum of member sizes: %zu bytes\n", expected_size);
     printf("  Padding bytes: %zu bytes\n", actual_size - expected_size);
 }
 
 // Function to demonstrate alignment requirements
-void show_alignment_requirements()
+void show_alignment_requirements(void)
 {
     printf("\n=== Alignment Requirements ===\n");
 
@@ -142,13 +146,16 @@ void show_alignment_requirements()
     printf("alignof(long): %zu bytes\n", alignof(long));
     printf("alignof(float): %zu bytes\n", alignof(float));
     printf("alignof(double): %zu bytes\n", alignof(double));
-    printf("alignof(struct BasicStruct): %zu bytes\n", alignof(struct BasicStruct));
-    printf("alignof(struct PackedStruct): %zu bytes\n", alignof(struct PackedStruct));
-    printf("alignof(struct AlignedStruct): %zu bytes\n", alignof(struct AlignedStruct));
+    printf("alignof(struct BasicStruct): %zu bytes\n",
+           alignof(struct BasicStruct));
+    printf("alignof(struct PackedStruct): %zu bytes\n",
+           alignof(struct PackedStruct));
+    printf("alignof(struct AlignedStruct): %zu bytes\n",
+           alignof(struct AlignedStruct));
 }
 
 // Function to demonstrate proper alignment for arrays
-void demonstrate_array_alignment()
+void demonstrate_array_alignment(void)
 {
     printf("\n=== Array Element Alignment ===\n");
 
@@ -157,8 +164,11 @@ void demonstrate_array_alignment()
     printf("struct ArrayStruct:\n");
     printf("  Total size: %zu bytes\n", sizeof(struct ArrayStruct));
 
-    print_member_info(
-        "ArrayStruct", "id", &array_struct, &array_struct.id, sizeof(array_struct.id));
+    print_member_info("ArrayStruct",
+                      "id",
+                      &array_struct,
+                      &array_struct.id,
+                      sizeof(array_struct.id));
 
     // Print info for each array element
     for (int i = 0; i < 3; i++)
@@ -173,38 +183,8 @@ void demonstrate_array_alignment()
     }
 }
 
-// Function to explain alignment implications
-void explain_alignment_implications()
+int main(void)
 {
-    printf("\n=== Alignment Implications ===\n");
-
-    printf("1. Performance:\n");
-    printf("   - Properly aligned data can be accessed faster\n");
-    printf("   - Misaligned access might cause CPU penalties or exceptions\n\n");
-
-    printf("2. Memory Usage:\n");
-    printf("   - Alignment requirements can increase memory usage due to padding\n");
-    printf("   - Careful structure design can reduce padding\n\n");
-
-    printf("3. Hardware Compatibility:\n");
-    printf("   - Some hardware requires specific alignment for certain operations\n");
-    printf("   - Memory-mapped I/O needs strict alignment\n\n");
-
-    printf("4. Structure Packing Tradeoffs:\n");
-    printf("   - Packed structures save memory but may reduce performance\n");
-    printf(
-        "   - Use packed structures only when necessary (e.g., file formats, network "
-        "protocols)\n\n");
-
-    printf("5. Cross-Platform Considerations:\n");
-    printf("   - Different platforms might have different alignment requirements\n");
-    printf("   - Explicit packing can help ensure consistent layout across platforms\n");
-}
-
-int main()
-{
-    printf("==== MEMORY ALIGNMENT EXAMPLES ====\n\n");
-
     // Inspect the memory layouts of different structures
     inspect_basic_struct();
     inspect_reordered_struct();
@@ -215,9 +195,6 @@ int main()
 
     // Demonstrate array alignment
     demonstrate_array_alignment();
-
-    // Explain implications
-    explain_alignment_implications();
 
     return 0;
 }

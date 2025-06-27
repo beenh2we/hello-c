@@ -140,6 +140,7 @@ _Build upon core concepts with more sophisticated techniques._
 - **Enumerations**: Creating named integer constants, improving code readability
 - **Typedef**: Creating type aliases, simplifying complex declarations
 - **Memory alignment considerations**: Structure padding, data alignment requirements
+  - [In-depth Understanding of Memory Alignment](./docs/04-intermediate-core-topics/memory_alignment.md)
 
 ## Level 5: Advanced Programming
 

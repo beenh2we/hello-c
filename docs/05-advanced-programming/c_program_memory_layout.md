@@ -81,11 +81,11 @@ High Address  ┌─────────────────────
               │ Stack                     │
               │ ▼ (grows downward)        │
               │                           │
-              ├─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┤
+              ├─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─┤
               │                           │
               │ Unallocated Memory        │
               │                           │
-              ├─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┤
+              ├─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─┤
               │                           │
               │ Heap                      │
               │ ▲ (grows upward)          │

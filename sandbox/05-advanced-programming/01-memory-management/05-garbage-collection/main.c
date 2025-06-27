@@ -15,7 +15,8 @@ typedef struct RefCountedObject
 // Create a new reference counted object
 RefCountedObject *rc_create(const char *data)
 {
-    RefCountedObject *obj = (RefCountedObject *) malloc(sizeof(RefCountedObject));
+    RefCountedObject *obj
+        = (RefCountedObject *) malloc(sizeof(RefCountedObject));
     if (!obj) return NULL;
 
     obj->data = strdup(data);
@@ -26,7 +27,8 @@ RefCountedObject *rc_create(const char *data)
     }
 
     obj->ref_count = 1;  // Initial reference count is 1
-    printf("Created object '%s' with ref count %d\n", obj->data, obj->ref_count);
+    printf(
+        "Created object '%s' with ref count %d\n", obj->data, obj->ref_count);
     return obj;
 }
 
@@ -36,7 +38,8 @@ void rc_add_ref(RefCountedObject *obj)
     if (obj)
     {
         obj->ref_count++;
-        printf("Increased ref count for '%s' to %d\n", obj->data, obj->ref_count);
+        printf(
+            "Increased ref count for '%s' to %d\n", obj->data, obj->ref_count);
     }
 }
 
@@ -131,7 +134,7 @@ void mark_object(Object *obj)
 }
 
 // Mark phase starting from roots
-void mark_phase()
+void mark_phase(void)
 {
     printf("\n--- Mark Phase ---\n");
 
@@ -149,7 +152,7 @@ void mark_phase()
 }
 
 // Sweep phase - free unmarked objects
-void sweep_phase()
+void sweep_phase(void)
 {
     printf("\n--- Sweep Phase ---\n");
 
@@ -179,16 +182,17 @@ void sweep_phase()
 }
 
 // Run mark and sweep garbage collection
-void run_gc()
+void run_gc(void)
 {
     printf("\n=== Running Garbage Collection ===\n");
     mark_phase();
     sweep_phase();
-    printf("Garbage collection complete. Remaining objects: %d\n", object_count);
+    printf("Garbage collection complete. Remaining objects: %d\n",
+           object_count);
 }
 
 // Clean up all objects
-void cleanup_objects()
+void cleanup_objects(void)
 {
     for (int i = 0; i < object_count; i++)
     {
@@ -200,42 +204,7 @@ void cleanup_objects()
     root_count = 0;
 }
 
-// Function to explain garbage collection concepts
-void explain_gc_concepts()
-{
-    printf("\n=== Garbage Collection Concepts ===\n");
-
-    printf("1. Reference Counting\n");
-    printf("   - Each object tracks how many references point to it\n");
-    printf("   - Object is freed when reference count reaches zero\n");
-    printf("   - Pros: Simple, incremental, immediate cleanup\n");
-    printf("   - Cons: Can't handle circular references\n\n");
-
-    printf("2. Mark and Sweep\n");
-    printf("   - Two phases: Mark (trace from roots) and Sweep (free unmarked)\n");
-    printf("   - Pros: Handles circular references, complete collection\n");
-    printf("   - Cons: Pause during collection, memory fragmentation\n\n");
-
-    printf("3. Copying Collection\n");
-    printf("   - Memory divided into two regions\n");
-    printf("   - Live objects copied from 'from-space' to 'to-space'\n");
-    printf("   - Pros: No fragmentation, fast allocation\n");
-    printf("   - Cons: Requires twice the memory, copying overhead\n\n");
-
-    printf("4. Generational Collection\n");
-    printf("   - Objects divided by age (young and old generations)\n");
-    printf("   - Young generation collected more frequently\n");
-    printf("   - Pros: Better performance, most objects die young\n");
-    printf("   - Cons: More complex implementation\n\n");
-
-    printf("5. Incremental and Concurrent Collection\n");
-    printf("   - Collection work divided into small increments\n");
-    printf("   - Can run concurrently with program execution\n");
-    printf("   - Pros: Reduced pause times, better responsiveness\n");
-    printf("   - Cons: Complex synchronization, overhead\n\n");
-}
-
-int main()
+int main(void)
 {
     printf("==== GARBAGE COLLECTION CONCEPTS ====\n\n");
 
@@ -275,7 +244,8 @@ int main()
     printf("\nObject graph created. Running garbage collection...\n");
     run_gc();
 
-    printf("\nRemoving root reference to obj1 and adding reference to obj5...\n");
+    printf(
+        "\nRemoving root reference to obj1 and adding reference to obj5...\n");
     root_count = 0;
     add_root(obj5);
 
@@ -284,9 +254,6 @@ int main()
 
     // Clean up
     cleanup_objects();
-
-    // Explain GC concepts
-    explain_gc_concepts();
 
     return 0;
 }

@@ -271,18 +271,15 @@ void memory_pool_example()
         new_array[0] = 100;
         new_array[1] = 200;
         new_array[2] = 300;
-        printf("New array after reset: %d %d %d\n", new_array[0], new_array[1], new_array[2]);
+        printf("New array after reset: %d %d %d\n",
+               new_array[0],
+               new_array[1],
+               new_array[2]);
     }
-
-    printf("\nMemory Pool Advantages:\n");
-    printf("- Fast allocation (no searching for free blocks)\n");
-    printf("- No fragmentation within the pool\n");
-    printf("- Single free operation for all allocations\n");
-    printf("- Good for temporary allocations in a defined scope\n");
 }
 
 // Function to demonstrate stack allocator usage
-void stack_allocator_example()
+void stack_allocator_example(void)
 {
     printf("\n=== Stack Allocator Example ===\n");
 
@@ -302,7 +299,11 @@ void stack_allocator_example()
         numbers[2] = 30;
         numbers[3] = 40;
 
-        printf("Numbers: %d %d %d %d\n", numbers[0], numbers[1], numbers[2], numbers[3]);
+        printf("Numbers: %d %d %d %d\n",
+               numbers[0],
+               numbers[1],
+               numbers[2],
+               numbers[3]);
     }
 
     // Save current position
@@ -324,16 +325,10 @@ void stack_allocator_example()
 
     // Clean up
     stack_allocator_destroy(&stack);
-
-    printf("\nStack Allocator Advantages:\n");
-    printf("- Very fast allocation and deallocation\n");
-    printf("- Memory freed in reverse order (LIFO)\n");
-    printf("- Good for nested temporary allocations\n");
-    printf("- Efficient for hierarchical data structures\n");
 }
 
 // Function to demonstrate block allocator usage
-void block_allocator_example()
+void block_allocator_example(void)
 {
     printf("\n=== Block Allocator Example ===\n");
 
@@ -372,7 +367,10 @@ void block_allocator_example()
     // Print some entities
     for (int i = 0; i < 5 && i < count; i++)
     {
-        printf("Entity %d: id=%d, name=%s\n", i, entities[i]->id, entities[i]->name);
+        printf("Entity %d: id=%d, name=%s\n",
+               i,
+               entities[i]->id,
+               entities[i]->name);
     }
 
     // Free every other entity to create "holes"
@@ -396,8 +394,6 @@ void block_allocator_example()
             new_count++;
 
             printf("New entity: id=%d, name=%s\n", e->id, e->name);
-            // Don't store pointers - we're just demonstrating
-            // block_free(&entity_allocator, e);
         }
     }
 
@@ -405,16 +401,10 @@ void block_allocator_example()
 
     // Clean up
     block_allocator_destroy(&entity_allocator);
-
-    printf("\nBlock Allocator Advantages:\n");
-    printf("- Very fast allocation and deallocation of fixed-size objects\n");
-    printf("- No fragmentation for objects of the same size\n");
-    printf("- Efficient memory reuse\n");
-    printf("- Good for game objects, particles, UI elements, etc.\n");
 }
 
 // Function to benchmark different allocation methods
-void benchmark_allocators()
+void benchmark_allocators(void)
 {
     printf("\n=== Memory Allocator Benchmark ===\n");
 
@@ -425,7 +415,9 @@ void benchmark_allocators()
     clock_t start, end;
     double malloc_time = 0, pool_time = 0, stack_time = 0, block_time = 0;
 
-    printf("Benchmarking %d allocations of %zu bytes...\n", num_allocations, alloc_size);
+    printf("Benchmarking %d allocations of %zu bytes...\n",
+           num_allocations,
+           alloc_size);
 
     // Average over iterations
     for (int iter = 0; iter < iterations; iter++)
@@ -481,7 +473,6 @@ void benchmark_allocators()
             {
                 void *ptr = block_alloc(&block);
                 if (!ptr) break;
-                // Don't free - we're just testing allocation
             }
             block_allocator_destroy(&block);
             end = clock();
@@ -497,18 +488,18 @@ void benchmark_allocators()
 
     printf("\nAverage times over %d iterations:\n", iterations);
     printf("malloc/free:      %.6f seconds\n", malloc_time);
-    printf(
-        "Memory Pool:      %.6f seconds (%.2fx vs malloc)\n", pool_time, malloc_time / pool_time);
-    printf(
-        "Stack Allocator:  %.6f seconds (%.2fx vs malloc)\n", stack_time, malloc_time / stack_time);
-    printf(
-        "Block Allocator:  %.6f seconds (%.2fx vs malloc)\n", block_time, malloc_time / block_time);
-
-    printf("\nNote: Real-world performance depends on usage patterns and system.\n");
-    printf("Custom allocators excel in specific scenarios but aren't universal solutions.\n");
+    printf("Memory Pool:      %.6f seconds (%.2fx vs malloc)\n",
+           pool_time,
+           malloc_time / pool_time);
+    printf("Stack Allocator:  %.6f seconds (%.2fx vs malloc)\n",
+           stack_time,
+           malloc_time / stack_time);
+    printf("Block Allocator:  %.6f seconds (%.2fx vs malloc)\n",
+           block_time,
+           malloc_time / block_time);
 }
 
-int main()
+int main(void)
 {
     printf("==== CUSTOM MEMORY MANAGEMENT ====\n\n");
 

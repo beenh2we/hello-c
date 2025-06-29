@@ -2,6 +2,9 @@
 
 A comprehensive, progressive path from beginner to expert C programmer, with detailed explanations for each stage.
 
+- **What is 32/64 bits? x86/x86_64/ARM?**
+  - [CPU Architecture and Operating Systems](./docs/01-getting-started/cpu_architecture_and_operating_system.md)
+
 ## Level 1: Getting Started
 
 _Foundation level for complete beginners with no prior programming experience._
@@ -9,6 +12,7 @@ _Foundation level for complete beginners with no prior programming experience._
 ### Introduction to C
 
 - **History and importance of C**: Origins with Dennis Ritchie, influence on modern languages, uses in systems programming
+  - [C Language Standards and Versions](./docs/01-getting-started/C_language_standards_and_versions.md)
 - **Setting up development environment**: Installing compilers (GCC/GNU, Clang/LLVM), configuring text editors/IDEs
   - [What is GNU/GCC, Clang/LLVM](./docs/01-getting-started/what_is_gnu_gcc_clang_llvm.md)
 - **First program: "Hello, World!"**: Basic syntax, program entry point

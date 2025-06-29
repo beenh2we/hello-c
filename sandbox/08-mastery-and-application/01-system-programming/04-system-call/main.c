@@ -129,7 +129,8 @@ void demonstrate_process_syscalls()
     if (pid == 0)
     {
         // Child process
-        printf("Child process: PID = %d, Parent PID = %d\n", getpid(), getppid());
+        printf(
+            "Child process: PID = %d, Parent PID = %d\n", getpid(), getppid());
 
         // exec() family - replaces the current process image
         // Uncomment to see exec in action:
@@ -243,7 +244,9 @@ void demonstrate_error_handling()
         }
         else
         {
-            printf("Error opening file: %s (errno = %d)\n", strerror(errno), errno);
+            printf("Error opening file: %s (errno = %d)\n",
+                   strerror(errno),
+                   errno);
         }
         goto cleanup;
     }

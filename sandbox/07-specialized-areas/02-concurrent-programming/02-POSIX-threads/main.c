@@ -50,7 +50,8 @@ void* parameterized_thread(void* arg)
 
     printf("[Thread %d] Received message: %s\n", params->id, params->message);
     sleep(params->sleep_time);
-    printf("[Thread %d] Slept for %d seconds\n", params->id, params->sleep_time);
+    printf(
+        "[Thread %d] Slept for %d seconds\n", params->id, params->sleep_time);
 
     return NULL;
 }
@@ -64,7 +65,8 @@ void* cancellable_thread(void* arg)
     pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
     pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
 
-    printf("[Thread %d] Starting long operation, can be cancelled...\n", thread_id);
+    printf("[Thread %d] Starting long operation, can be cancelled...\n",
+           thread_id);
 
     for (int i = 0; i < 10; i++)
     {
@@ -180,7 +182,8 @@ void multiple_threads_demo()
     {
         thread_ids[i] = i + 1;
 
-        if (pthread_create(&threads[i], NULL, counting_thread, &thread_ids[i]) != 0)
+        if (pthread_create(&threads[i], NULL, counting_thread, &thread_ids[i])
+            != 0)
         {
             fprintf(stderr, "Error creating thread %d\n", i);
             return;
@@ -213,7 +216,9 @@ void thread_parameters_demo()
     // Create threads with parameter structs
     for (int i = 0; i < 2; i++)
     {
-        if (pthread_create(&threads[i], NULL, parameterized_thread, &thread_params[i]) != 0)
+        if (pthread_create(
+                &threads[i], NULL, parameterized_thread, &thread_params[i])
+            != 0)
         {
             fprintf(stderr, "Error creating parameterized thread %d\n", i);
             return;

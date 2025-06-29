@@ -58,7 +58,10 @@ void demo_compiler_macros()
     printf("__GNUC_PATCHLEVEL__: %d\n", __GNUC_PATCHLEVEL__);
 
 #ifdef __GNUC_PATCHLEVEL__
-    printf("GCC version: %d.%d.%d\n", __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__);
+    printf("GCC version: %d.%d.%d\n",
+           __GNUC__,
+           __GNUC_MINOR__,
+           __GNUC_PATCHLEVEL__);
 #else
     printf("GCC version: %d.%d\n", __GNUC__, __GNUC_MINOR__);
 #endif
@@ -135,14 +138,29 @@ void demo_platform_macros()
 }
 
 // Creating a custom debug log macro using predefined macros
-#define LOG_DEBUG(format, ...) \
-    fprintf(stderr, "[DEBUG] %s:%d:%s(): " format "\n", __FILE__, __LINE__, __func__, ##__VA_ARGS__)
+#define LOG_DEBUG(format, ...)                  \
+    fprintf(stderr,                             \
+            "[DEBUG] %s:%d:%s(): " format "\n", \
+            __FILE__,                           \
+            __LINE__,                           \
+            __func__,                           \
+            ##__VA_ARGS__)
 
-#define LOG_INFO(format, ...) \
-    fprintf(stderr, "[INFO] %s:%d:%s(): " format "\n", __FILE__, __LINE__, __func__, ##__VA_ARGS__)
+#define LOG_INFO(format, ...)                  \
+    fprintf(stderr,                            \
+            "[INFO] %s:%d:%s(): " format "\n", \
+            __FILE__,                          \
+            __LINE__,                          \
+            __func__,                          \
+            ##__VA_ARGS__)
 
-#define LOG_ERROR(format, ...) \
-    fprintf(stderr, "[ERROR] %s:%d:%s(): " format "\n", __FILE__, __LINE__, __func__, ##__VA_ARGS__)
+#define LOG_ERROR(format, ...)                  \
+    fprintf(stderr,                             \
+            "[ERROR] %s:%d:%s(): " format "\n", \
+            __FILE__,                           \
+            __LINE__,                           \
+            __func__,                           \
+            ##__VA_ARGS__)
 
 // Function to demonstrate logging macros
 void demo_logging_macros()
@@ -186,7 +204,9 @@ void demo_build_config()
 
 // Create a dummy line-number based assertion macro
 #define ASSERT_LINE(condition) \
-    ((condition) ? (void) 0 : printf("Assertion failed at line %d: %s\n", __LINE__, #condition))
+    ((condition)               \
+         ? (void) 0            \
+         : printf("Assertion failed at line %d: %s\n", __LINE__, #condition))
 
 int main()
 {
@@ -203,7 +223,8 @@ int main()
     ASSERT_LINE(x == 10);  // This will print an assertion failure
     ASSERT_LINE(x == 5);   // This will succeed silently
 
-    printf("\nNote: Actual predefined macros will vary based on compiler and platform\n");
+    printf(
+        "\nNote: Actual predefined macros will vary based on compiler and platform\n");
 
     return 0;
 }

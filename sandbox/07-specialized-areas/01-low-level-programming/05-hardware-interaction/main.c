@@ -60,38 +60,38 @@ volatile int stop_simulation = 0;
 // === Control Bit Definitions ===
 
 // LED Controller
-#define LED_CTRL_ENABLE (1 << 0)   // Enable LED controller
-#define LED_CTRL_BLINK (1 << 1)    // Enable blinking
+#define LED_CTRL_ENABLE  (1 << 0)  // Enable LED controller
+#define LED_CTRL_BLINK   (1 << 1)  // Enable blinking
 #define LED_CTRL_PATTERN (1 << 2)  // Enable pattern mode
-#define LED_CTRL_RESET (1 << 7)    // Reset controller
+#define LED_CTRL_RESET   (1 << 7)  // Reset controller
 
 // LED Status
 #define LED_STATUS_ENABLED (1 << 0)  // Controller is enabled
-#define LED_STATUS_BUSY (1 << 1)     // Controller is busy
-#define LED_STATUS_ERROR (1 << 2)    // Error condition
+#define LED_STATUS_BUSY    (1 << 1)  // Controller is busy
+#define LED_STATUS_ERROR   (1 << 2)  // Error condition
 
 // ADC Controller
-#define ADC_CTRL_ENABLE (1 << 0)      // Enable ADC
-#define ADC_CTRL_START (1 << 1)       // Start conversion
+#define ADC_CTRL_ENABLE     (1 << 0)  // Enable ADC
+#define ADC_CTRL_START      (1 << 1)  // Start conversion
 #define ADC_CTRL_CONTINUOUS (1 << 2)  // Continuous conversion mode
-#define ADC_CTRL_RESET (1 << 7)       // Reset controller
+#define ADC_CTRL_RESET      (1 << 7)  // Reset controller
 
 // ADC Status
-#define ADC_STATUS_ENABLED (1 << 0)   // ADC is enabled
-#define ADC_STATUS_BUSY (1 << 1)      // Conversion in progress
-#define ADC_STATUS_DONE (1 << 2)      // Conversion complete
+#define ADC_STATUS_ENABLED  (1 << 0)  // ADC is enabled
+#define ADC_STATUS_BUSY     (1 << 1)  // Conversion in progress
+#define ADC_STATUS_DONE     (1 << 2)  // Conversion complete
 #define ADC_STATUS_OVERFLOW (1 << 3)  // Overflow occurred
 
 // ADC Interrupt
-#define ADC_INT_ENABLE (1 << 0)    // Enable interrupts
-#define ADC_INT_DONE (1 << 1)      // Conversion done interrupt
+#define ADC_INT_ENABLE   (1 << 0)  // Enable interrupts
+#define ADC_INT_DONE     (1 << 1)  // Conversion done interrupt
 #define ADC_INT_OVERFLOW (1 << 2)  // Overflow interrupt
 
 // Timer Controller
-#define TIMER_CTRL_ENABLE (1 << 0)   // Enable timer
+#define TIMER_CTRL_ENABLE  (1 << 0)  // Enable timer
 #define TIMER_CTRL_ONESHOT (1 << 1)  // One-shot mode
-#define TIMER_CTRL_RELOAD (1 << 2)   // Auto-reload mode
-#define TIMER_CTRL_RESET (1 << 7)    // Reset timer
+#define TIMER_CTRL_RELOAD  (1 << 2)  // Auto-reload mode
+#define TIMER_CTRL_RESET   (1 << 7)  // Reset timer
 
 // Timer Status
 #define TIMER_STATUS_ENABLED (1 << 0)  // Timer is enabled
@@ -100,14 +100,14 @@ volatile int stop_simulation = 0;
 #define TIMER_STATUS_COMPARE (1 << 3)  // Compare match occurred
 
 // Timer Interrupt
-#define TIMER_INT_ENABLE (1 << 0)   // Enable interrupts
+#define TIMER_INT_ENABLE  (1 << 0)  // Enable interrupts
 #define TIMER_INT_EXPIRED (1 << 1)  // Timer expired interrupt
 #define TIMER_INT_COMPARE (1 << 2)  // Compare match interrupt
 
 // Global registers
 #define GLOBAL_STATUS_POWER (1 << 0)  // Power status
 #define GLOBAL_STATUS_ERROR (1 << 1)  // Global error indicator
-#define GLOBAL_STATUS_INT (1 << 7)    // Interrupt pending
+#define GLOBAL_STATUS_INT   (1 << 7)  // Interrupt pending
 
 // Print binary representation of a value
 void print_binary(uint32_t value, int bits)
@@ -195,7 +195,8 @@ void* hardware_simulation(void* arg)
                 }
 
                 // Generate interrupt if enabled
-                if (device->ADC.INTERRUPT & ADC_INT_ENABLE && device->ADC.INTERRUPT & ADC_INT_DONE)
+                if (device->ADC.INTERRUPT & ADC_INT_ENABLE
+                    && device->ADC.INTERRUPT & ADC_INT_DONE)
                 {
                     device->GLOBAL_STATUS |= GLOBAL_STATUS_INT;
                 }
@@ -230,8 +231,8 @@ void* hardware_simulation(void* arg)
                     device->TIMER.STATUS |= TIMER_STATUS_COMPARE;
 
                     // Generate interrupt if enabled
-                    if (device->TIMER.INTERRUPT & TIMER_INT_ENABLE &&
-                        device->TIMER.INTERRUPT & TIMER_INT_COMPARE)
+                    if (device->TIMER.INTERRUPT & TIMER_INT_ENABLE
+                        && device->TIMER.INTERRUPT & TIMER_INT_COMPARE)
                     {
                         device->GLOBAL_STATUS |= GLOBAL_STATUS_INT;
                     }
@@ -243,8 +244,8 @@ void* hardware_simulation(void* arg)
                     device->TIMER.STATUS |= TIMER_STATUS_EXPIRED;
 
                     // Generate interrupt if enabled
-                    if (device->TIMER.INTERRUPT & TIMER_INT_ENABLE &&
-                        device->TIMER.INTERRUPT & TIMER_INT_EXPIRED)
+                    if (device->TIMER.INTERRUPT & TIMER_INT_ENABLE
+                        && device->TIMER.INTERRUPT & TIMER_INT_EXPIRED)
                     {
                         device->GLOBAL_STATUS |= GLOBAL_STATUS_INT;
                     }
@@ -265,7 +266,8 @@ void* hardware_simulation(void* arg)
         }
         else
         {
-            device->TIMER.STATUS &= ~(TIMER_STATUS_ENABLED | TIMER_STATUS_RUNNING);
+            device->TIMER.STATUS
+                &= ~(TIMER_STATUS_ENABLED | TIMER_STATUS_RUNNING);
         }
 
         // Short delay to simulate hardware timing
@@ -440,15 +442,16 @@ void check_interrupts()
         // Check ADC interrupts
         if (device->ADC.INTERRUPT & ADC_INT_ENABLE)
         {
-            if (device->ADC.STATUS & ADC_STATUS_DONE && device->ADC.INTERRUPT & ADC_INT_DONE)
+            if (device->ADC.STATUS & ADC_STATUS_DONE
+                && device->ADC.INTERRUPT & ADC_INT_DONE)
             {
                 printf("  ADC conversion complete interrupt\n");
                 // Clear the interrupt
                 device->ADC.STATUS &= ~ADC_STATUS_DONE;
             }
 
-            if (device->ADC.STATUS & ADC_STATUS_OVERFLOW &&
-                device->ADC.INTERRUPT & ADC_INT_OVERFLOW)
+            if (device->ADC.STATUS & ADC_STATUS_OVERFLOW
+                && device->ADC.INTERRUPT & ADC_INT_OVERFLOW)
             {
                 printf("  ADC overflow interrupt\n");
                 // Clear the interrupt
@@ -459,16 +462,16 @@ void check_interrupts()
         // Check Timer interrupts
         if (device->TIMER.INTERRUPT & TIMER_INT_ENABLE)
         {
-            if (device->TIMER.STATUS & TIMER_STATUS_EXPIRED &&
-                device->TIMER.INTERRUPT & TIMER_INT_EXPIRED)
+            if (device->TIMER.STATUS & TIMER_STATUS_EXPIRED
+                && device->TIMER.INTERRUPT & TIMER_INT_EXPIRED)
             {
                 printf("  Timer expired interrupt\n");
                 // Clear the interrupt
                 device->TIMER.STATUS &= ~TIMER_STATUS_EXPIRED;
             }
 
-            if (device->TIMER.STATUS & TIMER_STATUS_COMPARE &&
-                device->TIMER.INTERRUPT & TIMER_INT_COMPARE)
+            if (device->TIMER.STATUS & TIMER_STATUS_COMPARE
+                && device->TIMER.INTERRUPT & TIMER_INT_COMPARE)
             {
                 printf("  Timer compare match interrupt\n");
                 // Clear the interrupt
@@ -508,7 +511,8 @@ void explain_port_io()
 {
     printf("\n=== Port I/O Explained ===\n");
 
-    printf("Port I/O (also called I/O mapped I/O) uses a separate address space\n");
+    printf(
+        "Port I/O (also called I/O mapped I/O) uses a separate address space\n");
     printf("accessed through special CPU instructions.\n\n");
 
     printf("In x86 architecture, the instructions are:\n");
@@ -518,10 +522,12 @@ void explain_port_io()
     printf("Example of port I/O in C (using inline assembly):\n");
     printf("  // Read from port 0x60 (keyboard controller)\n");
     printf("  unsigned char value;\n");
-    printf("  __asm__ volatile (\"inb %%dx, %%al\" : \"=a\"(value) : \"d\"(0x60));\n\n");
+    printf(
+        "  __asm__ volatile (\"inb %%dx, %%al\" : \"=a\"(value) : \"d\"(0x60));\n\n");
 
     printf("  // Write 0xFF to port 0x43 (timer control)\n");
-    printf("  __asm__ volatile (\"outb %%al, %%dx\" : : \"a\"(0xFF), \"d\"(0x43));\n");
+    printf(
+        "  __asm__ volatile (\"outb %%al, %%dx\" : : \"a\"(0xFF), \"d\"(0x43));\n");
 }
 
 // Hardware abstraction explanation

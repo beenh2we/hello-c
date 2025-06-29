@@ -6,13 +6,19 @@
 
 // Flash memory registers (example)
 #define FLASH_BASE 0x40022000
-#define FLASH_ACR (*(volatile uint32_t *) (FLASH_BASE + 0x00))      // Access Control Register
-#define FLASH_KEYR (*(volatile uint32_t *) (FLASH_BASE + 0x04))     // Key Register
-#define FLASH_OPTKEYR (*(volatile uint32_t *) (FLASH_BASE + 0x08))  // Option Key Register
-#define FLASH_SR (*(volatile uint32_t *) (FLASH_BASE + 0x0C))       // Status Register
-#define FLASH_CR (*(volatile uint32_t *) (FLASH_BASE + 0x10))       // Control Register
-#define FLASH_AR (*(volatile uint32_t *) (FLASH_BASE + 0x14))       // Address Register
-#define FLASH_OBR (*(volatile uint32_t *) (FLASH_BASE + 0x1C))      // Option Byte Register
+#define FLASH_ACR \
+    (*(volatile uint32_t *) (FLASH_BASE + 0x00))  // Access Control Register
+#define FLASH_KEYR (*(volatile uint32_t *) (FLASH_BASE + 0x04))  // Key Register
+#define FLASH_OPTKEYR \
+    (*(volatile uint32_t *) (FLASH_BASE + 0x08))  // Option Key Register
+#define FLASH_SR \
+    (*(volatile uint32_t *) (FLASH_BASE + 0x0C))  // Status Register
+#define FLASH_CR \
+    (*(volatile uint32_t *) (FLASH_BASE + 0x10))  // Control Register
+#define FLASH_AR \
+    (*(volatile uint32_t *) (FLASH_BASE + 0x14))  // Address Register
+#define FLASH_OBR \
+    (*(volatile uint32_t *) (FLASH_BASE + 0x1C))  // Option Byte Register
 
 // Flash memory constants
 #define FLASH_KEY1 0x45670123
@@ -89,9 +95,9 @@ bool flash_program_word(uint32_t address, uint32_t data)
 /* ---- Bootloader Concepts ---- */
 
 // Memory map definitions
-#define BOOTLOADER_ADDR 0x08000000   // Bootloader start address
+#define BOOTLOADER_ADDR  0x08000000  // Bootloader start address
 #define APPLICATION_ADDR 0x08010000  // Application start address
-#define BOOTLOADER_SIZE 0x00010000   // 64KB bootloader size
+#define BOOTLOADER_SIZE  0x00010000  // 64KB bootloader size
 
 // Magic value to indicate firmware update is pending
 #define UPDATE_PENDING_MAGIC 0xBEEFCAFE
@@ -172,7 +178,8 @@ void process_firmware_update(void)
     uint32_t app_size = update_info->app_size;
 
     // 2. Erase application space
-    for (uint32_t addr = APPLICATION_ADDR; addr < APPLICATION_ADDR + app_size; addr += 0x800)
+    for (uint32_t addr = APPLICATION_ADDR; addr < APPLICATION_ADDR + app_size;
+         addr += 0x800)
     {
         flash_erase_page(addr);  // Assuming 2KB pages
     }

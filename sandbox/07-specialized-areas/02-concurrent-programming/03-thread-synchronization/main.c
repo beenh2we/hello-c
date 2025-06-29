@@ -35,7 +35,10 @@ void* increment_without_sync(void* arg)
         local_counter++;
     }
 
-    printf("[Thread %d] Done. Added %d, counter = %d\n", thread_id, local_counter, shared_counter);
+    printf("[Thread %d] Done. Added %d, counter = %d\n",
+           thread_id,
+           local_counter,
+           shared_counter);
 
     return NULL;
 }
@@ -57,7 +60,10 @@ void* increment_with_mutex(void* arg)
         pthread_mutex_unlock(&counter_mutex);
     }
 
-    printf("[Thread %d] Done. Added %d, counter = %d\n", thread_id, local_counter, shared_counter);
+    printf("[Thread %d] Done. Added %d, counter = %d\n",
+           thread_id,
+           local_counter,
+           shared_counter);
 
     return NULL;
 }
@@ -77,19 +83,23 @@ void* counter_worker(void* arg)
         // Check if we need to increment or we're done
         if (shared_counter >= 10)
         {
-            printf("[Worker %d] Counter reached threshold, exiting\n", thread_id);
+            printf("[Worker %d] Counter reached threshold, exiting\n",
+                   thread_id);
             pthread_mutex_unlock(&counter_mutex);
             break;
         }
 
         // Increment the counter
         shared_counter++;
-        printf("[Worker %d] Incremented counter to %d\n", thread_id, shared_counter);
+        printf("[Worker %d] Incremented counter to %d\n",
+               thread_id,
+               shared_counter);
 
         // Signal if we reached the threshold
         if (shared_counter == 10)
         {
-            printf("[Worker %d] Counter reached threshold, signaling\n", thread_id);
+            printf("[Worker %d] Counter reached threshold, signaling\n",
+                   thread_id);
             pthread_cond_signal(&counter_threshold_cv);
         }
 
@@ -112,7 +122,8 @@ void* counter_watcher(void* arg)
 
     while (shared_counter < 10)
     {
-        printf("[Watcher] Counter = %d, waiting for threshold...\n", shared_counter);
+        printf("[Watcher] Counter = %d, waiting for threshold...\n",
+               shared_counter);
         pthread_cond_wait(&counter_threshold_cv, &counter_mutex);
     }
 
@@ -158,7 +169,9 @@ void* reader_thread(void* arg)
         pthread_rwlock_rdlock(&shared_data_lock);
 
         // Read data
-        printf("[Reader %d] Read lock acquired. Reading data: %d\n", thread_id, shared_data);
+        printf("[Reader %d] Read lock acquired. Reading data: %d\n",
+               thread_id,
+               shared_data);
 
         // Simulate reading
         usleep((rand() % 1000) * 1000);  // 0-1000ms
@@ -190,7 +203,9 @@ void* writer_thread(void* arg)
 
         // Update data
         shared_data += 10 * thread_id;
-        printf("[Writer %d] Write lock acquired. Updated data to: %d\n", thread_id, shared_data);
+        printf("[Writer %d] Write lock acquired. Updated data to: %d\n",
+               thread_id,
+               shared_data);
 
         // Simulate writing (this blocks all readers)
         usleep(1000 * 1000);  // 1000ms
@@ -219,7 +234,8 @@ void data_race_demo()
     // Create threads
     for (int i = 0; i < 2; i++)
     {
-        pthread_create(&threads[i], NULL, increment_without_sync, &thread_ids[i]);
+        pthread_create(
+            &threads[i], NULL, increment_without_sync, &thread_ids[i]);
     }
 
     // Wait for threads to finish
@@ -258,7 +274,8 @@ void mutex_demo()
     }
 
     printf("Final counter value: %d\n", shared_counter);
-    printf("With proper mutex synchronization, the result should be exactly 200,000\n");
+    printf(
+        "With proper mutex synchronization, the result should be exactly 200,000\n");
 }
 
 // Demonstrate condition variables
@@ -280,7 +297,8 @@ void condition_variable_demo()
     // Create worker threads
     for (int i = 0; i < 2; i++)
     {
-        pthread_create(&worker_threads[i], NULL, counter_worker, &thread_ids[i]);
+        pthread_create(
+            &worker_threads[i], NULL, counter_worker, &thread_ids[i]);
     }
 
     // Wait for all threads to finish
@@ -304,7 +322,8 @@ void semaphore_demo()
     pthread_t threads[5];
     int thread_ids[5] = {1, 2, 3, 4, 5};
 
-    printf("Creating 5 threads to access 2 resources (limited by semaphore)...\n");
+    printf(
+        "Creating 5 threads to access 2 resources (limited by semaphore)...\n");
 
     // Create threads
     for (int i = 0; i < 5; i++)

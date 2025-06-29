@@ -81,7 +81,8 @@ void benchmark_inline()
     }
 
     clock_t end_inline = clock();
-    double time_inline = ((double) (end_inline - start_inline)) / CLOCKS_PER_SEC;
+    double time_inline
+        = ((double) (end_inline - start_inline)) / CLOCKS_PER_SEC;
 
     // Benchmark non-inline version
     clock_t start_noinline = clock();
@@ -93,12 +94,14 @@ void benchmark_inline()
     }
 
     clock_t end_noinline = clock();
-    double time_noinline = ((double) (end_noinline - start_noinline)) / CLOCKS_PER_SEC;
+    double time_noinline
+        = ((double) (end_noinline - start_noinline)) / CLOCKS_PER_SEC;
 
     // Print results
     printf("Time with inline function: %.4f seconds\n", time_inline);
     printf("Time with non-inline function: %.4f seconds\n", time_noinline);
-    printf("Difference: %.2f%%\n", (time_noinline - time_inline) / time_noinline * 100.0);
+    printf("Difference: %.2f%%\n",
+           (time_noinline - time_inline) / time_noinline * 100.0);
 
     // Free allocated memory
     free(large_array);

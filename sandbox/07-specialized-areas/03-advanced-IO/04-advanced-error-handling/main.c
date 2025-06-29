@@ -45,19 +45,26 @@ void error_clear()
 }
 
 // Function to set an error with variable arguments
-void error_set(ErrorLevel level, int code, const char *function, int line, const char *format, ...)
+void error_set(ErrorLevel level,
+               int code,
+               const char *function,
+               int line,
+               const char *format,
+               ...)
 {
     g_error_state.code = code;
     g_error_state.level = level;
     g_error_state.timestamp = time(NULL);
     g_error_state.has_error = 1;
-    strncpy(g_error_state.function, function, sizeof(g_error_state.function) - 1);
+    strncpy(
+        g_error_state.function, function, sizeof(g_error_state.function) - 1);
     g_error_state.line = line;
 
     // Format the error message
     va_list args;
     va_start(args, format);
-    vsnprintf(g_error_state.message, sizeof(g_error_state.message), format, args);
+    vsnprintf(
+        g_error_state.message, sizeof(g_error_state.message), format, args);
     va_end(args);
 
     // Call the error logger if registered
@@ -74,7 +81,8 @@ void error_set(ErrorLevel level, int code, const char *function, int line, const
 }
 
 // Macro to make it easier to set errors with current function and line
-#define SET_ERROR(level, code, format, ...) error_set(level, code, __func__, __LINE__, format, ##__VA_ARGS__)
+#define SET_ERROR(level, code, format, ...) \
+    error_set(level, code, __func__, __LINE__, format, ##__VA_ARGS__)
 
 // Standard error logger that prints to stderr
 void error_logger_stderr(const ErrorState *error)
@@ -117,7 +125,11 @@ FILE *safe_fopen(const char *filename, const char *mode)
     FILE *file = fopen(filename, mode);
     if (file == NULL)
     {
-        SET_ERROR(ERROR_ERROR, errno, "Failed to open file '%s' with mode '%s'", filename, mode);
+        SET_ERROR(ERROR_ERROR,
+                  errno,
+                  "Failed to open file '%s' with mode '%s'",
+                  filename,
+                  mode);
     }
     return file;
 }

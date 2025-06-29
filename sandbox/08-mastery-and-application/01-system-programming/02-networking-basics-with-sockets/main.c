@@ -71,7 +71,8 @@ void tcp_server(int port)
     server_addr.sin_port = htons(port);
 
     // Bind socket to specified port
-    if (bind(server_fd, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0)
+    if (bind(server_fd, (struct sockaddr *) &server_addr, sizeof(server_addr))
+        < 0)
     {
         perror("bind failed");
         close(server_fd);
@@ -124,7 +125,8 @@ void tcp_server(int port)
         // Check for new connections on server socket
         if (FD_ISSET(server_fd, &read_fds))
         {
-            client_fd = accept(server_fd, (struct sockaddr *) &client_addr, &client_len);
+            client_fd = accept(
+                server_fd, (struct sockaddr *) &client_addr, &client_len);
             if (client_fd < 0)
             {
                 if (errno != EAGAIN && errno != EWOULDBLOCK)
@@ -134,7 +136,9 @@ void tcp_server(int port)
             }
             else
             {
-                printf("New connection from %s:%d\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+                printf("New connection from %s:%d\n",
+                       inet_ntoa(client_addr.sin_addr),
+                       ntohs(client_addr.sin_port));
 
                 // Add new client to master set
                 FD_SET(client_fd, &master_fds);
@@ -180,7 +184,8 @@ void tcp_server(int port)
 
                     // Echo back the message
                     char response[1100];
-                    snprintf(response, sizeof(response), "Server echo: %s", buffer);
+                    snprintf(
+                        response, sizeof(response), "Server echo: %s", buffer);
                     send(i, response, strlen(response), 0);
                 }
             }
@@ -228,7 +233,8 @@ void tcp_client(const char *server_ip, int port)
     }
 
     // Connect to server
-    if (connect(sock_fd, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0)
+    if (connect(sock_fd, (struct sockaddr *) &server_addr, sizeof(server_addr))
+        < 0)
     {
         perror("connect failed");
         close(sock_fd);
@@ -326,7 +332,8 @@ void udp_server(int port)
     server_addr.sin_port = htons(port);
 
     // Bind socket to specified port
-    if (bind(server_fd, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0)
+    if (bind(server_fd, (struct sockaddr *) &server_addr, sizeof(server_addr))
+        < 0)
     {
         perror("bind failed");
         close(server_fd);
@@ -343,8 +350,12 @@ void udp_server(int port)
     {
         // Receive datagram
         memset(buffer, 0, sizeof(buffer));
-        int bytes_read =
-            recvfrom(server_fd, buffer, sizeof(buffer) - 1, 0, (struct sockaddr *) &client_addr, &client_len);
+        int bytes_read = recvfrom(server_fd,
+                                  buffer,
+                                  sizeof(buffer) - 1,
+                                  0,
+                                  (struct sockaddr *) &client_addr,
+                                  &client_len);
 
         if (bytes_read < 0)
         {
@@ -353,12 +364,20 @@ void udp_server(int port)
         }
 
         buffer[bytes_read] = '\0';
-        printf("Received from %s:%d: %s", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port), buffer);
+        printf("Received from %s:%d: %s",
+               inet_ntoa(client_addr.sin_addr),
+               ntohs(client_addr.sin_port),
+               buffer);
 
         // Send response
         char response[1100];
         snprintf(response, sizeof(response), "UDP Server echo: %s", buffer);
-        sendto(server_fd, response, strlen(response), 0, (struct sockaddr *) &client_addr, client_len);
+        sendto(server_fd,
+               response,
+               strlen(response),
+               0,
+               (struct sockaddr *) &client_addr,
+               client_len);
     }
 
     // Clean up
@@ -413,7 +432,12 @@ void udp_client(const char *server_ip, int port)
         }
 
         // Send datagram to server
-        ssize_t bytes_sent = sendto(sock_fd, buffer, strlen(buffer), 0, (struct sockaddr *) &server_addr, server_len);
+        ssize_t bytes_sent = sendto(sock_fd,
+                                    buffer,
+                                    strlen(buffer),
+                                    0,
+                                    (struct sockaddr *) &server_addr,
+                                    server_len);
         if (bytes_sent < 0)
         {
             perror("sendto failed");
@@ -429,7 +453,8 @@ void udp_client(const char *server_ip, int port)
         timeout.tv_sec = 5;
         timeout.tv_usec = 0;
 
-        int select_result = select(sock_fd + 1, &read_fds, NULL, NULL, &timeout);
+        int select_result
+            = select(sock_fd + 1, &read_fds, NULL, NULL, &timeout);
 
         if (select_result < 0)
         {
@@ -444,8 +469,12 @@ void udp_client(const char *server_ip, int port)
 
         // Receive response
         memset(buffer, 0, sizeof(buffer));
-        int bytes_read =
-            recvfrom(sock_fd, buffer, sizeof(buffer) - 1, 0, (struct sockaddr *) &server_addr, &server_len);
+        int bytes_read = recvfrom(sock_fd,
+                                  buffer,
+                                  sizeof(buffer) - 1,
+                                  0,
+                                  (struct sockaddr *) &server_addr,
+                                  &server_len);
 
         if (bytes_read < 0)
         {
@@ -521,10 +550,14 @@ int main(int argc, char *argv[])
     {
         printf("Usage: %s [option]\n", argv[0]);
         printf("Options:\n");
-        printf("  tcpserver <port>       - Run a TCP server on specified port\n");
-        printf("  tcpclient <ip> <port>  - Run a TCP client connecting to specified IP and port\n");
-        printf("  udpserver <port>       - Run a UDP server on specified port\n");
-        printf("  udpclient <ip> <port>  - Run a UDP client connecting to specified IP and port\n");
+        printf(
+            "  tcpserver <port>       - Run a TCP server on specified port\n");
+        printf(
+            "  tcpclient <ip> <port>  - Run a TCP client connecting to specified IP and port\n");
+        printf(
+            "  udpserver <port>       - Run a UDP server on specified port\n");
+        printf(
+            "  udpclient <ip> <port>  - Run a UDP client connecting to specified IP and port\n");
         printf("  resolve <hostname>     - Resolve hostname to IP addresses\n");
         return 1;
     }

@@ -6,13 +6,16 @@
 /* ---- ADC (Analog-to-Digital Converter) ---- */
 
 // ADC register definitions (example)
-#define ADC_BASE  0x40012000
-#define ADC_CR1   (*(volatile uint32_t*) (ADC_BASE + 0x00))  // Control register 1
-#define ADC_CR2   (*(volatile uint32_t*) (ADC_BASE + 0x04))  // Control register 2
-#define ADC_SMPR1 (*(volatile uint32_t*) (ADC_BASE + 0x08))  // Sample time register 1
-#define ADC_SMPR2 (*(volatile uint32_t*) (ADC_BASE + 0x0C))  // Sample time register 2
-#define ADC_SQR1  (*(volatile uint32_t*) (ADC_BASE + 0x10))  // Regular sequence register 1
-#define ADC_DR    (*(volatile uint32_t*) (ADC_BASE + 0x4C))  // Data register
+#define ADC_BASE 0x40012000
+#define ADC_CR1  (*(volatile uint32_t*) (ADC_BASE + 0x00))  // Control register 1
+#define ADC_CR2  (*(volatile uint32_t*) (ADC_BASE + 0x04))  // Control register 2
+#define ADC_SMPR1 \
+    (*(volatile uint32_t*) (ADC_BASE + 0x08))  // Sample time register 1
+#define ADC_SMPR2 \
+    (*(volatile uint32_t*) (ADC_BASE + 0x0C))  // Sample time register 2
+#define ADC_SQR1 \
+    (*(volatile uint32_t*) (ADC_BASE + 0x10))  // Regular sequence register 1
+#define ADC_DR (*(volatile uint32_t*) (ADC_BASE + 0x4C))  // Data register
 
 // Initialize ADC for single channel reading
 void adc_init(uint8_t channel)
@@ -52,7 +55,8 @@ uint16_t adc_read(uint8_t channel)
     ADC_CR2 |= 0x40000000;  // Assuming bit 30 is SWSTART
 
     // Wait for conversion to complete
-    while (!(ADC_CR1 & 0x00000002));  // Assuming bit 1 is EOC (End of Conversion)
+    while (
+        !(ADC_CR1 & 0x00000002));  // Assuming bit 1 is EOC (End of Conversion)
 
     // Return conversion result
     return (uint16_t) (ADC_DR & 0x0000FFFF);
@@ -64,8 +68,10 @@ uint16_t adc_read(uint8_t channel)
 #define UART_BASE 0x40013800
 #define UART_SR   (*(volatile uint32_t*) (UART_BASE + 0x00))  // Status register
 #define UART_DR   (*(volatile uint32_t*) (UART_BASE + 0x04))  // Data register
-#define UART_BRR  (*(volatile uint32_t*) (UART_BASE + 0x08))  // Baud rate register
-#define UART_CR1  (*(volatile uint32_t*) (UART_BASE + 0x0C))  // Control register 1
+#define UART_BRR \
+    (*(volatile uint32_t*) (UART_BASE + 0x08))  // Baud rate register
+#define UART_CR1 \
+    (*(volatile uint32_t*) (UART_BASE + 0x0C))  // Control register 1
 
 // Initialize UART with specified baud rate
 void uart_init(uint32_t baud_rate)

@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 // Basic constant definition
-#define PI 3.14159265358979323846
+#define PI           3.14159265358979323846
 #define MAX_ELEMENTS 100
-#define VERSION "1.0.2"
+#define VERSION      "1.0.2"
 #define DEBUG_MODE
 
 // String concatenation with ##
@@ -12,7 +12,7 @@
 
 // Stringification with #
 #define STRINGIFY(x) #x
-#define TOSTRING(x) STRINGIFY(x)
+#define TOSTRING(x)  STRINGIFY(x)
 
 // Multiline macro
 #define ERROR_MESSAGE(msg)                                       \
@@ -59,8 +59,10 @@ void demo_include_mechanics()
 {
     printf("\n=== #include mechanics ===\n");
     printf("Including a header file has these effects:\n");
-    printf("1. The preprocessor replaces the directive with the content of the header\n");
-    printf("2. The compiler then processes that content along with your code\n");
+    printf(
+        "1. The preprocessor replaces the directive with the content of the header\n");
+    printf(
+        "2. The compiler then processes that content along with your code\n");
 
     printf("\nSearch path order for #include <file.h>:\n");
     printf("1. Standard system directories\n");
@@ -99,7 +101,8 @@ int main()
     demo_include_mechanics();
     demo_undef();
 
-    printf("\nIf you uncomment the ERROR_MESSAGE line below, the program will terminate:\n");
+    printf(
+        "\nIf you uncomment the ERROR_MESSAGE line below, the program will terminate:\n");
     // ERROR_MESSAGE("Demonstrating error handling macro");
 
     return 0;

@@ -24,7 +24,8 @@ bool is_big_endian()
 // Function to swap endianness of 32-bit integer
 uint32_t swap_uint32(uint32_t value)
 {
-    return ((value & 0xFF) << 24) | ((value & 0xFF00) << 8) | ((value & 0xFF0000) >> 8) | ((value & 0xFF000000) >> 24);
+    return ((value & 0xFF) << 24) | ((value & 0xFF00) << 8)
+           | ((value & 0xFF0000) >> 8) | ((value & 0xFF000000) >> 24);
 }
 
 // Function to swap endianness of double
@@ -132,7 +133,9 @@ int read_binary_file(const char *filename, Record **records_out)
 }
 
 // Update a specific record by seeking
-bool update_record(const char *filename, int record_index, const Record *new_record)
+bool update_record(const char *filename,
+                   int record_index,
+                   const Record *new_record)
 {
     FILE *file = fopen(filename, "r+b");  // Open for reading and writing
     if (!file) return false;
@@ -153,7 +156,8 @@ bool update_record(const char *filename, int record_index, const Record *new_rec
     }
 
     // Seek to the position of the record
-    long header_size = 4 + sizeof(uint32_t) + sizeof(uint32_t);  // Magic + version + count
+    long header_size
+        = 4 + sizeof(uint32_t) + sizeof(uint32_t);  // Magic + version + count
     long record_position = header_size + record_index * sizeof(Record);
 
     if (fseek(file, record_position, SEEK_SET) != 0)
@@ -185,8 +189,9 @@ int main()
     printf("System is %s endian\n", is_big_endian() ? "big" : "little");
 
     // Create sample records
-    Record records[3] = {
-        {1, "First Record", 123.456, 0x01}, {2, "Second Record", 789.012, 0x02}, {3, "Third Record", 345.678, 0x03}};
+    Record records[3] = {{1, "First Record", 123.456, 0x01},
+                         {2, "Second Record", 789.012, 0x02},
+                         {3, "Third Record", 345.678, 0x03}};
 
     // Create a binary file with the records
     const char *filename = "records.bin";

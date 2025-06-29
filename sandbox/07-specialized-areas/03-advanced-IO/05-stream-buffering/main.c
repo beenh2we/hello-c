@@ -64,7 +64,8 @@ void demo_buffer_modes()
     }
 
     fprintf(file, "This is written in line buffered mode.\n");
-    fprintf(file, "This line doesn't end with a newline, so it stays in buffer");
+    fprintf(file,
+            "This line doesn't end with a newline, so it stays in buffer");
     printf("Data with newline sent to disk, data without newline buffered\n");
 
     // Add a newline to flush the buffer
@@ -89,7 +90,8 @@ void demo_buffer_modes()
     }
 
     fprintf(file, "This is written in fully buffered mode.\n");
-    fprintf(file, "Even with newlines, this stays in buffer until full or flush.\n");
+    fprintf(file,
+            "Even with newlines, this stays in buffer until full or flush.\n");
     printf("Data is buffered regardless of newlines\n");
 
     // Flush the buffer explicitly
@@ -140,7 +142,9 @@ void demo_custom_buffer()
     // Write data
     for (int i = 0; i < 10; i++)
     {
-        fprintf(file, "Line %d: This data is being written to the custom buffer.\n", i + 1);
+        fprintf(file,
+                "Line %d: This data is being written to the custom buffer.\n",
+                i + 1);
     }
 
     printf("Data written to buffer\n");
@@ -222,14 +226,17 @@ void demo_buffer_performance()
             long file_size = ftell(file_stat);
             fclose(file_stat);
 
-            printf("Buffer size: %6zu bytes | Time: %7.3f sec | File size: %ld bytes\n",
-                   buffer_size,
-                   time_taken,
-                   file_size);
+            printf(
+                "Buffer size: %6zu bytes | Time: %7.3f sec | File size: %ld bytes\n",
+                buffer_size,
+                time_taken,
+                file_size);
         }
         else
         {
-            printf("Buffer size: %6zu bytes | Time: %7.3f sec\n", buffer_size, time_taken);
+            printf("Buffer size: %6zu bytes | Time: %7.3f sec\n",
+                   buffer_size,
+                   time_taken);
         }
 
         // Clean up

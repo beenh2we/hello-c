@@ -146,7 +146,10 @@ int main()
     pixel.green = 0;  // No green (000000)
     pixel.blue = 31;  // Maximum blue (11111)
 
-    printf("Pixel color (R,G,B): (%u,%u,%u)\n", pixel.red, pixel.green, pixel.blue);
+    printf("Pixel color (R,G,B): (%u,%u,%u)\n",
+           pixel.red,
+           pixel.green,
+           pixel.blue);
 
     // Show the memory layout (assuming little endian)
     uint16_t *pixel_value = (uint16_t *) &pixel;
@@ -174,8 +177,9 @@ int main()
 
     // Example 2: Swap endianness of a 32-bit value
     uint32_t original = 0x12345678;
-    uint32_t swapped = ((original & 0xFF000000) >> 24) | ((original & 0x00FF0000) >> 8) |
-                       ((original & 0x0000FF00) << 8) | ((original & 0x000000FF) << 24);
+    uint32_t swapped
+        = ((original & 0xFF000000) >> 24) | ((original & 0x00FF0000) >> 8)
+          | ((original & 0x0000FF00) << 8) | ((original & 0x000000FF) << 24);
 
     printf("\nOriginal value: 0x%08X\n", original);
     printf("After endian swap: 0x%08X\n", swapped);

@@ -30,16 +30,16 @@ typedef struct
 
 // Memory-mapped register definitions (illustrative, not for a real device)
 // In real code, these would be provided by manufacturer headers
-#define IO_BASE_ADDR 0x40000000
-#define GPIO_PORT_A (*(volatile uint32_t*) (IO_BASE_ADDR + 0x00))
-#define GPIO_PORT_B (*(volatile uint32_t*) (IO_BASE_ADDR + 0x04))
-#define TIMER1_CTRL (*(volatile uint32_t*) (IO_BASE_ADDR + 0x10))
+#define IO_BASE_ADDR   0x40000000
+#define GPIO_PORT_A    (*(volatile uint32_t*) (IO_BASE_ADDR + 0x00))
+#define GPIO_PORT_B    (*(volatile uint32_t*) (IO_BASE_ADDR + 0x04))
+#define TIMER1_CTRL    (*(volatile uint32_t*) (IO_BASE_ADDR + 0x10))
 #define TIMER1_COUNTER (*(volatile uint32_t*) (IO_BASE_ADDR + 0x14))
 
 // Bit manipulation macros (avoiding function calls for efficiency)
-#define SET_BIT(REG, BIT) ((REG) |= (1UL << (BIT)))
-#define CLEAR_BIT(REG, BIT) ((REG) &= ~(1UL << (BIT)))
-#define READ_BIT(REG, BIT) (((REG) >> (BIT)) & 1UL)
+#define SET_BIT(REG, BIT)    ((REG) |= (1UL << (BIT)))
+#define CLEAR_BIT(REG, BIT)  ((REG) &= ~(1UL << (BIT)))
+#define READ_BIT(REG, BIT)   (((REG) >> (BIT)) & 1UL)
 #define TOGGLE_BIT(REG, BIT) ((REG) ^= (1UL << (BIT)))
 
 // Function to initialize GPIO pins - demonstrating register manipulation
@@ -52,7 +52,8 @@ void gpio_init(void)
 
     // Configure pin 7 of PORT B as input with pull-up
     CLEAR_BIT(GPIO_PORT_B, 7);  // Clear bit 7 (input mode)
-    SET_BIT(GPIO_PORT_B, 15);   // Set bit 15 (pull-up enable, assuming this bit controls it)
+    SET_BIT(GPIO_PORT_B,
+            15);  // Set bit 15 (pull-up enable, assuming this bit controls it)
 }
 
 // LED control using direct register access

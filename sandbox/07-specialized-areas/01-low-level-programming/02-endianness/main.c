@@ -52,8 +52,8 @@ uint32_t host_to_big_endian_32(uint32_t value)
     else
     {
         // Swap bytes for little endian
-        return ((value & 0xFF) << 24) | ((value & 0xFF00) << 8) | ((value & 0xFF0000) >> 8) |
-               ((value & 0xFF000000) >> 24);
+        return ((value & 0xFF) << 24) | ((value & 0xFF00) << 8)
+               | ((value & 0xFF0000) >> 8) | ((value & 0xFF000000) >> 24);
     }
 }
 
@@ -93,13 +93,13 @@ uint32_t read_unaligned_32(const uint8_t *buffer, bool big_endian)
 
     if (big_endian)
     {
-        value = (uint32_t) buffer[0] << 24 | (uint32_t) buffer[1] << 16 |
-                (uint32_t) buffer[2] << 8 | buffer[3];
+        value = (uint32_t) buffer[0] << 24 | (uint32_t) buffer[1] << 16
+                | (uint32_t) buffer[2] << 8 | buffer[3];
     }
     else
     {
-        value = (uint32_t) buffer[3] << 24 | (uint32_t) buffer[2] << 16 |
-                (uint32_t) buffer[1] << 8 | buffer[0];
+        value = (uint32_t) buffer[3] << 24 | (uint32_t) buffer[2] << 16
+                | (uint32_t) buffer[1] << 8 | buffer[0];
     }
 
     return value;
@@ -232,7 +232,8 @@ int main()
 
     printf("\nOriginal 32-bit: 0x%08X\n", original32);
     printf("Converted to big-endian: 0x%08X\n", converted32);
-    printf("Converted back to host: 0x%08X\n", big_endian_to_host_32(converted32));
+    printf("Converted back to host: 0x%08X\n",
+           big_endian_to_host_32(converted32));
 
     printf("\n=== Network Protocol Example ===\n\n");
 
@@ -270,8 +271,10 @@ int main()
     printf("Payload: %.4s\n", packet + 6);
 
     printf("\n=== Endianness Issues in Practice ===\n");
-    printf("1. Network protocols (TCP/IP) use big-endian (network byte order)\n");
-    printf("2. File formats often specify endianness (e.g., PNG uses big-endian)\n");
+    printf(
+        "1. Network protocols (TCP/IP) use big-endian (network byte order)\n");
+    printf(
+        "2. File formats often specify endianness (e.g., PNG uses big-endian)\n");
     printf("3. Binary data exchange between different CPU architectures\n");
     printf("4. Cross-platform compatibility for binary data\n");
 

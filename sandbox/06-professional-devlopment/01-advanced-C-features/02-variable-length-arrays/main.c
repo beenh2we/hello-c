@@ -154,7 +154,8 @@ void benchmark_vla_vs_malloc()
     }
 
     clock_t end_malloc = clock();
-    double time_malloc = ((double) (end_malloc - start_malloc)) / CLOCKS_PER_SEC;
+    double time_malloc
+        = ((double) (end_malloc - start_malloc)) / CLOCKS_PER_SEC;
 
     // Print results
     printf("Time with VLA: %.4f seconds\n", time_vla);

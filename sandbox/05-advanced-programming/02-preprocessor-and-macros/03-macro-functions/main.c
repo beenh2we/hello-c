@@ -13,8 +13,10 @@
 #define BAD_SQUARE(x) x *x
 
 // Macro for safe array indexing
-#define ARRAY_INDEX(arr, i) \
-    ((i) < 0 || (i) >= sizeof(arr) / sizeof(arr[0]) ? (printf("Array index %d out of bounds\n", (i)), 0) : (arr)[(i)])
+#define ARRAY_INDEX(arr, i)                                   \
+    ((i) < 0 || (i) >= sizeof(arr) / sizeof(arr[0])           \
+         ? (printf("Array index %d out of bounds\n", (i)), 0) \
+         : (arr)[(i)])
 
 // Macro to create a dynamic string
 #define MAKE_STR(size) ((char *) malloc((size) + 1))
@@ -31,17 +33,19 @@
     } while (0)
 
 // Macro for debugging
-#define DEBUG_PRINT(format, ...) printf("[DEBUG] %s:%d: " format "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+#define DEBUG_PRINT(format, ...) \
+    printf("[DEBUG] %s:%d: " format "\n", __FILE__, __LINE__, ##__VA_ARGS__)
 
 // Generic macro to validate a condition
-#define VALIDATE(condition, message)                                               \
-    do                                                                             \
-    {                                                                              \
-        if (!(condition))                                                          \
-        {                                                                          \
-            fprintf(stderr, "Error at %s:%d - %s\n", __FILE__, __LINE__, message); \
-            exit(EXIT_FAILURE);                                                    \
-        }                                                                          \
+#define VALIDATE(condition, message)                                           \
+    do                                                                         \
+    {                                                                          \
+        if (!(condition))                                                      \
+        {                                                                      \
+            fprintf(                                                           \
+                stderr, "Error at %s:%d - %s\n", __FILE__, __LINE__, message); \
+            exit(EXIT_FAILURE);                                                \
+        }                                                                      \
     } while (0)
 
 // Macro to trace function entry and exit
@@ -58,8 +62,9 @@ void demo_simple_macros()
     printf("SQUARE(a) = %d\n", SQUARE(a));
 
     // This shows what happens when macros don't have parentheses
-    printf("SQUARE(a+1) = %d\n", SQUARE(a + 1));          // ((a+1) * (a+1))
-    printf("BAD_SQUARE(a+1) = %d\n", BAD_SQUARE(a + 1));  // a+1 * a+1 = a + (1*a) + 1 = 2a + 1
+    printf("SQUARE(a+1) = %d\n", SQUARE(a + 1));  // ((a+1) * (a+1))
+    printf("BAD_SQUARE(a+1) = %d\n",
+           BAD_SQUARE(a + 1));  // a+1 * a+1 = a + (1*a) + 1 = 2a + 1
 
     // Multiple argument macros
     printf("MAX(10, 5) = %d\n", MAX(10, 5));
@@ -83,7 +88,9 @@ void demo_advanced_macros()
     int valid_index = 2;
     int invalid_index = 10;
 
-    printf("Safe array access: ARRAY_INDEX(numbers, %d) = %d\n", valid_index, ARRAY_INDEX(numbers, valid_index));
+    printf("Safe array access: ARRAY_INDEX(numbers, %d) = %d\n",
+           valid_index,
+           ARRAY_INDEX(numbers, valid_index));
 
     printf("Attempting invalid index %d: ", invalid_index);
     int result = ARRAY_INDEX(numbers, invalid_index);
@@ -168,7 +175,8 @@ void demo_macro_vs_function()
     printf("func_abs(%d) = %d\n", val2, func_abs(val2));
 
     printf("\nKey differences:\n");
-    printf("1. Macros perform text substitution, functions call a separate code block\n");
+    printf(
+        "1. Macros perform text substitution, functions call a separate code block\n");
     printf("2. Macros have no type checking, functions do\n");
     printf("3. Macros can have subtle evaluation bugs (side effects, etc.)\n");
     printf("4. Functions have call overhead, macros don't\n");

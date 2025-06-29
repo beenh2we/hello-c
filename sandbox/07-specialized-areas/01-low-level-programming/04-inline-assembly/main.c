@@ -139,11 +139,18 @@ void benchmark_sqrt()
     }
     uint64_t end_c = get_cpu_ticks();
 
-    printf("Assembly sqrtss result: %f in %llu cycles\n", asm_result, (end_asm - start_asm));
-    printf("C library sqrtf result: %f in %llu cycles\n", c_result, (end_c - start_c));
-    printf("Assembly version was %.2f%% %s\n",
-           100.0 * abs((long long) end_asm - start_asm - (long long) end_c + start_c) / (double) (end_c - start_c),
-           (end_asm - start_asm < end_c - start_c) ? "faster" : "slower");
+    printf("Assembly sqrtss result: %f in %llu cycles\n",
+           asm_result,
+           (end_asm - start_asm));
+    printf("C library sqrtf result: %f in %llu cycles\n",
+           c_result,
+           (end_c - start_c));
+    printf(
+        "Assembly version was %.2f%% %s\n",
+        100.0
+            * abs((long long) end_asm - start_asm - (long long) end_c + start_c)
+            / (double) (end_c - start_c),
+        (end_asm - start_asm < end_c - start_c) ? "faster" : "slower");
 }
 
 // Demonstrate various inline assembly use cases
@@ -155,7 +162,10 @@ void demo_various_assembly()
     uint32_t eax, ebx, ecx, edx;
     eax = 1;  // Set CPUID function
 
-    __asm__ volatile("cpuid" : "=a"(eax), "=b"(ebx), "=c"(ecx), "=d"(edx) : "a"(eax) : "cc");
+    __asm__ volatile("cpuid"
+                     : "=a"(eax), "=b"(ebx), "=c"(ecx), "=d"(edx)
+                     : "a"(eax)
+                     : "cc");
 
     printf("CPU ID: EAX=%08X EBX=%08X ECX=%08X EDX=%08X\n", eax, ebx, ecx, edx);
 
@@ -186,10 +196,12 @@ void explain_assembly_syntax()
     printf("\n=== Inline Assembly Syntax Explained ===\n");
 
     printf("Basic syntax:\n");
-    printf("  __asm__ [volatile] (\"assembly code\" : outputs : inputs : clobbers);\n\n");
+    printf(
+        "  __asm__ [volatile] (\"assembly code\" : outputs : inputs : clobbers);\n\n");
 
     printf("1. Assembly code: The actual assembly instructions\n");
-    printf("2. Outputs: Variables that receive results from the assembly code\n");
+    printf(
+        "2. Outputs: Variables that receive results from the assembly code\n");
     printf("3. Inputs: C variables used as inputs in the assembly code\n");
     printf("4. Clobbers: List of registers or memory modified by the code\n\n");
 
@@ -265,7 +277,8 @@ int main()
     printf("3. Consider portability issues between CPU architectures\n");
     printf("4. Be aware of compiler-specific syntax differences\n");
     printf("5. Properly specify clobbered registers and memory effects\n");
-    printf("6. Consider writing pure assembly functions for complex operations\n");
+    printf(
+        "6. Consider writing pure assembly functions for complex operations\n");
 
     return 0;
 }

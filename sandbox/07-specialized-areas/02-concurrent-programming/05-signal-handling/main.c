@@ -48,7 +48,8 @@ void unsafe_signal_handler(int signum)
     if (in_signal_handler)
     {
         // We're already in the signal handler - this could cause problems!
-        printf("WARNING: Signal %d received while already handling a signal!\n", signum);
+        printf("WARNING: Signal %d received while already handling a signal!\n",
+               signum);
         return;
     }
 
@@ -240,7 +241,8 @@ void signal_mask_demo()
 
     printf("SIGUSR1 is now blocked. You can send signals:\n");
     printf("  kill -SIGUSR1 %d  (this will be pending)\n", getpid());
-    printf("  kill -SIGUSR2 %d  (this will be processed immediately)\n", getpid());
+    printf("  kill -SIGUSR2 %d  (this will be processed immediately)\n",
+           getpid());
 
     // Wait while SIGUSR1 is blocked
     for (int i = 0; i < 5; i++)
@@ -367,7 +369,8 @@ void explain_signals()
 
     printf("1. Signal Basics:\n");
     printf("   - Signals are software interrupts sent to a process\n");
-    printf("   - Can be sent by the kernel, other processes, or the process itself\n");
+    printf(
+        "   - Can be sent by the kernel, other processes, or the process itself\n");
     printf("   - Default actions: terminate, ignore, stop, or continue\n\n");
 
     printf("2. Common Signals:\n");

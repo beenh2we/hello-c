@@ -71,7 +71,8 @@ void advanced_compound_literals()
 
     // Create a Rectangle using compound literals
     printf("Creating a Rectangle with nested Point compound literals:\n");
-    Rectangle rect = (Rectangle) {.top_left = (Point) {10, 10}, .bottom_right = (Point) {20, 20}};
+    Rectangle rect = (Rectangle) {.top_left = (Point) {10, 10},
+                                  .bottom_right = (Point) {20, 20}};
 
     printf("Rectangle: top_left(%d, %d), bottom_right(%d, %d)\n",
            rect.top_left.x,

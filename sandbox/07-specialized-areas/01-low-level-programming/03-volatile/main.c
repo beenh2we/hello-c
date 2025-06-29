@@ -29,7 +29,8 @@ void* hardware_simulation(void* arg)
     while (!stop_simulation)
     {
         // Simulate random hardware status changes
-        device->STATUS = (device->STATUS & 0xFFFFFF00) | (rand() % 5);  // Random status 0-4
+        device->STATUS = (device->STATUS & 0xFFFFFF00)
+                         | (rand() % 5);  // Random status 0-4
 
         // Simulate data changing
         if (device->CONTROL & 0x01)
@@ -100,12 +101,14 @@ void demonstrate_optimization_issue()
     while (non_volatile_status != 0 && counter < 5)
     {
         printf("  Status is still %u, waiting...\n", non_volatile_status);
-        non_volatile_status =
-            device->STATUS & 0xFF;  // This actually changes it, but compiler might not realize
+        non_volatile_status
+            = device->STATUS
+              & 0xFF;  // This actually changes it, but compiler might not realize
         counter++;
     }
 
-    printf("With optimizations, the compiler might not realize the value can change!\n");
+    printf(
+        "With optimizations, the compiler might not realize the value can change!\n");
 }
 
 // Read and process data with interrupt handling
@@ -147,7 +150,8 @@ void explain_volatile()
 {
     printf("\n=== Volatile Keyword Explained ===\n");
 
-    printf("The 'volatile' keyword tells the compiler that a variable's value\n");
+    printf(
+        "The 'volatile' keyword tells the compiler that a variable's value\n");
     printf("might change at any time, without any action by the code.\n\n");
 
     printf("Common uses of volatile:\n");
@@ -163,7 +167,8 @@ void explain_volatile()
     printf("4. Forces each access to actually go to memory\n\n");
 
     printf("Volatile is NOT:\n");
-    printf("1. NOT related to thread synchronization (doesn't provide atomicity)\n");
+    printf(
+        "1. NOT related to thread synchronization (doesn't provide atomicity)\n");
     printf("2. NOT related to memory barriers or memory ordering\n");
     printf("3. NOT a substitute for proper synchronization primitives\n");
 }

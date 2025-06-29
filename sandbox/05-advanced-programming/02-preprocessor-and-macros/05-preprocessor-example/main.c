@@ -12,9 +12,9 @@
 #define VERSION_PATCH 3
 
 // Feature flags
-#define ENABLE_LOGGING 1
+#define ENABLE_LOGGING           1
 #define ENABLE_EXTENDED_FEATURES 1
-#define ENABLE_EXPERIMENTAL 0
+#define ENABLE_EXPERIMENTAL      0
 
 // Debug settings
 #ifdef NDEBUG
@@ -25,16 +25,16 @@
 
 // Platform-specific configuration
 #if defined(_WIN32)
-#define PLATFORM "Windows"
+#define PLATFORM       "Windows"
 #define PATH_SEPARATOR "\\"
 #elif defined(__APPLE__)
-#define PLATFORM "macOS"
+#define PLATFORM       "macOS"
 #define PATH_SEPARATOR "/"
 #elif defined(__linux__)
-#define PLATFORM "Linux"
+#define PLATFORM       "Linux"
 #define PATH_SEPARATOR "/"
 #else
-#define PLATFORM "Unknown"
+#define PLATFORM       "Unknown"
 #define PATH_SEPARATOR "/"
 #endif
 
@@ -43,12 +43,13 @@
 // ====================================================
 
 // String utilities
-#define STR(x) #x
-#define XSTR(x) STR(x)
+#define STR(x)       #x
+#define XSTR(x)      STR(x)
 #define CONCAT(a, b) a##b
 
 // Version string
-#define VERSION_STR XSTR(VERSION_MAJOR) "." XSTR(VERSION_MINOR) "." XSTR(VERSION_PATCH)
+#define VERSION_STR \
+    XSTR(VERSION_MAJOR) "." XSTR(VERSION_MINOR) "." XSTR(VERSION_PATCH)
 
 // Max/Min macros
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -67,28 +68,31 @@
 #if ENABLE_LOGGING
 #define LOG_INFO(msg, ...) printf("[INFO] " msg "\n", ##__VA_ARGS__)
 #define LOG_ERROR(msg, ...) \
-    fprintf(stderr, "[ERROR] %s:%d: " msg "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+    fprintf(                \
+        stderr, "[ERROR] %s:%d: " msg "\n", __FILE__, __LINE__, ##__VA_ARGS__)
 #if DEBUG_MODE
-#define LOG_DEBUG(msg, ...) printf("[DEBUG] %s:%d: " msg "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+#define LOG_DEBUG(msg, ...) \
+    printf("[DEBUG] %s:%d: " msg "\n", __FILE__, __LINE__, ##__VA_ARGS__)
 #else
 #define LOG_DEBUG(msg, ...) ((void) 0)
 #endif
 #else
-#define LOG_INFO(msg, ...) ((void) 0)
+#define LOG_INFO(msg, ...)  ((void) 0)
 #define LOG_ERROR(msg, ...) ((void) 0)
 #define LOG_DEBUG(msg, ...) ((void) 0)
 #endif
 
 // Assertion macro
 #if DEBUG_MODE
-#define ASSERT(condition, message)                                               \
-    do                                                                           \
-    {                                                                            \
-        if (!(condition))                                                        \
-        {                                                                        \
-            LOG_ERROR("Assertion failed: %s, Message: %s", #condition, message); \
-            abort();                                                             \
-        }                                                                        \
+#define ASSERT(condition, message)                                         \
+    do                                                                     \
+    {                                                                      \
+        if (!(condition))                                                  \
+        {                                                                  \
+            LOG_ERROR(                                                     \
+                "Assertion failed: %s, Message: %s", #condition, message); \
+            abort();                                                       \
+        }                                                                  \
     } while (0)
 #else
 #define ASSERT(condition, message) ((void) 0)
@@ -175,12 +179,16 @@ int main()
         items[i] = create_item(names[i], (i + 1) * 10);
         if (items[i])
         {
-            LOG_INFO("Created item %d: %s (value: %d)", i, items[i]->name, items[i]->value);
+            LOG_INFO("Created item %d: %s (value: %d)",
+                     i,
+                     items[i]->name,
+                     items[i]->value);
         }
     }
 
     // Show use of MAX/MIN macros
-    printf("\nMaximum value: %d\n", MAX(items[0]->value, MAX(items[1]->value, items[2]->value)));
+    printf("\nMaximum value: %d\n",
+           MAX(items[0]->value, MAX(items[1]->value, items[2]->value)));
 
     // Use repeat macro
     printf("\nRepeating message:\n");

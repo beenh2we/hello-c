@@ -82,7 +82,10 @@ void unnamed_pipe_demo()
 
         // Prepare message
         char message[50];
-        snprintf(message, sizeof(message), "Hello from child process (PID: %d)", getpid());
+        snprintf(message,
+                 sizeof(message),
+                 "Hello from child process (PID: %d)",
+                 getpid());
 
         printf("[Child] Writing message to pipe...\n");
 
@@ -152,11 +155,13 @@ void bidirectional_pipe_demo()
         // Child process
 
         // Close unused pipe ends
-        close(pipe_parent_to_child[1]);  // Close write end of parent->child pipe
+        close(
+            pipe_parent_to_child[1]);  // Close write end of parent->child pipe
         close(pipe_child_to_parent[0]);  // Close read end of child->parent pipe
 
         // Read message from parent
-        ssize_t bytes_read = read(pipe_parent_to_child[0], buffer, sizeof(buffer));
+        ssize_t bytes_read
+            = read(pipe_parent_to_child[0], buffer, sizeof(buffer));
 
         if (bytes_read > 0)
         {
@@ -164,7 +169,10 @@ void bidirectional_pipe_demo()
 
             // Prepare response
             char response[100];
-            snprintf(response, sizeof(response), "Hello parent (PID: %d), I got your message!", getpid());
+            snprintf(response,
+                     sizeof(response),
+                     "Hello parent (PID: %d), I got your message!",
+                     getpid());
 
             // Send response to parent
             write(pipe_child_to_parent[1], response, strlen(response) + 1);
@@ -182,17 +190,22 @@ void bidirectional_pipe_demo()
 
         // Close unused pipe ends
         close(pipe_parent_to_child[0]);  // Close read end of parent->child pipe
-        close(pipe_child_to_parent[1]);  // Close write end of child->parent pipe
+        close(
+            pipe_child_to_parent[1]);  // Close write end of child->parent pipe
 
         // Prepare message for child
         char message[100];
-        snprintf(message, sizeof(message), "Hello child (PID: %d) from parent!", pid);
+        snprintf(message,
+                 sizeof(message),
+                 "Hello child (PID: %d) from parent!",
+                 pid);
 
         // Send message to child
         write(pipe_parent_to_child[1], message, strlen(message) + 1);
 
         // Read response from child
-        ssize_t bytes_read = read(pipe_child_to_parent[0], buffer, sizeof(buffer));
+        ssize_t bytes_read
+            = read(pipe_child_to_parent[0], buffer, sizeof(buffer));
 
         if (bytes_read > 0)
         {
@@ -246,7 +259,10 @@ void named_pipe_demo()
 
         // Prepare and send message
         char message[100];
-        snprintf(message, sizeof(message), "Hello from child process via FIFO (PID: %d)", getpid());
+        snprintf(message,
+                 sizeof(message),
+                 "Hello from child process via FIFO (PID: %d)",
+                 getpid());
 
         printf("[Child] Writing message to FIFO...\n");
         write(fifo_fd, message, strlen(message) + 1);
@@ -329,7 +345,10 @@ void message_queue_demo()
         // Prepare message
         struct msg_buffer msg;
         msg.msg_type = 1;  // Message type
-        snprintf(msg.msg_text, sizeof(msg.msg_text), "Hello from child process via message queue (PID: %d)", getpid());
+        snprintf(msg.msg_text,
+                 sizeof(msg.msg_text),
+                 "Hello from child process via message queue (PID: %d)",
+                 getpid());
 
         // Send message
         printf("[Child] Sending message to queue...\n");
@@ -342,7 +361,9 @@ void message_queue_demo()
         // Wait and send another message with different type
         sleep(1);
         msg.msg_type = 2;  // Different message type
-        snprintf(msg.msg_text, sizeof(msg.msg_text), "This is a priority message (type 2)!");
+        snprintf(msg.msg_text,
+                 sizeof(msg.msg_text),
+                 "This is a priority message (type 2)!");
 
         if (msgsnd(msgid, &msg, sizeof(msg.msg_text), 0) == -1)
         {
@@ -573,9 +594,13 @@ void semaphore_demo()
                 }
 
                 // Critical section - accessing shared counter
-                printf("[Child %d] Got semaphore, counter = %d\n", child_id, *shared_counter);
+                printf("[Child %d] Got semaphore, counter = %d\n",
+                       child_id,
+                       *shared_counter);
                 (*shared_counter)++;
-                printf("[Child %d] Incremented counter to %d\n", child_id, *shared_counter);
+                printf("[Child %d] Incremented counter to %d\n",
+                       child_id,
+                       *shared_counter);
 
                 // Simulate some work
                 sleep(1);
@@ -665,8 +690,12 @@ void posix_shm_demo()
         // Child process - writer
 
         // Map shared memory
-        SharedData *shared_data =
-            (SharedData *) mmap(NULL, sizeof(SharedData), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+        SharedData *shared_data = (SharedData *) mmap(NULL,
+                                                      sizeof(SharedData),
+                                                      PROT_READ | PROT_WRITE,
+                                                      MAP_SHARED,
+                                                      fd,
+                                                      0);
         if (shared_data == MAP_FAILED)
         {
             perror("mmap");
@@ -697,8 +726,12 @@ void posix_shm_demo()
         sleep(1);
 
         // Map shared memory
-        SharedData *shared_data =
-            (SharedData *) mmap(NULL, sizeof(SharedData), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+        SharedData *shared_data = (SharedData *) mmap(NULL,
+                                                      sizeof(SharedData),
+                                                      PROT_READ | PROT_WRITE,
+                                                      MAP_SHARED,
+                                                      fd,
+                                                      0);
         if (shared_data == MAP_FAILED)
         {
             perror("mmap");

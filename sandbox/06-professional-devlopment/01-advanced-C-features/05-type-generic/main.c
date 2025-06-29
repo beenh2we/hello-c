@@ -16,14 +16,33 @@
         default: "unknown type")
 
 // Type-generic absolute value function
-#define ABS(x) _Generic((x), int: abs, long: labs, long long: llabs, float: fabsf, double: fabs, long double: fabsl)(x)
+#define ABS(x)            \
+    _Generic((x),         \
+        int: abs,         \
+        long: labs,       \
+        long long: llabs, \
+        float: fabsf,     \
+        double: fabs,     \
+        long double: fabsl)(x)
 
 // Type-generic maximum function
-#define MAX(a, b)                                                                                                     \
-    _Generic((a),                                                                                                     \
-        int: _Generic((b), int: max_int, float: max_int_float, double: max_int_double, default: max_int),             \
-        float: _Generic((b), int: max_float_int, float: max_float, double: max_float_double, default: max_float),     \
-        double: _Generic((b), int: max_double_int, float: max_double_float, double: max_double, default: max_double), \
+#define MAX(a, b)                     \
+    _Generic((a),                     \
+        int: _Generic((b),            \
+            int: max_int,             \
+            float: max_int_float,     \
+            double: max_int_double,   \
+            default: max_int),        \
+        float: _Generic((b),          \
+            int: max_float_int,       \
+            float: max_float,         \
+            double: max_float_double, \
+            default: max_float),      \
+        double: _Generic((b),         \
+            int: max_double_int,      \
+            float: max_double_float,  \
+            double: max_double,       \
+            default: max_double),     \
         default: max_int)(a, b)
 
 // Type-specific max implementations
@@ -210,13 +229,20 @@ void generic_math_library()
     printf("\n=== Type-Generic Math Library ===\n");
 
 // Type-generic sine function
-#define SIN(x) _Generic((x), float: sinf, double: sin, long double: sinl, default: sin)(x)
+#define SIN(x) \
+    _Generic((x), float: sinf, double: sin, long double: sinl, default: sin)(x)
 
 // Type-generic cosine function
-#define COS(x) _Generic((x), float: cosf, double: cos, long double: cosl, default: cos)(x)
+#define COS(x) \
+    _Generic((x), float: cosf, double: cos, long double: cosl, default: cos)(x)
 
 // Type-generic square root function
-#define SQRT(x) _Generic((x), float: sqrtf, double: sqrt, long double: sqrtl, default: sqrt)(x)
+#define SQRT(x)             \
+    _Generic((x),           \
+        float: sqrtf,       \
+        double: sqrt,       \
+        long double: sqrtl, \
+        default: sqrt)(x)
 
     // Testing our generic math functions
     float f = 1.0f;
@@ -238,7 +264,8 @@ void explain_generic()
     printf("\n=== Understanding _Generic Expressions ===\n");
 
     printf("The _Generic expression syntax:\n");
-    printf("  _Generic(expression, type1: result1, type2: result2, ..., default: default-result)\n\n");
+    printf(
+        "  _Generic(expression, type1: result1, type2: result2, ..., default: default-result)\n\n");
 
     printf("Key points about _Generic:\n");
     printf("1. Selects an expression based on the type of a value\n");
@@ -267,7 +294,8 @@ void generic_best_practices()
 
     printf("\nTips for effective use:\n");
     printf("1. Use meaningful function names for each type variant\n");
-    printf("2. Handle all possible input types or provide a suitable default\n");
+    printf(
+        "2. Handle all possible input types or provide a suitable default\n");
     printf("3. Test with all supported types\n");
     printf("4. Consider providing a runtime type check for debugging\n");
 }

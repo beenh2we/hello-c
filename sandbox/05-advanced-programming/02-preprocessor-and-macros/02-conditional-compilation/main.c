@@ -2,12 +2,12 @@
 
 // Define some configuration constants
 #define WINDOWS_BUILD 0
-#define LINUX_BUILD 1
-#define MAC_BUILD 0
+#define LINUX_BUILD   1
+#define MAC_BUILD     0
 
 #define FEATURE_NETWORKING 1
-#define FEATURE_GRAPHICS 1
-#define FEATURE_AUDIO 0
+#define FEATURE_GRAPHICS   1
+#define FEATURE_AUDIO      0
 
 #define DEBUG_LEVEL 2  // 0=none, 1=basic, 2=verbose
 
@@ -120,7 +120,10 @@ void demo_compiler_differences()
     printf("Microsoft Visual C++ detected, version: %d\n", _MSC_VER);
     // MSVC specific code would go here
 #elif defined(__GNUC__)
-    printf("GCC detected, version: %d.%d.%d\n", __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__);
+    printf("GCC detected, version: %d.%d.%d\n",
+           __GNUC__,
+           __GNUC_MINOR__,
+           __GNUC_PATCHLEVEL__);
     // GCC specific code would go here
 #elif defined(__clang__)
     printf("Clang detected\n");
@@ -141,7 +144,8 @@ int main()
     demo_debug_levels();
     demo_compiler_differences();
 
-    printf("\nExample of a multi-line comment using conditional compilation:\n");
+    printf(
+        "\nExample of a multi-line comment using conditional compilation:\n");
 
 #if 0
     This entire block is treated as a comment.

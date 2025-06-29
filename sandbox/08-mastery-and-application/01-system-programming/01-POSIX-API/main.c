@@ -13,7 +13,8 @@
 void posix_file_operations()
 {
     // Create a file using open()
-    int fd = open("posix_test.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+    int fd = open(
+        "posix_test.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
     if (fd == -1)
     {
         perror("open");
@@ -158,7 +159,10 @@ void directory_operations()
         }
 
         // Print file information
-        printf("%-20s %10lld bytes    %s", entry->d_name, (long long) info.st_size, ctime(&info.st_mtime));
+        printf("%-20s %10lld bytes    %s",
+               entry->d_name,
+               (long long) info.st_size,
+               ctime(&info.st_mtime));
     }
 
     // Close the directory
@@ -215,7 +219,8 @@ void time_functions()
     }
 
     char time_str[100];
-    if (strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", time_info) == 0)
+    if (strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", time_info)
+        == 0)
     {
         fprintf(stderr, "strftime failed\n");
         return;
@@ -231,7 +236,9 @@ void time_functions()
         return;
     }
 
-    printf("High-resolution time: %ld.%09ld seconds since Epoch\n", ts.tv_sec, ts.tv_nsec);
+    printf("High-resolution time: %ld.%09ld seconds since Epoch\n",
+           ts.tv_sec,
+           ts.tv_nsec);
 
     // Sleep for a brief period
     printf("Sleeping for 2 seconds...\n");
@@ -244,7 +251,8 @@ void time_functions()
         return;
     }
 
-    printf("After sleep: %ld.%09ld seconds since Epoch\n", ts.tv_sec, ts.tv_nsec);
+    printf(
+        "After sleep: %ld.%09ld seconds since Epoch\n", ts.tv_sec, ts.tv_nsec);
 }
 
 int main()

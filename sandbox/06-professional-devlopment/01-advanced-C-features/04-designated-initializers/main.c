@@ -54,7 +54,8 @@ void basic_struct_initializers()
            person1.weight);
 
     // Using designated initializers (order doesn't matter)
-    Person person2 = {.age = 25, .name = "Jane Doe", .weight = 58.5, .height = 1.68};
+    Person person2
+        = {.age = 25, .name = "Jane Doe", .weight = 58.5, .height = 1.68};
 
     printf("\nUsing designated initializers:\n");
     printf("  Name: %s, Age: %d, Height: %.2f m, Weight: %.1f kg\n",
@@ -121,15 +122,18 @@ void nested_designated_initializers()
     printf("\n=== Nested Designated Initializers ===\n");
 
     // Car with nested structures
-    Car my_car = {.owner = {.name = "John Smith", .age = 35, .height = 1.80, .weight = 75.0},
-                  .purchase_date = {.year = 2022, .month = 6, .day = 15},
-                  .model = "Civic",
-                  .manufacturer = "Honda",
-                  .year = 2021,
-                  .price = 25000.00};
+    Car my_car
+        = {.owner
+           = {.name = "John Smith", .age = 35, .height = 1.80, .weight = 75.0},
+           .purchase_date = {.year = 2022, .month = 6, .day = 15},
+           .model = "Civic",
+           .manufacturer = "Honda",
+           .year = 2021,
+           .price = 25000.00};
 
     printf("Car details using nested designated initializers:\n");
-    printf("  Car: %s %s (%d)\n", my_car.manufacturer, my_car.model, my_car.year);
+    printf(
+        "  Car: %s %s (%d)\n", my_car.manufacturer, my_car.model, my_car.year);
     printf("  Owner: %s, %d years old\n", my_car.owner.name, my_car.owner.age);
     printf("  Purchased on: %d-%02d-%02d\n",
            my_car.purchase_date.year,
@@ -254,7 +258,8 @@ void designated_initializer_best_practices()
     printf("3. Format complex initializers for readability\n");
     printf("4. Be consistent with your initialization style\n");
     printf("5. Use designated initializers to make code maintainable\n");
-    printf("6. Remember that unspecified elements get default values (0, NULL, etc.)\n");
+    printf(
+        "6. Remember that unspecified elements get default values (0, NULL, etc.)\n");
 }
 
 int main()

@@ -54,7 +54,10 @@ int create_items_file(const char *filename, int num_items)
     write(fd, items, file_size);
     free(items);
 
-    printf("Created items file %s with %d items (size: %zu bytes)\n", filename, num_items, file_size);
+    printf("Created items file %s with %d items (size: %zu bytes)\n",
+           filename,
+           num_items,
+           file_size);
     return fd;
 }
 
@@ -99,7 +102,11 @@ void demo_readonly_mapping(const char *filename)
     printf("Reading %d items from mapped memory:\n", num_items);
     for (int i = 0; i < num_items; i++)
     {
-        printf("Item %d: id=%d, name='%s', value=%.2f\n", i, items[i].id, items[i].name, items[i].value);
+        printf("Item %d: id=%d, name='%s', value=%.2f\n",
+               i,
+               items[i].id,
+               items[i].name,
+               items[i].value);
     }
 
     // Unmap when done
@@ -132,7 +139,8 @@ void demo_readwrite_mapping(const char *filename)
     }
 
     // Map the file
-    void *addr = mmap(NULL, sb.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    void *addr
+        = mmap(NULL, sb.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if (addr == MAP_FAILED)
     {
         perror("mmap");
@@ -150,7 +158,11 @@ void demo_readwrite_mapping(const char *filename)
     printf("Original data from mapped memory:\n");
     for (int i = 0; i < num_items && i < 2; i++)
     {
-        printf("Item %d: id=%d, name='%s', value=%.2f\n", i, items[i].id, items[i].name, items[i].value);
+        printf("Item %d: id=%d, name='%s', value=%.2f\n",
+               i,
+               items[i].id,
+               items[i].name,
+               items[i].value);
     }
 
     // Modify the mapped data
@@ -171,7 +183,11 @@ void demo_readwrite_mapping(const char *filename)
     printf("Modified data (now in memory and on disk):\n");
     for (int i = 0; i < num_items && i < 2; i++)
     {
-        printf("Item %d: id=%d, name='%s', value=%.2f\n", i, items[i].id, items[i].name, items[i].value);
+        printf("Item %d: id=%d, name='%s', value=%.2f\n",
+               i,
+               items[i].id,
+               items[i].name,
+               items[i].value);
     }
 
     // Unmap when done
@@ -205,7 +221,8 @@ void demo_partial_mapping(const char *filename)
 
     // Map only the first item
     size_t item_size = sizeof(Item);
-    void *addr = mmap(NULL, item_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    void *addr
+        = mmap(NULL, item_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if (addr == MAP_FAILED)
     {
         perror("mmap");
@@ -215,10 +232,14 @@ void demo_partial_mapping(const char *filename)
 
     // Access only the first item
     Item *item = (Item *) addr;
-    printf("First item only: id=%d, name='%s', value=%.2f\n", item->id, item->name, item->value);
+    printf("First item only: id=%d, name='%s', value=%.2f\n",
+           item->id,
+           item->name,
+           item->value);
 
     // Map second item separately
-    void *addr2 = mmap(NULL, item_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, item_size);
+    void *addr2 = mmap(
+        NULL, item_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, item_size);
     if (addr2 == MAP_FAILED)
     {
         perror("mmap second item");
@@ -228,7 +249,10 @@ void demo_partial_mapping(const char *filename)
     }
 
     Item *item2 = (Item *) addr2;
-    printf("Second item only: id=%d, name='%s', value=%.2f\n", item2->id, item2->name, item2->value);
+    printf("Second item only: id=%d, name='%s', value=%.2f\n",
+           item2->id,
+           item2->name,
+           item2->value);
 
     // Modify second item
     item2->id += 1000;

@@ -20,14 +20,20 @@ void* thread_function(void* arg)
     local_var += 100 + thread_id;
     global_var += 100 + thread_id;
 
-    printf("[Thread %d] Address of local_var: %p, Value: %d\n", thread_id, &local_var, local_var);
-    printf(
-        "[Thread %d] Address of global_var: %p, Value: %d\n", thread_id, &global_var, global_var);
+    printf("[Thread %d] Address of local_var: %p, Value: %d\n",
+           thread_id,
+           &local_var,
+           local_var);
+    printf("[Thread %d] Address of global_var: %p, Value: %d\n",
+           thread_id,
+           &global_var,
+           global_var);
 
     sleep(1);  // Sleep to demonstrate concurrency
 
     // Read again to show that global_var might have changed
-    printf("[Thread %d] After sleeping, global_var: %d\n", thread_id, global_var);
+    printf(
+        "[Thread %d] After sleeping, global_var: %d\n", thread_id, global_var);
 
     return NULL;
 }
@@ -54,15 +60,21 @@ void process_demo()
     {
         // Child process
         printf("[Child] Process ID: %d, Parent ID: %d\n", getpid(), getppid());
-        printf("[Child] Initial global_var: %d at address %p\n", global_var, &global_var);
+        printf("[Child] Initial global_var: %d at address %p\n",
+               global_var,
+               &global_var);
 
         // Modify the global variable
         global_var += 100;
-        printf("[Child] Modified global_var: %d at address %p\n", global_var, &global_var);
+        printf("[Child] Modified global_var: %d at address %p\n",
+               global_var,
+               &global_var);
 
         sleep(2);  // Sleep to demonstrate independence
 
-        printf("[Child] After sleeping, global_var: %d at address %p\n", global_var, &global_var);
+        printf("[Child] After sleeping, global_var: %d at address %p\n",
+               global_var,
+               &global_var);
         exit(0);
     }
     else
@@ -74,12 +86,15 @@ void process_demo()
 
         // Modify the global variable in parent
         global_var += 200;
-        printf("[Parent] Modified global_var: %d at address %p\n", global_var, &global_var);
+        printf("[Parent] Modified global_var: %d at address %p\n",
+               global_var,
+               &global_var);
 
         // Wait for child to finish
         int status;
         waitpid(pid, &status, 0);
-        printf("[Parent] Child process exited with status %d\n", WEXITSTATUS(status));
+        printf("[Parent] Child process exited with status %d\n",
+               WEXITSTATUS(status));
         printf("[Parent] Final global_var: %d\n", global_var);
     }
 }
@@ -99,10 +114,12 @@ void thread_demo()
 
     for (int i = 0; i < 2; i++)
     {
-        int result = pthread_create(&threads[i], NULL, thread_function, &thread_ids[i]);
+        int result = pthread_create(
+            &threads[i], NULL, thread_function, &thread_ids[i]);
         if (result != 0)
         {
-            fprintf(stderr, "pthread_create failed with error code %d\n", result);
+            fprintf(
+                stderr, "pthread_create failed with error code %d\n", result);
             exit(1);
         }
         printf("Thread %d created\n", i + 1);
@@ -111,7 +128,9 @@ void thread_demo()
     // Main thread can also modify the global variable
     sleep(1);
     global_var += 300;
-    printf("[Main thread] Modified global_var: %d at address %p\n", global_var, &global_var);
+    printf("[Main thread] Modified global_var: %d at address %p\n",
+           global_var,
+           &global_var);
 
     // Wait for threads to finish
     for (int i = 0; i < 2; i++)
@@ -161,8 +180,9 @@ void measure_memory_usage()
 
     clock_t end_time = clock();
     double process_time = (double) (end_time - start_time) / CLOCKS_PER_SEC;
-    printf(
-        "Time taken to create and join %d processes: %.6f seconds\n", NUM_CHILDREN, process_time);
+    printf("Time taken to create and join %d processes: %.6f seconds\n",
+           NUM_CHILDREN,
+           process_time);
 
     // Now create threads
     pthread_t threads[NUM_CHILDREN];
@@ -186,9 +206,12 @@ void measure_memory_usage()
 
     end_time = clock();
     double thread_time = (double) (end_time - start_time) / CLOCKS_PER_SEC;
-    printf("Time taken to create and join %d threads: %.6f seconds\n", NUM_CHILDREN, thread_time);
+    printf("Time taken to create and join %d threads: %.6f seconds\n",
+           NUM_CHILDREN,
+           thread_time);
 
-    printf("\nThreads are typically lighter and faster to create than processes.\n");
+    printf(
+        "\nThreads are typically lighter and faster to create than processes.\n");
 }
 
 // Explain the differences between processes and threads
@@ -197,24 +220,33 @@ void explain_differences()
     printf("\n=== PROCESSES VS THREADS: KEY DIFFERENCES ===\n");
 
     printf("1. Memory Space:\n");
-    printf("   - Processes: Each has its own memory space (demonstrated by different addresses)\n");
+    printf(
+        "   - Processes: Each has its own memory space (demonstrated by different addresses)\n");
     printf("   - Threads: Share the same memory space within a process\n\n");
 
     printf("2. Communication:\n");
-    printf("   - Processes: Require IPC (pipes, sockets, shared memory) to communicate\n");
-    printf("   - Threads: Can communicate directly through shared variables\n\n");
+    printf(
+        "   - Processes: Require IPC (pipes, sockets, shared memory) to communicate\n");
+    printf(
+        "   - Threads: Can communicate directly through shared variables\n\n");
 
     printf("3. Creation Overhead:\n");
-    printf("   - Processes: High overhead (complete memory copy, resource duplication)\n");
-    printf("   - Threads: Lower overhead (just stack and thread-specific data)\n\n");
+    printf(
+        "   - Processes: High overhead (complete memory copy, resource duplication)\n");
+    printf(
+        "   - Threads: Lower overhead (just stack and thread-specific data)\n\n");
 
     printf("4. Isolation:\n");
-    printf("   - Processes: Better isolated (one crashing doesn't affect others)\n");
-    printf("   - Threads: Less isolated (one thread crash can bring down the whole process)\n\n");
+    printf(
+        "   - Processes: Better isolated (one crashing doesn't affect others)\n");
+    printf(
+        "   - Threads: Less isolated (one thread crash can bring down the whole process)\n\n");
 
     printf("5. Synchronization:\n");
-    printf("   - Processes: Less synchronization needed due to separate memory spaces\n");
-    printf("   - Threads: Require careful synchronization for shared data access\n");
+    printf(
+        "   - Processes: Less synchronization needed due to separate memory spaces\n");
+    printf(
+        "   - Threads: Require careful synchronization for shared data access\n");
 }
 
 int main()

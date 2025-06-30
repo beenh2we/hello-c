@@ -51,15 +51,15 @@ void basic_compound_literals()
     printf("=== Basic Compound Literals ===\n");
 
     // Using compound literal for a struct
-    printf("Creating and using a Point compound literal:\n");
+    printf("Point compound literal:\n");
     print_point((Point) {10, 20});
 
     // Using compound literal for an array
-    printf("\nCreating and using an array compound literal:\n");
+    printf("\nArray compound literal:\n");
     print_array((int[]) {1, 2, 3, 4, 5}, 5);
 
     // Assigning compound literal to a variable
-    printf("\nAssigning compound literal to a variable:\n");
+    printf("\nAssigning to a variable:\n");
     Point p = (Point) {15, 25};
     print_point(p);
 }
@@ -70,7 +70,7 @@ void advanced_compound_literals()
     printf("\n=== Advanced Compound Literals ===\n");
 
     // Create a Rectangle using compound literals
-    printf("Creating a Rectangle with nested Point compound literals:\n");
+    printf("Rectangle with nested Point literals:\n");
     Rectangle rect = (Rectangle) {.top_left = (Point) {10, 10},
                                   .bottom_right = (Point) {20, 20}};
 
@@ -87,7 +87,7 @@ void compound_literals_with_arrays()
     printf("\n=== Compound Literals with Arrays ===\n");
 
     // Create an array of Points
-    printf("Creating an array of Points:\n");
+    printf("Array of Points:\n");
     Point *points = (Point[]) {{1, 1}, {2, 2}, {3, 3}, {4, 4}};
 
     // Print the points
@@ -98,7 +98,7 @@ void compound_literals_with_arrays()
     }
 
     // 2D array with compound literal
-    printf("\nCreating a 2D array:\n");
+    printf("\n2D array:\n");
     int (*matrix)[3] = (int[][3]) {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
     // Print the matrix
@@ -119,11 +119,11 @@ void compound_literals_in_functions()
     printf("\n=== Compound Literals in Function Arguments ===\n");
 
     // Pass a compound literal to a function
-    printf("Passing a Point compound literal to print_point():\n");
+    printf("As direct argument:\n");
     print_point((Point) {42, 73});
 
     // Pass a compound literal as a pointer
-    printf("\nPassing a Point compound literal to move_point():\n");
+    printf("\nAs pointer argument:\n");
     Point *p = &(Point) {5, 5};
     printf("Before move: ");
     print_point(*p);
@@ -140,69 +140,40 @@ void compound_literals_with_strings()
     printf("\n=== Compound Literals with Strings ===\n");
 
     // Character array compound literal
-    printf("Creating a char array compound literal:\n");
+    printf("Character array literal:\n");
     char *message = (char[]) {'H', 'e', 'l', 'l', 'o', '\0'};
     printf("  Message: %s\n", message);
 
     // String compound literal is simpler
-    printf("\nCreating a string compound literal:\n");
+    printf("\nString literal:\n");
     char *greeting = (char[]) {"Hello, compound literals!"};
     printf("  Greeting: %s\n", greeting);
 
     // Using strcpy with compound literal
-    printf("\nUsing strcpy() with compound literal as destination:\n");
-    strcpy((char[100]) {""}, "This works but is unusual!");
+    char *copied = strcpy((char[100]) {""}, "Copying to compound literal");
+    printf("\nAfter strcpy(): %s\n", copied);
 }
 
-// Lifetime and scope of compound literals
+// Lifetime and scope demonstration
 void lifetime_of_compound_literals()
 {
-    printf("\n=== Lifetime and Scope of Compound Literals ===\n");
-
-    printf("1. Block scope compound literals exist until end of block\n");
-    printf("2. File scope compound literals exist for the program lifetime\n");
-    printf("3. Taking the address of a compound literal is valid\n");
-    printf("4. Modifying a compound literal is allowed\n");
+    printf("\n=== Modifying Compound Literals ===\n");
 
     // Demonstrate modifying a compound literal
-    printf("\nModifying a compound literal:\n");
     int *arr = (int[]) {10, 20, 30, 40};
 
-    printf("  Original: [%d, %d, %d, %d]\n", arr[0], arr[1], arr[2], arr[3]);
+    printf("Original: [%d, %d, %d, %d]\n", arr[0], arr[1], arr[2], arr[3]);
 
     // Modify the array
     arr[1] = 200;
     arr[3] = 400;
 
-    printf("  Modified: [%d, %d, %d, %d]\n", arr[0], arr[1], arr[2], arr[3]);
-}
-
-// Best practices and common patterns
-void compound_literal_best_practices()
-{
-    printf("\n=== Compound Literals: Best Practices ===\n");
-
-    printf("Common uses for compound literals:\n");
-    printf("1. Temporary structs for function arguments\n");
-    printf("2. Creating test data or example values\n");
-    printf("3. One-off arrays and buffers\n");
-    printf("4. Default/initial values\n");
-
-    printf("\nBest practices:\n");
-    printf("1. Use for short-lived, temporary objects\n");
-    printf("2. Be cautious with pointers to compound literals\n");
-    printf("3. Consider readability - complex literals can be hard to read\n");
-    printf("4. Combine with designated initializers for clarity\n");
-
-    printf("\nAvoid these patterns:\n");
-    printf("1. Returning pointers to block-scope compound literals\n");
-    printf("2. Creating extremely large compound literals\n");
-    printf("3. Deeply nested compound literals without formatting\n");
+    printf("Modified: [%d, %d, %d, %d]\n", arr[0], arr[1], arr[2], arr[3]);
 }
 
 int main()
 {
-    printf("==== COMPOUND LITERALS ====\n\n");
+    printf("==== COMPOUND LITERALS DEMO ====\n\n");
 
     basic_compound_literals();
     advanced_compound_literals();
@@ -210,7 +181,6 @@ int main()
     compound_literals_in_functions();
     compound_literals_with_strings();
     lifetime_of_compound_literals();
-    compound_literal_best_practices();
 
     return 0;
 }

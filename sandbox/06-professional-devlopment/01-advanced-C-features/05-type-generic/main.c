@@ -258,48 +258,6 @@ void generic_math_library()
     printf("sqrt(%lf) = %lf\n", d, SQRT(d));
 }
 
-// Explain _Generic expressions
-void explain_generic()
-{
-    printf("\n=== Understanding _Generic Expressions ===\n");
-
-    printf("The _Generic expression syntax:\n");
-    printf(
-        "  _Generic(expression, type1: result1, type2: result2, ..., default: default-result)\n\n");
-
-    printf("Key points about _Generic:\n");
-    printf("1. Selects an expression based on the type of a value\n");
-    printf("2. Evaluated at compile-time (not runtime)\n");
-    printf("3. Expression is only evaluated once\n");
-    printf("4. 'default' case handles types not explicitly listed\n");
-    printf("5. Useful for creating type-generic macros\n");
-    printf("6. Available only in C11 and later\n");
-}
-
-// Best practices for _Generic
-void generic_best_practices()
-{
-    printf("\n=== _Generic Best Practices ===\n");
-
-    printf("When to use _Generic:\n");
-    printf("1. Type-safe interfaces to different function implementations\n");
-    printf("2. Type-dependent constants or format specifiers\n");
-    printf("3. Building generic libraries that work with multiple types\n");
-
-    printf("\nLimitations to be aware of:\n");
-    printf("1. Can't use with user-defined types (structs) directly\n");
-    printf("2. Complex nested _Generic expressions can be hard to read\n");
-    printf("3. No support for type categories (e.g., 'any integer type')\n");
-    printf("4. Not available in pre-C11 compilers\n");
-
-    printf("\nTips for effective use:\n");
-    printf("1. Use meaningful function names for each type variant\n");
-    printf(
-        "2. Handle all possible input types or provide a suitable default\n");
-    printf("3. Test with all supported types\n");
-    printf("4. Consider providing a runtime type check for debugging\n");
-}
-
 int main()
 {
     printf("==== TYPE GENERIC PROGRAMMING WITH _GENERIC ====\n\n");
@@ -309,8 +267,6 @@ int main()
     max_demo();
     print_demo();
     generic_math_library();
-    explain_generic();
-    generic_best_practices();
 
     return 0;
 }

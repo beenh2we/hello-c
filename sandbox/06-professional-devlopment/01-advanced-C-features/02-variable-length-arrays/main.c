@@ -25,7 +25,6 @@ void process_data_with_vla(int size)
     }
     printf("\n");
 
-    // Stack-based array will be automatically deallocated when function returns
     printf("VLA will be automatically deallocated\n");
 }
 
@@ -163,29 +162,9 @@ void benchmark_vla_vs_malloc()
     printf("VLA is %.2f times faster for this test\n", time_malloc / time_vla);
 }
 
-// Explain VLA limitations and best practices
-void explain_vla()
-{
-    printf("\n=== VLA Limitations and Best Practices ===\n");
-
-    printf("Limitations of VLAs:\n");
-    printf("1. Stack size constraints - can cause stack overflow\n");
-    printf("2. Not available at file scope (only within function blocks)\n");
-    printf("3. Cannot be returned from functions\n");
-    printf("4. Cannot be used in struct/union definitions\n");
-    printf("5. Made optional in C11 (not all compilers support them)\n");
-
-    printf("\nBest Practices:\n");
-    printf("1. Use for small-to-moderate sized arrays\n");
-    printf("2. Always validate the size before creating a VLA\n");
-    printf("3. Consider stack size limitations of your target platform\n");
-    printf("4. Use malloc() for very large or long-lived arrays\n");
-    printf("5. Check for compiler support if targeting C11\n");
-}
-
 int main()
 {
-    printf("==== VARIABLE-LENGTH ARRAYS ====\n");
+    printf("==== VARIABLE-LENGTH ARRAYS DEMO ====\n");
 
     // Simple VLA demonstration
     int size = 5;
@@ -226,9 +205,6 @@ int main()
 
     // Run benchmark
     benchmark_vla_vs_malloc();
-
-    // Explain limitations
-    explain_vla();
 
     return 0;
 }

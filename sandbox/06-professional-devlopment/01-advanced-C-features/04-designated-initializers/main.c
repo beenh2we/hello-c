@@ -151,8 +151,6 @@ void sparse_arrays()
     int sparse[100] = {[0] = 10, [10] = 20, [20] = 30, [50] = 40, [99] = 50};
 
     printf("Sparse array with 100 elements, only 5 initialized:\n  ");
-
-    // Print only the initialized elements for brevity
     printf("[0]=%d, [10]=%d, [20]=%d, [50]=%d, [99]=%d\n",
            sparse[0],
            sparse[10],
@@ -248,23 +246,9 @@ void updating_specific_values()
     printf("\n");
 }
 
-// Best practices for designated initializers
-void designated_initializer_best_practices()
-{
-    printf("\n=== Best Practices for Designated Initializers ===\n");
-
-    printf("1. Use designated initializers for struct clarity\n");
-    printf("2. Consider designated initializers for sparse arrays\n");
-    printf("3. Format complex initializers for readability\n");
-    printf("4. Be consistent with your initialization style\n");
-    printf("5. Use designated initializers to make code maintainable\n");
-    printf(
-        "6. Remember that unspecified elements get default values (0, NULL, etc.)\n");
-}
-
 int main()
 {
-    printf("==== DESIGNATED INITIALIZERS ====\n\n");
+    printf("==== DESIGNATED INITIALIZERS DEMO ====\n\n");
 
     basic_struct_initializers();
     array_designated_initializers();
@@ -272,7 +256,6 @@ int main()
     sparse_arrays();
     partial_initialization();
     updating_specific_values();
-    designated_initializer_best_practices();
 
     return 0;
 }

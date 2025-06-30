@@ -11,14 +11,14 @@ SRCS = src/math_utils.c src/vector.c
 OBJS = $(SRCS:.c=.o)
 
 # Target executable
-TARGET = vector_demo
+TARGET = main
 
 # Default target
 all: $(TARGET)
 
 # Link the target
-$(TARGET): $(OBJS) examples/vector_demo.c
-	$(CC) $(CFLAGS) $(OBJS) examples/vector_demo.c -o $@ -lm
+$(TARGET): $(OBJS) main.c
+	$(CC) $(CFLAGS) $(OBJS) main.c -o $@ -lm
 
 # Pattern rule to compile .c files into .o files
 %.o: %.c

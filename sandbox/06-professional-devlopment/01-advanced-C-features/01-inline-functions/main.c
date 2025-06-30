@@ -76,7 +76,6 @@ void benchmark_inline()
 
     for (int i = 0; i < ITERATIONS; i++)
     {
-        // Call the function repeatedly to measure overhead
         result_inline += calculate_average(large_array, ARRAY_SIZE);
     }
 
@@ -107,35 +106,10 @@ void benchmark_inline()
     free(large_array);
 }
 
-// Explanation of inline function mechanics
-void explain_inline()
-{
-    printf("\n=== Inline Function Mechanics ===\n");
-
-    printf("1. Purpose of inline functions:\n");
-    printf("   - Eliminate function call overhead\n");
-    printf("   - Improve performance for small, frequently called functions\n");
-    printf("   - Enable compiler optimizations across function boundaries\n");
-
-    printf("\n2. When to use inline functions:\n");
-    printf("   - For small, frequently called functions\n");
-    printf("   - For time-critical code sections\n");
-    printf("   - In performance-critical header-only libraries\n");
-
-    printf("\n3. Important considerations:\n");
-    printf("   - 'inline' is just a suggestion to the compiler\n");
-    printf("   - Compiler may choose to ignore the inline request\n");
-    printf("   - Excessive inlining can increase code size\n");
-    printf("   - Complex inline functions may not improve performance\n");
-}
-
 int main()
 {
-    printf("==== INLINE FUNCTIONS ====\n\n");
-
     demonstrate_inline();
     benchmark_inline();
-    explain_inline();
 
     return 0;
 }

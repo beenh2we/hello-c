@@ -199,10 +199,15 @@ _Focus on software engineering aspects of C development._
 ### Advanced C Features
 
 - **Inline functions**: Performance benefits, appropriate usage (C99)
+  - [Inline Functions in C Language](./docs/06-professional-development/inline_functions_in_C_language.md)
 - **Variable-length arrays**: Stack-based dynamic arrays (C99), limitations
+  - [Variable-Length Arrays in C](./docs/06-professional-development/variable_length_arrays_in_C.md)
 - **Compound literals**: Creating anonymous structs and arrays
+  - [C Language Compound Literals](./docs/06-professional-development/C_language_compound_literals.md)
 - **Designated initializers**: Named field initialization for structs
+  - [C Language Designated Initializers](./docs/06-professional-development/C_language_designated_initializers.md)
 - **Type generic programming**: \_Generic keyword for type-based selection (C11)
+  - [C Language \_Generic Expression](./docs/06-professional-development/c.md)
 
 ## Level 7: Specialized Areas
 

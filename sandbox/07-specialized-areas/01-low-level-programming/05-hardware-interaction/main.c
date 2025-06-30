@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 #include <unistd.h>
 
@@ -282,8 +283,6 @@ void* hardware_simulation(void* arg)
 // Initialize the LED controller
 void led_init()
 {
-    printf("Initializing LED Controller...\n");
-
     // Reset the controller
     device->LED.CONTROL = LED_CTRL_RESET;
     usleep(50000);  // Wait for reset to complete
@@ -302,18 +301,14 @@ void led_init()
 // Set LED pattern
 void led_set_pattern(uint32_t pattern)
 {
-    printf("Setting LED pattern to 0x%02X (", pattern & 0xFF);
-    print_binary(pattern & 0xFF, 8);
-    printf(")\n");
-
     device->LED.DATA = pattern & 0xFF;
+
+    printf("LED pattern set to 0x%02X\n", pattern & 0xFF);
 }
 
 // Enable or disable LED blinking
 void led_set_blink(int enable)
 {
-    printf("%s LED blinking\n", enable ? "Enabling" : "Disabling");
-
     if (enable)
     {
         device->LED.CONTROL |= LED_CTRL_BLINK;
@@ -322,6 +317,8 @@ void led_set_blink(int enable)
     {
         device->LED.CONTROL &= ~LED_CTRL_BLINK;
     }
+
+    printf("LED blinking %s\n", enable ? "enabled" : "disabled");
 }
 
 // --- ADC Functions ---
@@ -329,8 +326,6 @@ void led_set_blink(int enable)
 // Initialize the ADC
 void adc_init()
 {
-    printf("Initializing ADC...\n");
-
     // Reset the ADC
     device->ADC.CONTROL = ADC_CTRL_RESET;
     usleep(50000);  // Wait for reset to complete
@@ -350,8 +345,6 @@ void adc_init()
 // Read a value from the ADC
 uint32_t adc_read(uint32_t channel)
 {
-    printf("Reading ADC channel %u...\n", channel);
-
     // Set channel
     device->ADC.CHANNEL = channel & 0x07;
 
@@ -366,7 +359,7 @@ uint32_t adc_read(uint32_t channel)
 
     // Read and return the result
     uint32_t result = device->ADC.DATA;
-    printf("ADC value: %u\n", result);
+    printf("ADC channel %u value: %u\n", channel, result);
 
     return result;
 }
@@ -376,8 +369,6 @@ uint32_t adc_read(uint32_t channel)
 // Initialize the timer
 void timer_init()
 {
-    printf("Initializing Timer...\n");
-
     // Reset the timer
     device->TIMER.CONTROL = TIMER_CTRL_RESET;
     usleep(50000);  // Wait for reset to complete
@@ -395,9 +386,6 @@ void timer_init()
 // Start the timer
 void timer_start(int mode)
 {
-    printf("Starting timer in %s mode...\n",
-           mode == 0 ? "continuous" : (mode == 1 ? "one-shot" : "auto-reload"));
-
     // Configure mode
     device->TIMER.CONTROL = TIMER_CTRL_ENABLE;
     if (mode == 1)
@@ -409,7 +397,9 @@ void timer_start(int mode)
         device->TIMER.CONTROL |= TIMER_CTRL_RELOAD;
     }
 
-    printf("Timer started. Status: 0x%08X\n", device->TIMER.STATUS);
+    printf("Timer started (mode: %d). Status: 0x%08X\n",
+           mode,
+           device->TIMER.STATUS);
 }
 
 // Wait for timer to expire
@@ -419,7 +409,7 @@ void timer_wait_expire()
 
     while (!(device->TIMER.STATUS & TIMER_STATUS_EXPIRED))
     {
-        printf("  Timer Counter: %u\r", device->TIMER.COUNTER);
+        printf("Timer Counter: %u\r", device->TIMER.COUNTER);
         fflush(stdout);
         usleep(100000);
     }
@@ -437,7 +427,7 @@ void check_interrupts()
 {
     if (device->GLOBAL_STATUS & GLOBAL_STATUS_INT)
     {
-        printf("\n*** INTERRUPT DETECTED ***\n");
+        printf("*** INTERRUPT DETECTED ***\n");
 
         // Check ADC interrupts
         if (device->ADC.INTERRUPT & ADC_INT_ENABLE)
@@ -484,83 +474,10 @@ void check_interrupts()
     }
 }
 
-// Memory-mapped I/O explanation
-void explain_mmio()
-{
-    printf("\n=== Memory-Mapped I/O Explained ===\n");
-
-    printf("Memory-Mapped I/O (MMIO) is a technique where hardware device\n");
-    printf("registers appear as normal memory locations to the CPU.\n\n");
-
-    printf("Benefits of MMIO:\n");
-    printf("1. Same instructions for memory and device access\n");
-    printf("2. Full addressing range for devices\n");
-    printf("3. No special I/O instructions needed\n");
-    printf("4. Can use pointer arithmetic and structures\n\n");
-
-    printf("Key considerations when using MMIO:\n");
-    printf("1. Must use volatile for device registers\n");
-    printf("2. Be aware of alignment and access width requirements\n");
-    printf("3. Read-only vs write-only registers\n");
-    printf("4. Side effects of reading or writing\n");
-    printf("5. Device timing considerations\n");
-}
-
-// Port I/O explanation
-void explain_port_io()
-{
-    printf("\n=== Port I/O Explained ===\n");
-
-    printf(
-        "Port I/O (also called I/O mapped I/O) uses a separate address space\n");
-    printf("accessed through special CPU instructions.\n\n");
-
-    printf("In x86 architecture, the instructions are:\n");
-    printf("- IN: Read from an I/O port\n");
-    printf("- OUT: Write to an I/O port\n\n");
-
-    printf("Example of port I/O in C (using inline assembly):\n");
-    printf("  // Read from port 0x60 (keyboard controller)\n");
-    printf("  unsigned char value;\n");
-    printf(
-        "  __asm__ volatile (\"inb %%dx, %%al\" : \"=a\"(value) : \"d\"(0x60));\n\n");
-
-    printf("  // Write 0xFF to port 0x43 (timer control)\n");
-    printf(
-        "  __asm__ volatile (\"outb %%al, %%dx\" : : \"a\"(0xFF), \"d\"(0x43));\n");
-}
-
-// Hardware abstraction explanation
-void explain_hardware_abstraction()
-{
-    printf("\n=== Hardware Abstraction Layers ===\n");
-
-    printf("Hardware Abstraction Layers (HALs) provide a consistent API\n");
-    printf("to access hardware, hiding the low-level details.\n\n");
-
-    printf("Example HAL structure:\n");
-    printf("1. Direct hardware access layer\n");
-    printf("   - Defines registers and bit masks\n");
-    printf("   - Provides basic read/write functions\n\n");
-
-    printf("2. Device driver layer\n");
-    printf("   - Implements device-specific functions\n");
-    printf("   - Handles device setup, control, and data transfer\n\n");
-
-    printf("3. API layer\n");
-    printf("   - Provides application-friendly interfaces\n");
-    printf("   - Handles device coordination and resource management\n\n");
-
-    printf("This simulation demonstrates this layering approach:\n");
-    printf("- direct register access (device->LED.CONTROL)\n");
-    printf("- device functions (led_set_pattern())\n");
-    printf("- higher-level demonstrations (LED patterns)\n");
-}
-
 // Demonstrate a complete example using all devices
 void run_demo()
 {
-    printf("\n=== Running Complete Hardware Demo ===\n");
+    printf("=== Running Hardware Demo ===\n");
 
     // Initialize all controllers
     led_init();
@@ -568,14 +485,12 @@ void run_demo()
     timer_init();
 
     // Set up interrupts
-    printf("\nEnabling ADC interrupts...\n");
+    printf("Enabling ADC and Timer interrupts\n");
     device->ADC.INTERRUPT = ADC_INT_ENABLE | ADC_INT_DONE;
-
-    printf("Enabling Timer compare match interrupt...\n");
     device->TIMER.INTERRUPT = TIMER_INT_ENABLE | TIMER_INT_COMPARE;
 
     // Set up a LED pattern that alternates
-    printf("\nStarting LED blinking...\n");
+    printf("Starting LED blinking\n");
     led_set_pattern(0xAA);  // 10101010
     led_set_blink(1);
 
@@ -584,7 +499,7 @@ void run_demo()
     timer_start(2);             // Auto-reload mode
 
     // Main loop to demonstrate continuous operation
-    printf("\nRunning main loop (will exit after 3 iterations)...\n");
+    printf("Running main loop (3 iterations)\n");
 
     for (int i = 0; i < 3; i++)
     {
@@ -594,7 +509,6 @@ void run_demo()
         for (int ch = 0; ch < 4; ch++)
         {
             uint32_t value = adc_read(ch);
-            printf("ADC Channel %d: %u\n", ch, value);
 
             // Short delay
             usleep(100000);
@@ -607,9 +521,7 @@ void run_demo()
         printf("Timer Counter: %u\n", device->TIMER.COUNTER);
 
         // Read LED state
-        printf("LED Pattern: 0x%02X (", device->LED.DATA & 0xFF);
-        print_binary(device->LED.DATA & 0xFF, 8);
-        printf(")\n");
+        printf("LED Pattern: 0x%02X\n", device->LED.DATA & 0xFF);
 
         // Check for interrupts
         check_interrupts();
@@ -619,17 +531,17 @@ void run_demo()
     }
 
     // Clean up
-    printf("\nStopping devices...\n");
+    printf("Stopping devices\n");
     device->LED.CONTROL = 0;
     device->ADC.CONTROL = 0;
     device->TIMER.CONTROL = 0;
 
-    printf("Demo completed.\n");
+    printf("Demo completed\n");
 }
 
 int main()
 {
-    printf("==== HARDWARE INTERACTION DEMONSTRATION ====\n\n");
+    printf("==== HARDWARE INTERACTION DEMONSTRATION ====\n");
 
     // Initialize random seed
     srand(time(NULL));
@@ -647,13 +559,8 @@ int main()
     // Run the demo
     run_demo();
 
-    // Explain concepts
-    explain_mmio();
-    explain_port_io();
-    explain_hardware_abstraction();
-
     // Clean up
-    printf("\n=== Cleaning Up ===\n");
+    printf("Cleaning up resources\n");
     stop_simulation = 1;
     pthread_join(hardware_thread, NULL);
     free(device);

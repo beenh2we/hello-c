@@ -8,9 +8,6 @@ bool is_big_endian()
 {
     uint16_t value = 0x1234;
     uint8_t *ptr = (uint8_t *) &value;
-
-    // If the first byte is 0x12, system is big endian
-    // If the first byte is 0x34, system is little endian
     return (ptr[0] == 0x12);
 }
 
@@ -238,9 +235,7 @@ int main()
     printf("\n=== Network Protocol Example ===\n\n");
 
     // Network protocol typically uses big-endian (network byte order)
-    // Let's simulate sending a simple packet with a 16-bit length field
-    // followed by a 32-bit message ID and payload
-
+    // Simulate sending a simple packet with header and payload
     uint8_t packet[16] = {0};
     uint16_t length = 12;  // Length is 12 bytes
     uint32_t message_id = 0x12345678;
@@ -261,7 +256,7 @@ int main()
     }
     printf("]\n\n");
 
-    // Now simulate receiving the packet and parsing it
+    // Simulate receiving the packet and parsing it
     uint16_t recv_length = read_unaligned_16(packet, true);
     uint32_t recv_message_id = read_unaligned_32(packet + 2, true);
 
@@ -269,20 +264,6 @@ int main()
     printf("Length: %u\n", recv_length);
     printf("Message ID: 0x%08X\n", recv_message_id);
     printf("Payload: %.4s\n", packet + 6);
-
-    printf("\n=== Endianness Issues in Practice ===\n");
-    printf(
-        "1. Network protocols (TCP/IP) use big-endian (network byte order)\n");
-    printf(
-        "2. File formats often specify endianness (e.g., PNG uses big-endian)\n");
-    printf("3. Binary data exchange between different CPU architectures\n");
-    printf("4. Cross-platform compatibility for binary data\n");
-
-    printf("\nBest practices:\n");
-    printf("1. Always convert to a defined byte order when serializing data\n");
-    printf("2. Don't assume endianness when reading external data\n");
-    printf("3. Use explicit conversion functions for multi-byte values\n");
-    printf("4. Consider using defined formats like Protocol Buffers or JSON\n");
 
     return 0;
 }

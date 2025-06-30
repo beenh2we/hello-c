@@ -217,9 +217,13 @@ _Explore specific domains where C excels._
 
 - **Bit manipulation**: Bitwise operators, bit masks, bit fields
 - **Endianness**: Big vs. little endian, dealing with byte order differences
+  - [Endianness: How Data is Arranged in Computer Memory](./docs/07-specialized-ares/endianness.md)
 - **Volatile keyword**: Preventing optimization for memory-mapped I/O
+  - [The `volatile` Keyword in C Language: An In-depth Analysis](./docs/07-specialized-ares/the_volatile_keyword_in_C_language.md)
 - **Inline assembly**: Embedding assembly in C code, constraints
+  - [C Language Inline Assembly: A Complete Guide](./docs/07-specialized-ares/inline_assembly.md)
 - **Hardware interaction**: Memory-mapped I/O, device registers
+  - [C Language Hardware Interaction Programming](./docs/07-specialized-ares/hardware_interaction.md)
 
 ### Concurrent Programming
 

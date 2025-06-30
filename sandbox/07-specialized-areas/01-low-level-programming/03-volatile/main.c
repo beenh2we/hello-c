@@ -34,7 +34,7 @@ void* hardware_simulation(void* arg)
 
         // Simulate data changing
         if (device->CONTROL & 0x01)
-        {                                             // If device is enabled
+        {
             device->DATA = (device->DATA + 1) % 100;  // Increment data
         }
 
@@ -88,9 +88,6 @@ void demonstrate_optimization_issue()
     printf("\n=== Demonstrating Optimization Issues ===\n");
 
     // This is a simplified example to show the concept
-    // In reality, compiler behavior is more complex
-
-    // Assume we have a non-volatile status register
     uint32_t non_volatile_status = 1;
 
     printf("Waiting on non-volatile register...\n");
@@ -101,14 +98,12 @@ void demonstrate_optimization_issue()
     while (non_volatile_status != 0 && counter < 5)
     {
         printf("  Status is still %u, waiting...\n", non_volatile_status);
-        non_volatile_status
-            = device->STATUS
-              & 0xFF;  // This actually changes it, but compiler might not realize
+        non_volatile_status = device->STATUS & 0xFF;
         counter++;
     }
 
     printf(
-        "With optimizations, the compiler might not realize the value can change!\n");
+        "Without volatile, compiler might not realize the value can change!\n");
 }
 
 // Read and process data with interrupt handling
@@ -145,32 +140,36 @@ void process_data_with_interrupts()
     printf("Device disabled\n");
 }
 
-// Explain volatile keyword
-void explain_volatile()
+// Direct register manipulation example
+void direct_register_manipulation()
 {
-    printf("\n=== Volatile Keyword Explained ===\n");
+    printf("\n=== Direct Register Manipulation ===\n");
 
-    printf(
-        "The 'volatile' keyword tells the compiler that a variable's value\n");
-    printf("might change at any time, without any action by the code.\n\n");
+    printf("Writing to control register...\n");
+    device->CONTROL = 0x05;  // Enable device and set bit 2
 
-    printf("Common uses of volatile:\n");
-    printf("1. Memory-mapped hardware registers\n");
-    printf("2. Variables shared between threads or with signal handlers\n");
-    printf("3. Variables modified by external hardware (DMA, interrupts)\n");
-    printf("4. Global variables updated from the debugger\n\n");
+    printf("Reading status register: 0x%08X\n", device->STATUS);
 
-    printf("Effects of volatile:\n");
-    printf("1. Prevents compiler from optimizing out reads/writes\n");
-    printf("2. Prevents register caching of the variable\n");
-    printf("3. Maintains order of operations relative to volatile accesses\n");
-    printf("4. Forces each access to actually go to memory\n\n");
+    // Example: Busy-wait polling
+    printf("\nPolling for specific status...\n");
+    int timeout = 0;
+    while (device->STATUS != 2 && timeout < 10)
+    {
+        if (device->STATUS == 3)
+        {
+            printf("Device in error state, resetting...\n");
+            device->CONTROL = 0x80;  // Reset command
+            usleep(50000);
+            device->CONTROL = 0x01;  // Enable again
+        }
+        usleep(50000);
+        timeout++;
+    }
 
-    printf("Volatile is NOT:\n");
-    printf(
-        "1. NOT related to thread synchronization (doesn't provide atomicity)\n");
-    printf("2. NOT related to memory barriers or memory ordering\n");
-    printf("3. NOT a substitute for proper synchronization primitives\n");
+    if (timeout < 10)
+        printf("Desired status reached\n");
+    else
+        printf("Polling timed out\n");
 }
 
 int main()
@@ -202,41 +201,8 @@ int main()
     // Process data with interrupt handling
     process_data_with_interrupts();
 
-    // Example: Directly manipulate device registers
-    printf("\n=== Direct Register Manipulation ===\n");
-
-    printf("Writing to control register...\n");
-    device->CONTROL = 0x05;  // Enable device and set bit 2
-
-    printf("Reading status register: 0x%08X\n", device->STATUS);
-
-    // Example: Busy-wait polling
-    printf("\n=== Busy-Wait Polling ===\n");
-
-    printf("Waiting for specific data value...\n");
-    while (device->DATA != 42)
-    {
-        // Without volatile, this might be optimized to an infinite loop
-        if (device->STATUS == 3)
-        {
-            printf("Device is in error state, resetting...\n");
-            device->CONTROL = 0x80;  // Reset command
-            usleep(50000);
-            device->CONTROL = 0x01;  // Enable again
-        }
-        usleep(50000);  // Small delay
-
-        // Break after a few seconds to avoid hanging the demo
-        static int timeout = 0;
-        if (++timeout > 10)
-        {
-            printf("Timeout waiting for data value\n");
-            break;
-        }
-    }
-
-    // Theoretical explanation
-    explain_volatile();
+    // Direct manipulation of registers
+    direct_register_manipulation();
 
     // Clean up
     printf("\n=== Cleaning Up ===\n");

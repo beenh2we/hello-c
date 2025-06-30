@@ -190,39 +190,6 @@ void demo_various_assembly()
     printf("Most significant bit position in 0x%08X: %u\n", x, position);
 }
 
-// Explain inline assembly syntax
-void explain_assembly_syntax()
-{
-    printf("\n=== Inline Assembly Syntax Explained ===\n");
-
-    printf("Basic syntax:\n");
-    printf(
-        "  __asm__ [volatile] (\"assembly code\" : outputs : inputs : clobbers);\n\n");
-
-    printf("1. Assembly code: The actual assembly instructions\n");
-    printf(
-        "2. Outputs: Variables that receive results from the assembly code\n");
-    printf("3. Inputs: C variables used as inputs in the assembly code\n");
-    printf("4. Clobbers: List of registers or memory modified by the code\n\n");
-
-    printf("Output/Input constraints:\n");
-    printf("  \"=r\" - Output to any general register\n");
-    printf("  \"r\"  - Input in any general register\n");
-    printf("  \"m\"  - Memory operand\n");
-    printf("  \"a\"  - Use EAX register\n");
-    printf("  \"d\"  - Use EDX register\n");
-    printf("  \"x\"  - SSE register\n");
-    printf("  \"0\"  - Use same constraint as output 0\n\n");
-
-    printf("Common clobbers:\n");
-    printf("  \"cc\"    - Condition codes (flags)\n");
-    printf("  \"memory\" - Memory (for memory barriers)\n");
-    printf("  register names - Registers modified by the code\n\n");
-
-    printf("The 'volatile' keyword prevents the compiler from optimizing or\n");
-    printf("reordering the assembly instruction.\n");
-}
-
 int main()
 {
     printf("==== INLINE ASSEMBLY DEMONSTRATION ====\n\n");
@@ -267,18 +234,6 @@ int main()
 
     // Show various assembly examples
     demo_various_assembly();
-
-    // Explain assembly syntax
-    explain_assembly_syntax();
-
-    printf("\n=== Inline Assembly Best Practices ===\n");
-    printf("1. Use only when necessary - for performance or hardware access\n");
-    printf("2. Document thoroughly why the assembly is needed\n");
-    printf("3. Consider portability issues between CPU architectures\n");
-    printf("4. Be aware of compiler-specific syntax differences\n");
-    printf("5. Properly specify clobbered registers and memory effects\n");
-    printf(
-        "6. Consider writing pure assembly functions for complex operations\n");
 
     return 0;
 }

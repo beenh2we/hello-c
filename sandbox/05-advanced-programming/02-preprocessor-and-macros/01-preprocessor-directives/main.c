@@ -54,25 +54,6 @@ void demo_directive_operators()
     printf("%s = %d\n", STRINGIFY(x), x);
 }
 
-// Function to demonstrate #include mechanics
-void demo_include_mechanics()
-{
-    printf("\n=== #include mechanics ===\n");
-    printf("Including a header file has these effects:\n");
-    printf(
-        "1. The preprocessor replaces the directive with the content of the header\n");
-    printf(
-        "2. The compiler then processes that content along with your code\n");
-
-    printf("\nSearch path order for #include <file.h>:\n");
-    printf("1. Standard system directories\n");
-
-    printf("\nSearch path order for #include \"file.h\":\n");
-    printf("1. Current directory of the source file\n");
-    printf("2. Project-specific directories specified with -I\n");
-    printf("3. Standard system directories\n");
-}
-
 // Function to demonstrate #undef
 void demo_undef()
 {
@@ -83,9 +64,6 @@ void demo_undef()
 
 // Undefine TEMP_VALUE
 #undef TEMP_VALUE
-
-// This would cause an error:
-// printf("TEMP_VALUE after #undef = %d\n", TEMP_VALUE);
 
 // Redefine with a new value
 #define TEMP_VALUE 200
@@ -98,7 +76,6 @@ int main()
 
     demo_constants();
     demo_directive_operators();
-    demo_include_mechanics();
     demo_undef();
 
     printf(

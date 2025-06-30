@@ -119,6 +119,10 @@ typedef struct
     int value;
 } Item;
 
+// Function prototypes
+Item* create_item(const char* name, int value);
+void print_version(void);
+
 // Function to create an item
 Item* create_item(const char* name, int value)
 {
@@ -197,7 +201,6 @@ int main()
         printf("Iteration %d\n", _i);
     }
 
-// Conditional feature
 #if ENABLE_EXTENDED_FEATURES
     printf("\nExtended features enabled\n");
     advanced_feature();

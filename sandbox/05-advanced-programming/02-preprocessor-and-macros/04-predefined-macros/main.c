@@ -223,8 +223,5 @@ int main()
     ASSERT_LINE(x == 10);  // This will print an assertion failure
     ASSERT_LINE(x == 5);   // This will succeed silently
 
-    printf(
-        "\nNote: Actual predefined macros will vary based on compiler and platform\n");
-
     return 0;
 }

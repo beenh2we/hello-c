@@ -166,6 +166,8 @@ _Develop deeper understanding of memory management and preprocessing._
 - **Predefined macros**: **FILE**, **LINE**, **DATE**, compiler-specific macros
 - **Include guards**: Preventing multiple inclusion, #pragma once alternative
 
+[The C Language Preprocessor](./docs/05-advanced-programming/preprocessor.md)
+
 ### Multi-file Projects
 
 - **Header files**: Declaration vs implementation, proper header design

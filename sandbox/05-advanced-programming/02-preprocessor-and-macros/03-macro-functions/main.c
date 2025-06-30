@@ -118,13 +118,7 @@ void demo_do_while_macros()
 {
     printf("\n=== Using do-while(0) in Macros ===\n");
 
-    printf("Benefits of do-while(0) in macros:\n");
-    printf("1. Allows use of multiple statements in if-else blocks\n");
-    printf("2. Allows semicolon after macro invocation\n");
-    printf("3. Creates a compound statement with its own scope\n");
-    printf("4. Protects against macro expansion issues\n");
-
-// Example without do-while
+    // Example without do-while
 #define BAD_MACRO(x)          \
     printf("Value: %d\n", x); \
     x++
@@ -134,7 +128,7 @@ void demo_do_while_macros()
     else
         printf("This would cause syntax error if reached\n");
 
-// Example with do-while
+    // Example with do-while
 #define GOOD_MACRO(x)             \
     do                            \
     {                             \
@@ -173,14 +167,6 @@ void demo_macro_vs_function()
 
     printf("func_abs(%d) = %d\n", val1, func_abs(val1));
     printf("func_abs(%d) = %d\n", val2, func_abs(val2));
-
-    printf("\nKey differences:\n");
-    printf(
-        "1. Macros perform text substitution, functions call a separate code block\n");
-    printf("2. Macros have no type checking, functions do\n");
-    printf("3. Macros can have subtle evaluation bugs (side effects, etc.)\n");
-    printf("4. Functions have call overhead, macros don't\n");
-    printf("5. Macros can work with any type, functions need specific types\n");
 }
 
 // Function to trace with macros

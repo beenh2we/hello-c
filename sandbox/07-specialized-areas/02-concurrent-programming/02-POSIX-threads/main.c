@@ -14,7 +14,7 @@ void* hello_thread(void* arg)
     int* result = malloc(sizeof(int));
     *result = thread_id * 10;
 
-    pthread_exit(result);  // Same as "return result;"
+    return result;
 }
 
 // Thread function with a loop
@@ -32,7 +32,6 @@ void* counting_thread(void* arg)
     }
 
     printf("[Thread %d] Counting completed\n", thread_id);
-
     return NULL;
 }
 
@@ -71,11 +70,7 @@ void* cancellable_thread(void* arg)
     for (int i = 0; i < 10; i++)
     {
         printf("[Thread %d] Working... (%d/10)\n", thread_id, i + 1);
-
-        // This is a cancellation point
         sleep(1);
-
-        // You can also explicitly create a cancellation point
         pthread_testcancel();
     }
 
@@ -252,8 +247,6 @@ void thread_attributes_demo()
     pthread_attr_setstacksize(&attr, stack_size);
 
     printf("Creating thread with custom attributes...\n");
-    printf("- Detached state: PTHREAD_CREATE_DETACHED\n");
-    printf("- Stack size: %zu bytes\n", stack_size);
 
     // Create thread with attributes
     if (pthread_create(&thread, &attr, hello_thread, &thread_id) != 0)
@@ -266,10 +259,7 @@ void thread_attributes_demo()
     pthread_attr_destroy(&attr);
 
     printf("Thread created with custom attributes\n");
-    printf("Since thread is detached, we don't join it\n");
-
-    // Give the thread time to run and exit
-    sleep(1);
+    sleep(1);  // Give the thread time to run and exit
 }
 
 // Thread cancellation demonstration
@@ -336,42 +326,6 @@ void thread_specific_data_demo()
 
     // Destroy the key
     pthread_key_delete(thread_log_key);
-
-    printf("Thread-specific data demo completed\n");
-}
-
-// Explain pthread basics
-void explain_pthreads()
-{
-    printf("\n=== POSIX THREADS (PTHREADS) BASICS ===\n");
-
-    printf("1. Thread Creation:\n");
-    printf("   - pthread_create() creates a new thread\n");
-    printf("   - Arguments: thread ID, attributes, start function, args\n\n");
-
-    printf("2. Thread Joining:\n");
-    printf("   - pthread_join() waits for a thread to exit\n");
-    printf("   - Can retrieve thread's return value\n\n");
-
-    printf("3. Thread Attributes:\n");
-    printf("   - Control thread behavior (stack size, scheduling, etc.)\n");
-    printf("   - Initialized with pthread_attr_init()\n\n");
-
-    printf("4. Thread Cancellation:\n");
-    printf("   - pthread_cancel() requests thread termination\n");
-    printf("   - Threads can control how/when they respond\n\n");
-
-    printf("5. Thread-Specific Data:\n");
-    printf("   - Like thread-local storage\n");
-    printf("   - Uses keys created with pthread_key_create()\n\n");
-
-    printf("6. Thread Management:\n");
-    printf("   - pthread_self() - get caller's thread ID\n");
-    printf("   - pthread_equal() - compare thread IDs\n");
-    printf("   - pthread_detach() - mark thread as detached\n\n");
-
-    printf("7. Compile and Link:\n");
-    printf("   - Link with -pthread flag: gcc program.c -o program -pthread\n");
 }
 
 int main()
@@ -384,7 +338,6 @@ int main()
     thread_attributes_demo();
     thread_cancellation_demo();
     thread_specific_data_demo();
-    explain_pthreads();
 
     return 0;
 }

@@ -272,9 +272,6 @@ void compare_exchange_demo()
 
     printf("Final atomic counter value after compare-exchange: %d\n",
            atomic_load(&atomic_counter));
-
-    printf("Compare-exchange operations allow atomic updates\n");
-    printf("while avoiding the 'lost update' problem.\n");
 }
 
 // Demonstration of memory ordering
@@ -303,9 +300,6 @@ void memory_ordering_demo()
     }
 
     printf("Final atomic counter value: %d\n", atomic_load(&atomic_counter));
-
-    printf("\nMemory ordering affects how atomic operations are ordered\n");
-    printf("between threads, which can impact correctness and performance.\n");
 }
 
 // Demonstration of atomic flag as spinlock
@@ -338,49 +332,6 @@ void atomic_flag_demo()
     printf("All threads have released the spinlock\n");
 }
 
-// Explain atomic operations and memory models
-void explain_atomics()
-{
-    printf("\n=== ATOMIC OPERATIONS EXPLAINED ===\n");
-
-    printf("1. Atomic Operations:\n");
-    printf("   - Appear to execute indivisibly (all or nothing)\n");
-    printf("   - Cannot be interrupted by other threads\n");
-    printf("   - Avoid the need for explicit locks in many cases\n");
-    printf("   - Often map to special CPU instructions\n\n");
-
-    printf("2. C11 Atomic Types:\n");
-    printf("   - atomic_int, atomic_bool, etc.\n");
-    printf("   - Can also use _Atomic type qualifier\n");
-    printf(
-        "   - Operations include load, store, exchange, fetch_add, etc.\n\n");
-
-    printf("3. Compare-and-Exchange:\n");
-    printf("   - Atomic read-modify-write operation\n");
-    printf("   - Only updates if value hasn't changed since last read\n");
-    printf("   - Foundation for lock-free algorithms\n\n");
-
-    printf("4. Memory Ordering Models:\n");
-    printf(
-        "   - memory_order_relaxed: Only atomicity, no ordering guarantees\n");
-    printf("   - memory_order_acquire: Synchronizes with release operations\n");
-    printf(
-        "   - memory_order_release: Makes prior writes visible to acquire\n");
-    printf(
-        "   - memory_order_seq_cst: Strongest guarantees, total global order\n\n");
-
-    printf("5. Atomic Flags:\n");
-    printf("   - Simplest atomic type, can be set or cleared\n");
-    printf("   - Useful for simple signaling between threads\n");
-    printf("   - Can be used to implement spinlocks\n\n");
-
-    printf("6. Performance Considerations:\n");
-    printf(
-        "   - Atomic operations are more efficient than locks for simple cases\n");
-    printf("   - Stronger memory ordering = lower performance\n");
-    printf("   - Useful for counters, flags, and simple shared state\n");
-}
-
 int main()
 {
     printf("==== ATOMIC OPERATIONS DEMONSTRATION ====\n");
@@ -394,7 +345,6 @@ int main()
     compare_exchange_demo();
     memory_ordering_demo();
     atomic_flag_demo();
-    explain_atomics();
 
     return 0;
 }

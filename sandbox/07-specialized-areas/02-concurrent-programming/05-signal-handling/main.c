@@ -22,7 +22,6 @@ void sigint_handler(int signum)
 {
     sigint_count++;
 
-    // This is signal-safe - only modifies sig_atomic_t variables
     if (sigint_count >= 3)
     {
         termination_requested = 1;
@@ -93,14 +92,17 @@ void sigaction_info_handler(int signum, siginfo_t *info, void *context)
     // Get information about the signal
     printf("\nReceived signal %d from PID %d\n", signum, info->si_pid);
 
+    // 在sigaction_info_handler函数中
     if (info->si_code == SI_USER)
     {
         printf("Signal sent by kill()\n");
     }
+#ifdef SI_KERNEL
     else if (info->si_code == SI_KERNEL)
     {
         printf("Signal sent by the kernel\n");
     }
+#endif
 
     // For SIGFPE, we can get more specific information
     if (signum == SIGFPE)
@@ -362,46 +364,6 @@ void cleanup_demo()
     printf("Cleanup completed. Exiting gracefully.\n");
 }
 
-// Explain signals and best practices
-void explain_signals()
-{
-    printf("\n=== SIGNAL HANDLING BEST PRACTICES ===\n");
-
-    printf("1. Signal Basics:\n");
-    printf("   - Signals are software interrupts sent to a process\n");
-    printf(
-        "   - Can be sent by the kernel, other processes, or the process itself\n");
-    printf("   - Default actions: terminate, ignore, stop, or continue\n\n");
-
-    printf("2. Common Signals:\n");
-    printf("   - SIGINT (2): Interrupt from keyboard (Ctrl+C)\n");
-    printf("   - SIGTERM (15): Termination request (default for kill)\n");
-    printf("   - SIGKILL (9): Forced termination (cannot be caught)\n");
-    printf("   - SIGSEGV (11): Invalid memory access\n");
-    printf("   - SIGPIPE (13): Write to pipe with no readers\n");
-    printf("   - SIGUSR1/2 (10/12): User-defined signals\n\n");
-
-    printf("3. Best Practices:\n");
-    printf("   - Keep signal handlers simple and fast\n");
-    printf("   - Use only async-signal-safe functions in handlers\n");
-    printf("   - Use sig_atomic_t for variables accessed in handlers\n");
-    printf("   - Set flags in handlers, do actual work in main code\n");
-    printf("   - Use sigaction() instead of signal() when possible\n");
-    printf("   - Block signals during critical sections\n\n");
-
-    printf("4. Avoid in Signal Handlers:\n");
-    printf("   - malloc(), free() - not async-signal-safe\n");
-    printf("   - printf() and other I/O - not async-signal-safe\n");
-    printf("   - pthread functions - not async-signal-safe\n");
-    printf("   - Accessing non-atomic, shared data structures\n");
-    printf("   - Long-running operations\n\n");
-
-    printf("5. Signal Mask Management:\n");
-    printf("   - sigprocmask(): Block signals at process level\n");
-    printf("   - pthread_sigmask(): Block signals at thread level\n");
-    printf("   - sigsuspend(): Atomically unblock signals and wait\n");
-}
-
 int main()
 {
     printf("==== SIGNAL HANDLING DEMONSTRATION ====\n");
@@ -412,7 +374,6 @@ int main()
     signal_mask_demo();
     unsafe_signal_demo();
     cleanup_demo();
-    explain_signals();
 
     return 0;
 }

@@ -1,3 +1,4 @@
+
 #include <pthread.h>
 #include <semaphore.h>
 #include <stdio.h>
@@ -385,42 +386,6 @@ void rwlock_demo()
     printf("Final shared data value: %d\n", shared_data);
 }
 
-// Explain synchronization primitives
-void explain_synchronization()
-{
-    printf("\n=== THREAD SYNCHRONIZATION PRIMITIVES ===\n");
-
-    printf("1. Mutex (Mutual Exclusion):\n");
-    printf("   - Ensures only one thread can access a resource at a time\n");
-    printf("   - Simple lock/unlock mechanism\n");
-    printf("   - Use for protecting shared data\n\n");
-
-    printf("2. Condition Variables:\n");
-    printf("   - Allow threads to wait for a specific condition\n");
-    printf("   - Always used with a mutex\n");
-    printf("   - Efficient for producer-consumer patterns\n\n");
-
-    printf("3. Semaphores:\n");
-    printf("   - Control access to a limited number of resources\n");
-    printf("   - Can be binary (mutex-like) or counting\n");
-    printf("   - Useful for producer-consumer and limiting concurrency\n\n");
-
-    printf("4. Readers-Writer Locks:\n");
-    printf("   - Allow multiple readers or a single writer\n");
-    printf("   - Optimize for read-heavy workloads\n");
-    printf("   - Prevent reader/writer and writer/writer conflicts\n\n");
-
-    printf("5. Barriers:\n");
-    printf("   - Synchronize multiple threads at a specific point\n");
-    printf("   - All threads must reach the barrier before any proceed\n");
-    printf("   - Useful for phased computations\n\n");
-
-    printf("6. Spin Locks:\n");
-    printf("   - Like mutex but uses busy-waiting instead of blocking\n");
-    printf("   - Efficient for very short critical sections\n");
-    printf("   - Can waste CPU cycles\n\n");
-}
-
 int main()
 {
     printf("==== THREAD SYNCHRONIZATION DEMONSTRATION ====\n");
@@ -431,7 +396,6 @@ int main()
     condition_variable_demo();
     semaphore_demo();
     rwlock_demo();
-    explain_synchronization();
 
     // Clean up synchronization primitives
     pthread_mutex_destroy(&counter_mutex);

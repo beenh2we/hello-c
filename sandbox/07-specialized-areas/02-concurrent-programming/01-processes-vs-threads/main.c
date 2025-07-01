@@ -38,7 +38,7 @@ void* thread_function(void* arg)
     return NULL;
 }
 
-// Process function using fork()
+// Process demonstration
 void process_demo()
 {
     printf("\n=== PROCESS DEMONSTRATION ===\n");
@@ -99,7 +99,7 @@ void process_demo()
     }
 }
 
-// Thread function using pthreads
+// Thread demonstration
 void thread_demo()
 {
     printf("\n=== THREAD DEMONSTRATION ===\n");
@@ -142,12 +142,11 @@ void thread_demo()
     printf("[Main thread] Final global_var: %d\n", global_var);
 }
 
-// Compare processes and threads memory usage
-void measure_memory_usage()
+// Compare processes and threads creation time
+void measure_performance()
 {
-    printf("\n=== MEMORY USAGE COMPARISON ===\n");
+    printf("\n=== PERFORMANCE COMPARISON ===\n");
 
-    // Function to create many processes or threads
     const int NUM_CHILDREN = 5;
 
     printf("Creating %d processes...\n", NUM_CHILDREN);
@@ -209,44 +208,6 @@ void measure_memory_usage()
     printf("Time taken to create and join %d threads: %.6f seconds\n",
            NUM_CHILDREN,
            thread_time);
-
-    printf(
-        "\nThreads are typically lighter and faster to create than processes.\n");
-}
-
-// Explain the differences between processes and threads
-void explain_differences()
-{
-    printf("\n=== PROCESSES VS THREADS: KEY DIFFERENCES ===\n");
-
-    printf("1. Memory Space:\n");
-    printf(
-        "   - Processes: Each has its own memory space (demonstrated by different addresses)\n");
-    printf("   - Threads: Share the same memory space within a process\n\n");
-
-    printf("2. Communication:\n");
-    printf(
-        "   - Processes: Require IPC (pipes, sockets, shared memory) to communicate\n");
-    printf(
-        "   - Threads: Can communicate directly through shared variables\n\n");
-
-    printf("3. Creation Overhead:\n");
-    printf(
-        "   - Processes: High overhead (complete memory copy, resource duplication)\n");
-    printf(
-        "   - Threads: Lower overhead (just stack and thread-specific data)\n\n");
-
-    printf("4. Isolation:\n");
-    printf(
-        "   - Processes: Better isolated (one crashing doesn't affect others)\n");
-    printf(
-        "   - Threads: Less isolated (one thread crash can bring down the whole process)\n\n");
-
-    printf("5. Synchronization:\n");
-    printf(
-        "   - Processes: Less synchronization needed due to separate memory spaces\n");
-    printf(
-        "   - Threads: Require careful synchronization for shared data access\n");
 }
 
 int main()
@@ -259,11 +220,8 @@ int main()
     // Demonstrate thread concurrency
     thread_demo();
 
-    // Measure and compare overhead
-    measure_memory_usage();
-
-    // Explain the differences
-    explain_differences();
+    // Measure and compare creation time
+    measure_performance();
 
     return 0;
 }

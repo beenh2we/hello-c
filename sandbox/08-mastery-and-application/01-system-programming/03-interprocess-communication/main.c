@@ -1,4 +1,3 @@
-/* ipc_mechanisms.c */
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
@@ -30,14 +29,6 @@ struct msg_buffer
 {
     long msg_type;
     char msg_text[100];
-};
-
-// Union for semctl
-union semun
-{
-    int val;
-    struct semid_ds *buf;
-    unsigned short *array;
 };
 
 // Shared memory structure
